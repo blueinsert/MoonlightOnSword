@@ -1,0 +1,4 @@
+ID,Desc,Model,PropertyID
+ID,描述,模型,属性配置ID
+int,string,string,int
+1,剑士,GameProject/Resources/Model/Samurai_Katana/Prefab/Samurai.prefab,1

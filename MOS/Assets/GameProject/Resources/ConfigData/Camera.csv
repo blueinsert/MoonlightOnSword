@@ -1,0 +1,4 @@
+ID,RotateXRate,RotateYRate,ZoomRate,InitDist,MinDist,MaxDist,MinXRotate,MaxXRotate,HeadOffsetY
+ID,旋转灵敏度X,旋转灵敏度Y,缩放灵敏度,初始距离,最小距离,最大距离,X轴最小旋转角,X轴最大旋转角,角色头部高度
+int,float,float,float,float,float,float,float,float,float
+1,0.5,0.2,0.1,5,1,10,-1,80,1

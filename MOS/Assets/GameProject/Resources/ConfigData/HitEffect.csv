@@ -1,0 +1,4 @@
+ID,Desc,HitCollideName,Level,ForceVDir,P1HitPauseTime,P2HitPauseTime,HitBackHSpeed,HitBackVSpeed,HitRecoverTime
+ID,说明,碰撞体节点名,程度(轻:0 中:1 重:2）,垂直方向力度分量(forward:0 up:1 down:2),p1打击停顿时间,p2打击停顿时间,打击后退速度(水平)cm/s,打击后退速度(垂直),打击恢复时间
+int,string,string,int,int,int,int,int,int,int
+1,普攻1,Weapon,0,0,150,160,120,0,300

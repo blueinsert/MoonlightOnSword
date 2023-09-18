@@ -1,0 +1,8 @@
+ID,Desc,Type,Param1,Param2,Param3,Param4,Param5
+ID,说明,类型,参数1,参数2,参数3,参数4,参数5
+int,string,string,string,string,string,string,string
+1, ,Input,A,,,,
+2,,ActionTime,260,330,,,
+3,,Finish,,,,,
+4,,ActionTime,316,417,,,
+5,,ActionTime,300,350,,,

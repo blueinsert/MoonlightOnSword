@@ -1,0 +1,4 @@
+ID,Desc,WalkSpeed,RunSpeed,TurnSpeed
+ID,描述,移动速度,跑动速度,转身速度
+int,string,float,float,float
+1,,4,10,6
