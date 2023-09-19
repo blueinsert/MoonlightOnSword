@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionEventDisplacement : ActionEventBase {
+public class ActionEventDisplacement : EventRuntimeBase {
 	public Vector2 m_offset;
 
 	public override void OnStart()

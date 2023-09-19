@@ -1,13 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ActionEventBase  {
+public abstract class EventRuntimeBase  {
+
+	public bool IsEnd { get { return m_isEnd; } }
+
+	public float m_time = 0;
 	public float m_startTime;
 	public float m_endTime;
 	public bool m_isStart = false;
 	public bool m_isEnd = false;
 	public ActorBase m_owner = null;
+
+	protected IBasicAblitity m_basicAblity = null;
 
 	public float EndTime { 
 		get {
@@ -15,6 +22,15 @@ public abstract class ActionEventBase  {
 		} 
 	}
 
+    protected AnimComp m_animComp;
+    protected MoveComp m_moveComp;
+
+    public void Initialize(IBasicAblitity basicAblity)
+    {
+		m_basicAblity = basicAblity;
+    }
+
+    [Obsolete]
 	public void SetOwner(ActorBase actor)
 	{
 		m_owner = actor;
@@ -39,9 +55,10 @@ public abstract class ActionEventBase  {
 		}
 	}
 
-	public virtual void Tick(float actionTime)
+	public virtual void Tick(float deltaTime)
 	{
-		if (actionTime > m_startTime)
+		m_time += deltaTime;
+		if (m_time > m_startTime)
 		{
 			if (!m_isStart)
 			{
@@ -49,7 +66,7 @@ public abstract class ActionEventBase  {
 				m_isStart = true;
 			}
 		}
-		if(actionTime > EndTime)
+		if(m_time > EndTime)
 		{
 			if (!m_isEnd)
 			{

@@ -23,21 +23,24 @@ public class ActGame : MonoBehaviour {
 	public void RegisterSystem(SystemBase system)
 	{
         var attributes = system.GetType().GetCustomAttributes(true);
-        Type caredCompType = null;
+        List<Type> caredCompTypes = null;
         foreach(var attribute in attributes)
         {
             if(attribute is CaredCompTypeAttribute)
             {
                 var caredCompTypeAttribute = attribute as CaredCompTypeAttribute;
-                caredCompType = caredCompTypeAttribute.Type;
+                caredCompTypes = caredCompTypeAttribute.Types;
             }
         }
-        if (caredCompType == null)
+        if (caredCompTypes == null || caredCompTypes.Count == 0)
         {
             Debug.LogError(string.Format("ActGame:RegisterSystem {0} failed! CaredCompTypeAttribute is null", system.GetType().Name));
         }
-		Debug.Log(string.Format("ActGame:RegisterSystem {0} success,care comp type:{1}", system.GetType().Name, caredCompType.Name));
-		m_systemDic.Add(caredCompType, system);
+		//Debug.Log(string.Format("ActGame:RegisterSystem {0} success,care comp type:{1}", system.GetType().Name, caredCompType.Name));
+		foreach(var type in caredCompTypes)
+		{
+            m_systemDic.Add(type, system);
+        }
         m_systemList.Add(system);
 	}
 

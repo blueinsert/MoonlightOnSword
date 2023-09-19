@@ -60,6 +60,7 @@ public class FollowCamera : MonoBehaviour {
 
 	void UpdatePosition()
 	{
+		//todo 跟随缓动
 		m_agent.transform.position = m_target.transform.position;
 	}
 

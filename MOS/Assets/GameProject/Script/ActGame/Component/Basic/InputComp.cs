@@ -19,6 +19,14 @@ public class InputComp : ComponentBase {
     public Vector2 m_scrollValue;
     public Vector2 ScrollValue { get { return m_scrollValue; } }
 
+    public bool IsAttackClick { 
+        get { 
+            return m_isAttackClick;
+        } 
+    }
+    public bool m_isAttackClick = false;
+    public float m_attackClickTime = float.MinValue;
+
     private void Start()
     {
         PostInit();
@@ -64,5 +72,12 @@ public class InputComp : ComponentBase {
         m_rotateValue = new Vector2(mouseDelta.x, -mouseDelta.y);
         m_lastMousePosition = Input.mousePosition;
         m_scrollValue = Input.mouseScrollDelta;
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            m_isAttackClick = true;
+            m_attackClickTime = TimeManger.Instance.CurTime;
+        }
+        m_isAttackClick = TimeManger.Instance.CurTime < m_attackClickTime + 10 / 60f;
     }
 }

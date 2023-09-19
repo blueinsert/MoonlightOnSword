@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionEventSetMotion : ActionEventBase
+public class ActionEventSetMotion : EventRuntimeBase
 {
 	public MotionComp m_motionComp;
 	public int m_motionId;

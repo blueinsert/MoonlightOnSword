@@ -554,6 +554,7 @@ GameObject:
   - component: {fileID: 114493584466246994}
   - component: {fileID: 114855337376842654}
   - component: {fileID: 114696105204943380}
+  - component: {fileID: 114176665693579020}
   m_Layer: 0
   m_Name: KatanaPrefab
   m_TagString: Untagged
@@ -2457,6 +2458,27 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114176665693579020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1380573731349950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fed5d646cf9c0e4e82fb92085a05ad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_isEnable: 1
+  m_isDestroying: 0
+  m_skillsDesc:
+    Skills:
+    - Name: NA1
+      ID: 0
+      AnimEvents:
+      - Anim: Attack1
+        StartTime: 0
+        EndTime: 0.733
 --- !u!114 &114493584466246994
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2476,9 +2498,12 @@ MonoBehaviour:
   m_isOnGround: 0
   m_mass: 60
   m_friction: 1.2
+  m_accler: 10
+  m_unaccler: 20
   m_rotateValue: 0
   m_facingDir: {x: 0, y: 0}
   m_vel: {x: 0, y: 0, z: 0}
+  m_speed: 0
   m_g: -9.7
   m_drawGizmons: 1
 --- !u!114 &114689240166863444
@@ -2524,6 +2549,8 @@ MonoBehaviour:
   m_rotateValue: {x: 0, y: 0}
   m_lastMousePosition: {x: 0, y: 0, z: 0}
   m_scrollValue: {x: 0, y: 0}
+  m_isAttackClick: 0
+  m_attackClickTime: -3.4028235e+38
 --- !u!114 &114855337376842654
 MonoBehaviour:
   m_ObjectHideFlags: 1
