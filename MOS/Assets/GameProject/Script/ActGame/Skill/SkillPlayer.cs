@@ -59,7 +59,21 @@ public class SkillPlayer : IBasicAblitity {
 				}
             }
 		}
-		m_skillDuration = maxTime;
+        if (m_skillConfig.FrictionSetEvents != null && m_skillConfig.FrictionSetEvents.Length != 0)
+        {
+            foreach (var e in m_skillConfig.FrictionSetEvents)
+            {
+                FrictionSetEventExecute ae = new FrictionSetEventExecute();
+                ae.Initialize(this);
+                ae.Setup(e);
+                m_events.Add(ae);
+                if (ae.EndTime > maxTime)
+                {
+                    maxTime = ae.EndTime;
+                }
+            }
+        }
+        m_skillDuration = maxTime;
 	}
 
 	public void Start()
@@ -114,6 +128,16 @@ public class SkillPlayer : IBasicAblitity {
     public void PlayAnim(string name)
     {
 		m_animComp.PlayAnim(name);
+    }
+
+    public Vector2 GetVel()
+    {
+        return m_moveComp.VelPreferHorizon;
+    }
+
+    public void SetVel(Vector2 vel)
+    {
+        m_moveComp.SetPreferVelHorizon(vel.x, vel.y);
     }
     #endregion
 }

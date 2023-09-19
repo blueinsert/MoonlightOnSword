@@ -17,10 +17,10 @@ public class AnimComp : ComponentBase {
         m_animator = this.gameObject.GetComponentInChildren<Animator>();
 	}
 
-	public void PlayAnim(string animName, float transDuration = 0.05f)
+	public void PlayAnim(string animName, float transDuration = 0.02f)
 	{
 		//m_animator.Play(animName);
-		m_animator.CrossFade(animName, 0.06f);
+		m_animator.CrossFade(animName, transDuration);
 	}
 
 	public void PlayAnimFrom(string animName, float normalizedTime = 0f)

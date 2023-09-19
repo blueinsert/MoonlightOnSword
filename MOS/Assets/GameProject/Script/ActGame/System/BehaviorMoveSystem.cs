@@ -11,15 +11,13 @@ public class BehaviorMoveSystem : SystemBase
     /// <param name="comp"></param>
     private void TickMove(BehaviorMoveComp comp)
     {
-        var skill = comp.GetComp<BehaviorSkillComp>();
-        var move = comp.GetComp<MoveComp>();
-        if (skill.IsPlaying)
+        var fsm = comp.GetComp<BehaviorFsmComp>();
+        if (!fsm.CanMove())
         {
-            //move.SetPreferVelHorizon(0,0);
-            return;//todo 在播放技能时，停止move逻辑
+            return; //在播放技能时，停止move逻辑
         }
         var input = comp.GetComp<InputComp>();
-        
+        var move = comp.GetComp<MoveComp>();
         var anim = comp.GetComp<AnimComp>();
         float speed = 5f;
         var forward = CameraManager.Instance.GetForward();//摄像机朝向

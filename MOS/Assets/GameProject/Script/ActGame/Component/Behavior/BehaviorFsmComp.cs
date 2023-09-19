@@ -9,6 +9,19 @@ using UnityEngine;
 /// </summary>
 public class BehaviorFsmComp : ComponentBase
 {
+    public BehaviorMoveComp m_moveComp;
+    public BehaviorSkillComp m_skillComp;
 
-	//todo
+    public void Start()
+    {
+        m_moveComp = GetComp<BehaviorMoveComp>();
+        m_skillComp = GetComp<BehaviorSkillComp>();
+    }
+    
+    public bool CanMove()
+    {
+        if (m_skillComp.IsPlaying)
+            return false;
+        return true;
+    }
 }

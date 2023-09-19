@@ -4,4 +4,8 @@ using UnityEngine;
 
 public interface IBasicAblitity {
     void PlayAnim(string animName);
+
+    Vector2 GetVel();
+
+    void SetVel(Vector2 vel);
 }

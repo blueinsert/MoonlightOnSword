@@ -55,6 +55,22 @@ public class AcclerSetEvent
     public float EndTime;
 }
 
+/// <summary>
+/// 摩擦力设置
+/// 摩擦力与速度方向相反
+/// 大小与加速度含义相同
+/// </summary>
+[Serializable]
+public class FrictionSetEvent
+{
+    [SerializeField]
+    public float Value;
+    [SerializeField]
+    public float StartTime;
+    [SerializeField]
+    public float EndTime;
+}
+
 [Serializable]
 public class SkillConfig {
     [SerializeField]
@@ -63,6 +79,8 @@ public class SkillConfig {
     public int ID;
 	[SerializeField]
 	public AnimEvent[] AnimEvents;
+    [SerializeField]
+    public FrictionSetEvent[] FrictionSetEvents;
 }
 
 [Serializable]

@@ -22,9 +22,6 @@ public abstract class EventRuntimeBase  {
 		} 
 	}
 
-    protected AnimComp m_animComp;
-    protected MoveComp m_moveComp;
-
     public void Initialize(IBasicAblitity basicAblity)
     {
 		m_basicAblity = basicAblity;
@@ -55,10 +52,15 @@ public abstract class EventRuntimeBase  {
 		}
 	}
 
-	public virtual void Tick(float deltaTime)
+    protected virtual void OnTick(float deltaTime)
+    {
+
+    }
+
+	public void Tick(float deltaTime)
 	{
 		m_time += deltaTime;
-		if (m_time > m_startTime)
+        if (m_time > m_startTime)
 		{
 			if (!m_isStart)
 			{
@@ -74,6 +76,10 @@ public abstract class EventRuntimeBase  {
 				m_isEnd = true;
 			}
 		}
+        if(m_isStart && !m_isEnd)
+        {
+            OnTick(deltaTime);
+        }
 	}
 
 	public virtual void OnStart() { }

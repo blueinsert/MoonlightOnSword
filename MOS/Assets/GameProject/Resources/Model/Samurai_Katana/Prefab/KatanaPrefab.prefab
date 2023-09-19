@@ -555,6 +555,7 @@ GameObject:
   - component: {fileID: 114855337376842654}
   - component: {fileID: 114696105204943380}
   - component: {fileID: 114176665693579020}
+  - component: {fileID: 114282764780112692}
   m_Layer: 0
   m_Name: KatanaPrefab
   m_TagString: Untagged
@@ -2479,6 +2480,36 @@ MonoBehaviour:
       - Anim: Attack1
         StartTime: 0
         EndTime: 0.733
+      FrictionSetEvents:
+      - Value: 15
+        StartTime: 0
+        EndTime: 0.7
+  m_skillPlayer:
+    m_animComp: {fileID: 0}
+    m_moveComp: {fileID: 0}
+    m_skillConfig:
+      Name: 
+      ID: 0
+      AnimEvents: []
+      FrictionSetEvents: []
+    m_isStart: 0
+    m_isEnd: 0
+    m_skillDuration: 0
+--- !u!114 &114282764780112692
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1380573731349950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78f410de0c14b80479a0fdd7f4358e7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_isEnable: 1
+  m_isDestroying: 0
+  m_moveComp: {fileID: 0}
+  m_skillComp: {fileID: 0}
 --- !u!114 &114493584466246994
 MonoBehaviour:
   m_ObjectHideFlags: 1

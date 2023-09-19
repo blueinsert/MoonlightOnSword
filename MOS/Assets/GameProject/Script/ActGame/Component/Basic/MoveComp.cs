@@ -10,6 +10,7 @@ public class MoveComp : ComponentBase
 {
     public float RotateValue { get { return m_rotateValue; } }
     public float Speed { get { return m_speed; } }
+    public Vector2 VelPreferHorizon { get { return m_hPreferVel; } }
 
     public CharacterController m_cc;
     //期望速度

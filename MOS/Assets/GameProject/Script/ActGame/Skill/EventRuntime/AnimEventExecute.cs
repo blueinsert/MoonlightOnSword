@@ -25,8 +25,7 @@ public class AnimEventExecute : EventRuntimeBase {
 
     }
 
-    public override void Tick(float deltaTime)
+    protected override void OnTick(float deltaTime)
     {
-        base.Tick(deltaTime);
     }
 }
