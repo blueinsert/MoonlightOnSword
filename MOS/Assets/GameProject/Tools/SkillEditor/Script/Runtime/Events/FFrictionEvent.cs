@@ -17,4 +17,17 @@ public class FFrictionEvent : FEvent {
 		return fe;
 
     }
+
+    public override string Text
+    {
+        get
+        {
+            return "Friction:"+Value;
+        }
+
+        set
+        {
+            base.Text = value;
+        }
+    }
 }

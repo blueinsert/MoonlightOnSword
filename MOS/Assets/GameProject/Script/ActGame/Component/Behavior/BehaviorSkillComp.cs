@@ -32,4 +32,15 @@ public class BehaviorSkillComp : ComponentBase
         m_skillPlayer.Start();
         return false;
     }
+
+    public void ForcePlaySkill(int id)
+    {
+        m_skillsDesc.RefreshSkills();
+        var move = this.GetComp<MoveComp>();
+        var anim = this.GetComp<AnimComp>();
+        var skillCfg = m_skillsDesc.GetSkillConfig(id);
+        m_skillPlayer.Initialize(anim, move);
+        m_skillPlayer.Setup(skillCfg);
+        m_skillPlayer.Start();
+    }
 }

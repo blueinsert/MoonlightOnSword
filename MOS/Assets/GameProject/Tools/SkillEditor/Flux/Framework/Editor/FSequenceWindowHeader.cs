@@ -50,6 +50,9 @@ namespace FluxEditor
         private GUIContent _saveAllLabel = new GUIContent("SaveAll", "save all skill");
         private Rect _saveAllRect;
 
+        private  GUIContent _playLabel = new GUIContent("Play", "play the sequence");
+        private Rect _playRect;
+
         // length UI variables
         private GUIContent _lengthLabel = new GUIContent("Length", "What's the length of the sequence");
         private Rect _lengthLabelRect;
@@ -107,6 +110,7 @@ namespace FluxEditor
             _loadRect = rect;
             _saveAllRect = rect;
             _saveRect = rect;
+            _playRect = rect;
             _openInspectorRect = rect;
             _lengthLabelRect = _lengthFieldRect = rect;
             _sequenceLabelRect = rect;
@@ -115,6 +119,7 @@ namespace FluxEditor
             _loadRect.width = EditorStyles.label.CalcSize(_loadLabel).x + LABEL_SPACE;
             _saveAllRect.width = EditorStyles.label.CalcSize(_saveAllLabel).x + LABEL_SPACE;
             _saveRect.width = EditorStyles.label.CalcSize(_saveLabel).x + LABEL_SPACE;
+            _playRect.width = EditorStyles.label.CalcSize(_playLabel).x + LABEL_SPACE;
             _lengthLabelRect.width = EditorStyles.label.CalcSize(_lengthLabel).x + LABEL_SPACE;
             _lengthFieldRect.width = LENGTH_FIELD_WIDTH;
             _sequenceLabelRect.width = EditorStyles.label.CalcSize(_sequenceLabel).x + LABEL_SPACE;
@@ -128,8 +133,9 @@ namespace FluxEditor
             _openInspectorRect.xMin = _openInspectorRect.xMax - 22;
             _lengthFieldRect.x = rect.xMax - 22 - PADDING - _lengthFieldRect.width;
             _lengthLabelRect.x = _lengthFieldRect.xMin - _lengthLabelRect.width;
-            _saveRect.x = _lengthLabelRect.xMin - _saveRect.width;
-            _saveAllRect.x = _saveRect.xMin - _saveAllRect.width;
+            _saveRect.x = _lengthLabelRect.xMin - _saveRect.width - PADDING;
+            _saveAllRect.x = _saveRect.xMin - _saveAllRect.width - PADDING;
+            _playRect.x = _saveAllRect.xMin - _playRect.width - PADDING;
             _numberFieldStyle = new GUIStyle(EditorStyles.numberField);
             _numberFieldStyle.alignment = TextAnchor.MiddleCenter;
         }
@@ -207,6 +213,10 @@ namespace FluxEditor
             {
                 SaveAll();
             }
+            if (FGUI.Button(_playRect, _playLabel))
+            {
+                Play(sequence);
+            }
             
             _sequenceSO.ApplyModifiedProperties();
 
@@ -235,6 +245,17 @@ namespace FluxEditor
             {
                 Save(sequence);
             }
+        }
+
+        private void Play(FSequence sequence)
+        {
+            if (!Application.isPlaying)
+            {
+                Debug.LogError("Application is not Playing");
+                return;
+            }
+            var skillComp = sequence.gameObject.GetComponentInParent<BehaviorSkillComp>();
+            skillComp.ForcePlaySkill(sequence.ID);
         }
 
         private void LoadSequence()

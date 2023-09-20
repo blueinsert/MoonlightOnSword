@@ -29,7 +29,7 @@ public class FAnimEvent : FEvent {
     {
         get
         {
-            return "Anim";
+            return "Anim:" + Anim;
         }
 
         set
