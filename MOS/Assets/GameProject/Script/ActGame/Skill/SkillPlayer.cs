@@ -139,5 +139,10 @@ public class SkillPlayer : IBasicAblitity {
     {
         m_moveComp.SetPreferVelHorizon(vel.x, vel.y);
     }
+
+    public void SetAnimSpeed(float speed)
+    {
+		m_animComp.SetSpeed(speed);
+    }
     #endregion
 }

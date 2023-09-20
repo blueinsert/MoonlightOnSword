@@ -8,10 +8,10 @@ namespace FluxEditor
 
 		public const string MenuPath = "Window/";
 		public const string ProductName = "Flux";
-		public const string WindownName = "技能编辑器";
-		public const string SequenceName = "技能";
+		public const string WindownName = "SkillEditor";
+		public const string SequenceName = "Skill";
 		public const string ContainerName = "Group";
-		public const int DefaultLength = 1000;//ms
+		public const int DefaultLength = 300;//frame
 		public const string SequenceSavePath = "Assets/GameProject/Resources/SkillEditor/SkillPrefabs";
 
 		[SerializeField]

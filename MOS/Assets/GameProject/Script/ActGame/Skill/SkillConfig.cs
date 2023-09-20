@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Flux;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,11 @@ public class AnimEvent
 {
     [SerializeField]
     public string Anim;
+    /// <summary>
+    /// 原始长度
+    /// </summary>
+    [SerializeField]
+    public float OriginLen;
     [SerializeField]
     public float StartTime;
     [SerializeField]
@@ -83,31 +89,5 @@ public class SkillConfig {
     public FrictionSetEvent[] FrictionSetEvents;
 }
 
-[Serializable]
-public class SkillsDesc
-{
-    [SerializeField]
-    public SkillConfig[] Skills;
 
-    private Dictionary<int, SkillConfig> m_skillDic = null;
 
-    public SkillConfig GetSkillConfig(int id)
-    {
-        if (m_skillDic == null)
-        {
-            m_skillDic = new Dictionary<int, SkillConfig>();
-            if (Skills != null)
-            {
-                foreach(var skill in Skills)
-                {
-                    m_skillDic.Add(skill.ID, skill);
-                }
-            }
-        }
-        if (m_skillDic.ContainsKey(id))
-        {
-            return m_skillDic[id];
-        }
-        return null;
-    }
-}

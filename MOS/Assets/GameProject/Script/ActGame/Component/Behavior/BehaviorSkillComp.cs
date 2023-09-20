@@ -5,10 +5,15 @@ using UnityEngine;
 public class BehaviorSkillComp : ComponentBase
 {
     public bool IsPlaying { get { return m_skillPlayer.IsStart && !m_skillPlayer.IsEnd; } }
-    [SerializeField]
-    public SkillsDesc m_skillsDesc;
 
     public SkillPlayer m_skillPlayer = new SkillPlayer();
+
+    public SkillsDesc m_skillsDesc = null;
+
+    public void Start()
+    {
+        m_skillsDesc = GetComponentInChildren<SkillsDesc>();
+    }
 
     public override void Tick()
     {

@@ -24,16 +24,12 @@ namespace Flux
         [SerializeField]
         [HideInInspector]
         private List<FEvent> _events = new List<FEvent>();
-        /// @brief List of events it holds
+        
         public List<FEvent> Events { get { return _events; } }
 
         // keep track of the current event we're updating
         private int _currentEvent = 0;
 
-        /**
-		 * @brief Creates a FTrack.
-		 * @param T type of event this track will hold
-		 */
         public static FTrack Create<T>() where T : FEvent
         {
             Type evtType = typeof(T);
@@ -88,8 +84,6 @@ namespace Flux
             return _evtType;
         }
 
-        /// @brief Sets the type of event this track holds
-        /// @param evtType Has to inherit from FEvent
         private void SetEventType(Type evtType)
         {
 #if NETFX_CORE
@@ -102,13 +96,11 @@ namespace Flux
             _evtTypeStr = evtType.ToString();
         }
 
-        /// @brief Returns event on position \e index, they are ordered left to right.
         public FEvent GetEvent(int index)
         {
             return _events[index];
         }
 
-        /// @brief Returns events at a specific frame.
         public int GetEventsAt(int t, FEvent[] evtBuffer)
         {
             int index = 0;
@@ -124,11 +116,6 @@ namespace Flux
             return index;
         }
 
-        /// @brief Returns events at a given frame
-        /// @param [in] t Frame
-        /// @param [out] first First event, if there's 2 events it will be the one ending on that frame
-        /// @param [out] second Second event, if there's 2 events it will be the one starting on that frame
-        /// @return How many events are at frame \e t
         public int GetEventsAt(int t, out FEvent first, out FEvent second)
         {
             int index = 0;

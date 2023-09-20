@@ -17,7 +17,12 @@ public class AnimComp : ComponentBase {
         m_animator = this.gameObject.GetComponentInChildren<Animator>();
 	}
 
-	public void PlayAnim(string animName, float transDuration = 0.02f)
+	public void SetSpeed(float speed)
+	{
+        m_animator.speed = speed;
+    }
+
+	public void PlayAnim(string animName, float speed = 1.0f, float transDuration = 0.02f)
 	{
 		//m_animator.Play(animName);
 		m_animator.CrossFade(animName, transDuration);

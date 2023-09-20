@@ -25,12 +25,12 @@ namespace FluxEditor
         private SerializedObject _sequenceSO;
         private SerializedProperty _sequenceLength;
 
-        private GUIContent _loadLabel = new GUIContent("加载", "加载技能");
+        private GUIContent _loadLabel = new GUIContent("load", "load skill");
         private Rect _loadRect;
 
         // sequence selection
         // sequence selection popup variables
-        private GUIContent _sequenceLabel = new GUIContent("选择", string.Format("选择{0}...", FSettings.SequenceName));
+        private GUIContent _sequenceLabel = new GUIContent("select", string.Format("select{0}...", FSettings.SequenceName));
         // rect of the sequence label
         private Rect _sequenceLabelRect;
         // rect of the sequence name
@@ -44,10 +44,10 @@ namespace FluxEditor
         private GUIContent _addContainerLabel = new GUIContent(string.Empty, "Add Container To Sequence");
         private Rect _addContainerRect;
 
-        private GUIContent _saveLabel = new GUIContent("Save", "保存当前技能");
+        private GUIContent _saveLabel = new GUIContent("Save", "save cur skill");
         private Rect _saveRect;
 
-        private GUIContent _saveAllLabel = new GUIContent("保存所有", "保存当前技能");
+        private GUIContent _saveAllLabel = new GUIContent("SaveAll", "save all skill");
         private Rect _saveAllRect;
 
         // length UI variables
