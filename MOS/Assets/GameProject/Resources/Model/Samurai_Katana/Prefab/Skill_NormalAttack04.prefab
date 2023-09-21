@@ -268,7 +268,7 @@ MonoBehaviour:
   _track: {fileID: 114609996156286388}
   _frameRange:
     _start: 0
-    _end: 30
+    _end: 60
   Value: 15
 --- !u!114 &114495808737282986
 MonoBehaviour:
@@ -285,7 +285,7 @@ MonoBehaviour:
   _track: {fileID: 114124587520108918}
   _frameRange:
     _start: 0
-    _end: 30
+    _end: 60
   Anim: Attack4
   OriginLen: 0.73
 --- !u!114 &114545081365864808

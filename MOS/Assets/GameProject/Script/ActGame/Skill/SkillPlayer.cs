@@ -8,6 +8,7 @@ public class SkillPlayer : IBasicAblitity {
 
 	public bool IsEnd { get { return m_isEnd; } }
 	public bool IsStart { get { return m_isStart; } }
+    public int NextSkillId { get { return m_nextSkillId; } }
 
     public AnimComp m_animComp;
     public MoveComp m_moveComp;
@@ -23,6 +24,13 @@ public class SkillPlayer : IBasicAblitity {
     public bool m_isEnd = false;
     [SerializeField]
     public float m_skillDuration = 0f;
+
+    private int m_nextSkillId = 0;
+
+    public void ClearNextSkill()
+    {
+        m_nextSkillId = 0;
+    }
 
 	/// <summary>
 	/// basic comp
@@ -98,7 +106,18 @@ public class SkillPlayer : IBasicAblitity {
 	{
         Debug.Log("SkillPlayer:Start");
         m_isStart = true;
+        m_isEnd = false;
 	}
+
+    public void Stop()
+    {
+        foreach (var ae in m_events)
+        {
+            ae.ForceEnd();
+        }
+        OnEnd();
+        m_isEnd = true;
+    }
 
     private void TickEvents(float deltaTime)
     {
@@ -170,8 +189,7 @@ public class SkillPlayer : IBasicAblitity {
 
     public void PlaySkill(int id)
     {
-		var from = m_skillConfig != null ? m_skillConfig.ID : -1;
-		m_skillComp.TryPlaySkill(id, from);
+        m_nextSkillId = id;
     }
     #endregion
 }

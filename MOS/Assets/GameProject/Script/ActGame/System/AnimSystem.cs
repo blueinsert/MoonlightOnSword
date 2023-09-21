@@ -10,7 +10,7 @@ public class AnimSystem : SystemBase
 
     public override void Tick()
     {
-        Debug.Log(string.Format("AnimSystem:Tick comp Count:{0}", m_compList.Count));
+        //Debug.Log(string.Format("AnimSystem:Tick comp Count:{0}", m_compList.Count));
         base.Tick();
     }
 }

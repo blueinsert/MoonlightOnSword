@@ -38,7 +38,7 @@ public class BehaviorMoveSystem : SystemBase
 
     public override void Tick()
     {
-        Debug.Log(string.Format("BehaviorMoveSystem:Tick comp Count:{0}", m_compList.Count));
+        //Debug.Log(string.Format("BehaviorMoveSystem:Tick comp Count:{0}", m_compList.Count));
         //
         foreach(var comp in m_compList)
         {

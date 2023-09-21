@@ -18,18 +18,38 @@ public class BehaviorSkillComp : ComponentBase
     public override void Tick()
     {
         base.Tick();
-        m_skillPlayer.Tick();
+        if(IsPlaying)
+            m_skillPlayer.Tick();
+        if (m_skillPlayer.NextSkillId > 0)
+        {
+            var res = TryTranslate2NewSkill(m_skillPlayer.NextSkillId);
+            m_skillPlayer.ClearNextSkill();
+        }
     }
 
     public bool TryAttack()
     {
-        Debug.Log("BehaviorSkillComp:TryAttack");
-        TryPlaySkill(1);
+        //Debug.Log("BehaviorSkillComp:TryAttack");
+        if (!IsPlaying)
+        {
+            TryPlaySkill(1);
+        }
         return false;
+    }
+
+    private bool TryTranslate2NewSkill(int id)
+    {
+        if (IsPlaying)
+        {
+            m_skillPlayer.Stop();
+        }
+        var res = TryPlaySkill(id);
+        return res;
     }
 
     public bool TryPlaySkill(int id, int from = -1)
     {
+        Debug.Log(string.Format("BehaviorSkillComp:TryPlaySkill {0}",id));
         var move = this.GetComp<MoveComp>();
         var anim = this.GetComp<AnimComp>();
         var input = this.GetComp<InputComp>();
@@ -40,6 +60,7 @@ public class BehaviorSkillComp : ComponentBase
         return true;
     }
 
+    //debug
     public void ForcePlaySkill(int id)
     {
         m_skillsDesc.RefreshSkills();

@@ -294,7 +294,7 @@ MonoBehaviour:
   _track: {fileID: 114457066995960846}
   _frameRange:
     _start: 0
-    _end: 30
+    _end: 60
   Anim: Attack1
   OriginLen: 0.73
 --- !u!114 &114045262910289760
@@ -329,8 +329,8 @@ MonoBehaviour:
   _id: 0
   _track: {fileID: 114349880168544670}
   _frameRange:
-    _start: 0
-    _end: 30
+    _start: 21
+    _end: 48
   Conditions:
   - Type: CMD
     Value: A
@@ -350,7 +350,7 @@ MonoBehaviour:
   _track: {fileID: 114584548809450042}
   _frameRange:
     _start: 0
-    _end: 30
+    _end: 60
   Value: 15
 --- !u!114 &114349880168544670
 MonoBehaviour:
