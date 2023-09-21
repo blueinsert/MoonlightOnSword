@@ -61,6 +61,34 @@ public class AcclerSetEvent
     public float EndTime;
 }
 
+[Serializable]
+public class TranslateCondition
+{
+    [SerializeField]
+    public string Type;
+    [SerializeField]
+    public string Value;
+}
+
+/// <summary>
+/// 状态转移设置
+/// </summary>
+[Serializable]
+public class TranslationEvent
+{
+    /// <summary>
+    /// target skill id
+    /// </summary>
+    [SerializeField]
+    public int To;
+    [SerializeField]
+    public List<TranslateCondition> ConditionList;
+    [SerializeField]
+    public float StartTime;
+    [SerializeField]
+    public float EndTime;
+}
+
 /// <summary>
 /// 摩擦力设置
 /// 摩擦力与速度方向相反
@@ -87,6 +115,8 @@ public class SkillConfig {
 	public AnimEvent[] AnimEvents;
     [SerializeField]
     public FrictionSetEvent[] FrictionSetEvents;
+    [SerializeField]
+    public TranslationEvent[] TranslationEvents;
 }
 
 

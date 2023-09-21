@@ -7,12 +7,6 @@ using Flux;
 
 namespace FluxEditor
 {
-    public enum TimeFormat
-    {
-        Frames = 0,
-        Seconds,
-        SecondsFormatted
-    }
 
     public class FSequenceEditorWindow : EditorWindow
     {

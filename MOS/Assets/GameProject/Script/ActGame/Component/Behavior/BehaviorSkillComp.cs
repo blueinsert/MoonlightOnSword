@@ -24,13 +24,20 @@ public class BehaviorSkillComp : ComponentBase
     public bool TryAttack()
     {
         Debug.Log("BehaviorSkillComp:TryAttack");
+        TryPlaySkill(1);
+        return false;
+    }
+
+    public bool TryPlaySkill(int id, int from = -1)
+    {
         var move = this.GetComp<MoveComp>();
         var anim = this.GetComp<AnimComp>();
-        var skillCfg = m_skillsDesc.GetSkillConfig(0);
-        m_skillPlayer.Initialize(anim, move);
+        var input = this.GetComp<InputComp>();
+        var skillCfg = m_skillsDesc.GetSkillConfig(id);
+        m_skillPlayer.Initialize(anim, move, input, this);
         m_skillPlayer.Setup(skillCfg);
         m_skillPlayer.Start();
-        return false;
+        return true;
     }
 
     public void ForcePlaySkill(int id)
@@ -38,8 +45,9 @@ public class BehaviorSkillComp : ComponentBase
         m_skillsDesc.RefreshSkills();
         var move = this.GetComp<MoveComp>();
         var anim = this.GetComp<AnimComp>();
+        var input = this.GetComp<InputComp>();
         var skillCfg = m_skillsDesc.GetSkillConfig(id);
-        m_skillPlayer.Initialize(anim, move);
+        m_skillPlayer.Initialize(anim, move, input, this);
         m_skillPlayer.Setup(skillCfg);
         m_skillPlayer.Start();
     }

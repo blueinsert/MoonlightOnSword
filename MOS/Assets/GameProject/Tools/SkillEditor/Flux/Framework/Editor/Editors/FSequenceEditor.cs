@@ -67,6 +67,23 @@ namespace FluxEditor
         private FContainerEditorInspector _containerSelection = new FContainerEditorInspector();
         public FContainerEditorInspector ContainerSelection { get { return _containerSelection; } }
 
+        private float m_startTime = 0;
+        private int m_frame = 0;
+        private bool m_isPlaying;
+
+        public void Play()
+        {
+            m_startTime = TimeManger.Instance.CurTime;
+            m_frame = 0;
+            m_isPlaying = true;
+        }
+
+        public void Stop()
+        {
+            m_startTime = 0;
+            m_frame = 0;
+            m_isPlaying = false;
+        }
 
         public override void Init(FObject obj, FEditor owner)
         {
@@ -893,7 +910,22 @@ namespace FluxEditor
 
             GUI.enabled = true;
             GUI.backgroundColor = Color.white;
-            int newT = FGUI.TimeScrubber(_timeScrubberRect, 0, _viewRange);
+            float curTime = 0;
+            if (m_isPlaying && EditorApplication.isPlaying)
+            {
+                curTime = TimeManger.Instance.CurTime - m_startTime;
+                m_frame = (int)(curTime * 60);
+            }
+            int newT = FGUI.TimeScrubber(_timeScrubberRect, m_frame, _viewRange);
+            m_frame = newT;
+            if (m_isPlaying)
+            {
+                if(m_frame > 300)
+                {
+                    Stop();
+                }
+            }
+
             _viewRange = FGUI.ViewRangeBar(_viewRangeRect, _viewRange, Sequence.Length);
 
             if (_timelineHeaderResizerRect.Contains(Event.current.mousePosition))

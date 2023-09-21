@@ -86,6 +86,7 @@ public class ActGame : MonoBehaviour {
     void Awake()
 	{
 		Instance = this;
+		//Cursor.lockState = CursorLockMode.None;
 	}
 
 	// Use this for initialization

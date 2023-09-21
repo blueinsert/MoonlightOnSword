@@ -25,30 +25,14 @@ namespace FluxEditor
         private SerializedObject _sequenceSO;
         private SerializedProperty _sequenceLength;
 
-        private GUIContent _loadLabel = new GUIContent("load", "load skill");
-        private Rect _loadRect;
-
-        // sequence selection
-        // sequence selection popup variables
-        private GUIContent _sequenceLabel = new GUIContent("select", string.Format("select{0}...", FSettings.SequenceName));
-        // rect of the sequence label
-        private Rect _sequenceLabelRect;
-        // rect of the sequence name
-        private Rect _sequencePopupRect;
-
-        private FSequence[] _sequences;
-        private GUIContent[] _sequenceNames;
-        private int _selectedSequenceIndex;
+        private GUIContent _sequenceNameLabel = new GUIContent("Sequence:", "Cur Editing Sequence");
+        private GUIContent _sequenceNameField = new GUIContent("the example skill name", "The Sequence's Name");
+        private Rect _sequenceNameLabelRect;
+        private Rect _sequenceNameFieldRect;
 
         //add Container
         private GUIContent _addContainerLabel = new GUIContent(string.Empty, "Add Container To Sequence");
         private Rect _addContainerRect;
-
-        private GUIContent _saveLabel = new GUIContent("Save", "save cur skill");
-        private Rect _saveRect;
-
-        private GUIContent _saveAllLabel = new GUIContent("SaveAll", "save all skill");
-        private Rect _saveAllRect;
 
         private  GUIContent _playLabel = new GUIContent("Play", "play the sequence");
         private Rect _playRect;
@@ -69,8 +53,6 @@ namespace FluxEditor
         {
             _sequenceWindow = sequenceWindow;
 
-            RebuildSequenceList();
-
             EditorApplication.hierarchyWindowChanged += OnHierarchyChanged;
             //EditorApplication.hierarchyChanged += OnHierarchyChanged;
 
@@ -80,23 +62,9 @@ namespace FluxEditor
 
         private void OnHierarchyChanged()
         {
-            RebuildSequenceList();
         }
 
-        private void RebuildSequenceList()
-        {
-            _sequences = GameObject.FindObjectsOfType<FSequence>();
-            System.Array.Sort<FSequence>(_sequences, delegate (FSequence x, FSequence y) { return x.name.CompareTo(y.name); });
 
-            _sequenceNames = new GUIContent[_sequences.Length + 1];
-            for (int i = 0; i != _sequences.Length; ++i)
-            {
-                _sequenceNames[i] = new GUIContent(_sequences[i].name);
-            }
-
-            _sequenceNames[_sequenceNames.Length - 1] = new GUIContent(string.Format("[´´½¨ÐÂ{0}]", FSettings.SequenceName));
-            _selectedSequenceIndex = -1;
-        }
 
         public void RebuildLayout(Rect rect)
         {
@@ -107,35 +75,26 @@ namespace FluxEditor
 
             float width = rect.width;
 
-            _loadRect = rect;
-            _saveAllRect = rect;
-            _saveRect = rect;
             _playRect = rect;
             _openInspectorRect = rect;
             _lengthLabelRect = _lengthFieldRect = rect;
-            _sequenceLabelRect = rect;
-            _sequencePopupRect = rect;
+            _sequenceNameLabelRect = rect;
+            _sequenceNameFieldRect = rect;
 
-            _loadRect.width = EditorStyles.label.CalcSize(_loadLabel).x + LABEL_SPACE;
-            _saveAllRect.width = EditorStyles.label.CalcSize(_saveAllLabel).x + LABEL_SPACE;
-            _saveRect.width = EditorStyles.label.CalcSize(_saveLabel).x + LABEL_SPACE;
+            _sequenceNameLabelRect.width = EditorStyles.label.CalcSize(_sequenceNameLabel).x + LABEL_SPACE;
+            _sequenceNameFieldRect.width = EditorStyles.label.CalcSize(_sequenceNameField).x + LABEL_SPACE;
             _playRect.width = EditorStyles.label.CalcSize(_playLabel).x + LABEL_SPACE;
             _lengthLabelRect.width = EditorStyles.label.CalcSize(_lengthLabel).x + LABEL_SPACE;
             _lengthFieldRect.width = LENGTH_FIELD_WIDTH;
-            _sequenceLabelRect.width = EditorStyles.label.CalcSize(_sequenceLabel).x + LABEL_SPACE;
-            _sequencePopupRect.width = Mathf.Min(width - _sequenceLabelRect.width, MAX_SEQUENCE_POPUP_WIDTH);
             _addContainerRect = new Rect(0, 3, 22, 22);
 
-            _loadRect.xMin = rect.xMin;
-            _sequenceLabelRect.xMin = _loadRect.xMax + LABEL_SPACE;
-            _sequencePopupRect.xMin = _sequenceLabelRect.xMax;
-            _addContainerRect.x = _sequencePopupRect.xMax + LABEL_SPACE;
+            _sequenceNameLabelRect.x = rect.xMin + LABEL_SPACE;
+            _sequenceNameFieldRect.x = _sequenceNameLabelRect.xMax + LABEL_SPACE;
+            _addContainerRect.x = _sequenceNameFieldRect.xMax + LABEL_SPACE;
             _openInspectorRect.xMin = _openInspectorRect.xMax - 22;
             _lengthFieldRect.x = rect.xMax - 22 - PADDING - _lengthFieldRect.width;
             _lengthLabelRect.x = _lengthFieldRect.xMin - _lengthLabelRect.width;
-            _saveRect.x = _lengthLabelRect.xMin - _saveRect.width - PADDING;
-            _saveAllRect.x = _saveRect.xMin - _saveAllRect.width - PADDING;
-            _playRect.x = _saveAllRect.xMin - _playRect.width - PADDING;
+            _playRect.x = _lengthLabelRect.xMin - _playRect.width - PADDING;
             _numberFieldStyle = new GUIStyle(EditorStyles.numberField);
             _numberFieldStyle.alignment = TextAnchor.MiddleCenter;
         }
@@ -144,42 +103,6 @@ namespace FluxEditor
         {
             FSequence sequence = _sequenceWindow.GetSequenceEditor().Sequence;
 
-            if ((_selectedSequenceIndex < 0 && sequence != null) || (_selectedSequenceIndex >= 0 && _sequences[_selectedSequenceIndex] != sequence))
-            {
-                for (int i = 0; i != _sequences.Length; ++i)
-                {
-                    if (_sequences[i] == sequence)
-                    {
-                        _selectedSequenceIndex = i;
-                        break;
-                    }
-                }
-            }
-            if (FGUI.Button(_loadRect, _loadLabel))
-            {
-                LoadSequence();
-            }
-            EditorGUI.BeginChangeCheck();
-            EditorGUI.PrefixLabel(_sequenceLabelRect, _sequenceLabel);
-            int newSequenceIndex = EditorGUI.Popup(_sequencePopupRect, _selectedSequenceIndex, _sequenceNames);
-            if (EditorGUI.EndChangeCheck())
-            {
-                if (newSequenceIndex == _sequenceNames.Length - 1)
-                {
-                    FSequence newSequence = FSequenceEditorWindow.CreateSequence();
-                    Selection.activeTransform = newSequence.transform;
-                    _sequenceWindow.GetSequenceEditor().OpenSequence(newSequence);
-                }
-                else
-                {
-                    _selectedSequenceIndex = newSequenceIndex;
-                    _sequenceWindow.GetSequenceEditor().OpenSequence(_sequences[_selectedSequenceIndex]);
-                    _sequenceWindow.RemoveNotification();
-                }
-                EditorGUIUtility.keyboardControl = 0; // deselect it
-                EditorGUIUtility.ExitGUI();
-            }
-            
             if (sequence == null)
                 return;
 
@@ -196,6 +119,11 @@ namespace FluxEditor
             GUIStyle s = new GUIStyle(EditorStyles.miniButton);
             s.padding = new RectOffset(1, 1, 1, 1);
 
+            _sequenceNameField.text = sequence.name;
+            //EditorGUI.LabelField()
+            EditorGUI.LabelField(_sequenceNameLabelRect, _sequenceNameLabel);
+            EditorGUI.LabelField(_sequenceNameFieldRect, _sequenceNameField);
+            //EditorGUI.ObjectField(_sequenceNameFieldRect, _sequenceSO);
             if (FGUI.Button(_addContainerRect, _addContainerLabel))
             {
                 AddContainer();
@@ -205,15 +133,8 @@ namespace FluxEditor
             {
                 FInspectorWindow.Open();
             }
-            if (FGUI.Button(_saveRect, _saveLabel))
-            {
-                Save(sequence);
-            }
-            if (FGUI.Button(_saveAllRect, _saveAllLabel))
-            {
-                SaveAll();
-            }
-            if (FGUI.Button(_playRect, _playLabel))
+
+            if (GUI.Button(_playRect, _playLabel, s))
             {
                 Play(sequence);
             }
@@ -228,25 +149,6 @@ namespace FluxEditor
             _sequenceWindow.GetSequenceEditor().CreateContainer();
         }
 
-        private void Save(FSequence sequence)
-        {
-            var savePath = FSettings.SequenceSavePath;
-            var path = savePath + "/" + sequence.gameObject.name + ".prefab";
-
-
-            //PrefabUtility.SaveAsPrefabAsset(sequence.gameObject, path);//todo
-
-            //PrefabUtility.
-        }
-
-        private void SaveAll()
-        {
-            foreach (var sequence in _sequences)
-            {
-                Save(sequence);
-            }
-        }
-
         private void Play(FSequence sequence)
         {
             if (!Application.isPlaying)
@@ -254,22 +156,23 @@ namespace FluxEditor
                 Debug.LogError("Application is not Playing");
                 return;
             }
-            var skillComp = sequence.gameObject.GetComponentInParent<BehaviorSkillComp>();
-            skillComp.ForcePlaySkill(sequence.ID);
+            foreach(var skillComp in GameObject.FindObjectsOfType<BehaviorSkillComp>())
+            {
+                bool isContain = false;
+                foreach(var skill in skillComp.m_skillsDesc.m_skillList)
+                {
+                    if(skill.ID == sequence.ID)
+                    {
+                        isContain = true;
+                    }
+                }
+                if (isContain)
+                {
+                    skillComp.ForcePlaySkill(sequence.ID);
+                }
+            }
+            _sequenceWindow.GetSequenceEditor().Play();
         }
 
-        private void LoadSequence()
-        {
-            var path = EditorUtility.OpenFilePanel("SelectSkills", FSettings.SequenceSavePath, "prefab");
-            if (!string.IsNullOrEmpty(path))
-            {
-                var assetPath = FUtility.GetAssetPathFromFullPath(path);
-                var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(assetPath);
-                var go = GameObject.Instantiate(prefab);
-                go.name = FUtility.RemoveCloneStr(go.name);
-                var sequence = go.GetComponent<FSequence>();
-                _sequenceWindow.GetSequenceEditor().OpenSequence(sequence);
-            }
-        }
     }
 }

@@ -11,6 +11,8 @@ public class SkillPlayer : IBasicAblitity {
 
     public AnimComp m_animComp;
     public MoveComp m_moveComp;
+	public InputComp m_inputComp;
+	public BehaviorSkillComp m_skillComp;
 
     public SkillConfig m_skillConfig;
 
@@ -27,10 +29,12 @@ public class SkillPlayer : IBasicAblitity {
 	/// </summary>
 	/// <param name="anim"></param>
 	/// <param name="move"></param>
-	public void Initialize(AnimComp anim,MoveComp move)
+	public void Initialize(AnimComp anim,MoveComp move,InputComp input,BehaviorSkillComp skill)
 	{
 		m_moveComp = move;
 		m_animComp = anim;
+		m_inputComp = input;
+		m_skillComp = skill;
 	}
 
 	public void Setup(SkillConfig skillConfig)
@@ -64,6 +68,20 @@ public class SkillPlayer : IBasicAblitity {
             foreach (var e in m_skillConfig.FrictionSetEvents)
             {
                 FrictionSetEventExecute ae = new FrictionSetEventExecute();
+                ae.Initialize(this);
+                ae.Setup(e);
+                m_events.Add(ae);
+                if (ae.EndTime > maxTime)
+                {
+                    maxTime = ae.EndTime;
+                }
+            }
+        }
+        if (m_skillConfig.TranslationEvents != null && m_skillConfig.TranslationEvents.Length != 0)
+        {
+            foreach (var e in m_skillConfig.TranslationEvents)
+            {
+                TranslationEventExecute ae = new TranslationEventExecute();
                 ae.Initialize(this);
                 ae.Setup(e);
                 m_events.Add(ae);
@@ -143,6 +161,17 @@ public class SkillPlayer : IBasicAblitity {
     public void SetAnimSpeed(float speed)
     {
 		m_animComp.SetSpeed(speed);
+    }
+
+    public bool IsAttackingClick()
+    {
+		return m_inputComp.IsAttackClick;
+    }
+
+    public void PlaySkill(int id)
+    {
+		var from = m_skillConfig != null ? m_skillConfig.ID : -1;
+		m_skillComp.TryPlaySkill(id, from);
     }
     #endregion
 }

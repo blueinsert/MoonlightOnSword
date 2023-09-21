@@ -3,8 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SkillSequenceResourceContainer))]
 public class SkillsDesc : MonoBehaviour
 {
+    public SkillSequenceResourceContainer m_skillContainer = null;
+        
     public List<SkillConfig> m_skillList;
 
     private Dictionary<int, SkillConfig> m_skillDic = null;
@@ -37,6 +40,7 @@ public class SkillsDesc : MonoBehaviour
 
     public void RefreshSkills()
     {
+        m_skillContainer.LoadSkill();
         InitializeFromSequences();
         m_skillDic = null;
     }
@@ -44,15 +48,17 @@ public class SkillsDesc : MonoBehaviour
     public void Start()
     {
         Debug.Log("SkillDesc2:Start");
+        m_skillContainer = GetComponent<SkillSequenceResourceContainer>();
+        m_skillContainer.LoadSkill();
         InitializeFromSequences();
     }
 
     private void InitializeFromSequences()
     {
         m_skillList.Clear();
-        foreach (var sequence in this.GetComponentsInChildren<FSequence>())
+        foreach (var item in m_skillContainer.AssetList)
         {
-            var skillCfg = sequence.ToSkillConfig();
+            var skillCfg = (item.RuntimeAssetCache as GameObject).GetComponent<FSequence>().ToSkillConfig();
             m_skillList.Add(skillCfg);
         }
     }

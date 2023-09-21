@@ -34,6 +34,9 @@ public static class Converter {
         } else if (e is FFrictionEvent)
         {
             AddFrictionEvent(skillConfig, e as FFrictionEvent);
+        }else if(e is FTranslationEvent)
+        {
+            AddTranslationEvent(skillConfig, e as FTranslationEvent);
         }
 
 	}
@@ -64,5 +67,19 @@ public static class Converter {
         aes.Add(ae);
 
         skillConfig.FrictionSetEvents = aes.ToArray();
+    }
+
+    private static void AddTranslationEvent(SkillConfig skillConfig, FTranslationEvent e)
+    {
+        List<TranslationEvent> aes = new List<TranslationEvent>();
+        if (skillConfig.TranslationEvents != null)
+        {
+            aes.AddRange(skillConfig.TranslationEvents);
+        }
+
+        var ae = e.ToDS();
+        aes.Add(ae);
+
+        skillConfig.TranslationEvents = aes.ToArray();
     }
 }
