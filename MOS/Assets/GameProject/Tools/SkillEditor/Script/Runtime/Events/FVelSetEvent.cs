@@ -3,24 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using Flux;
 
-//[FEventDS(typeof(AnimEvent))]
-[FEvent("Anim", typeof(FAnimTrack))]
-public class FAnimEvent : FEvent {
+[FEvent("Vel", typeof(FVelSetTrack))]
+public class FVelSetEvent : FEvent {
 
     [SerializeField]
-    [HideInInspector]
-    private string Anim;
-    /// <summary>
-    /// 原始长度
-    /// </summary>
+    public VelRelativeType Relative;
     [SerializeField]
-    public float OriginLen;
+    public float VX;
+    [SerializeField]
+    public float VY;
+    [SerializeField]
+    public float VZ;
 
     public override object ToDS()
     {
-        AnimEvent ae = new AnimEvent();
-        ae.Anim = Anim;
-        ae.OriginLen = this.OriginLen;
+        VelSetEvent ae = new VelSetEvent();
+        ae.Relative = this.Relative;
+        ae.VX = this.VX;
+        ae.VY = this.VY;
+        ae.VZ = this.VZ;
         ae.StartTime = this.FrameRange.Start / 60f;
         ae.EndTime = this.FrameRange.End / 60f;
         return ae;
@@ -30,7 +31,7 @@ public class FAnimEvent : FEvent {
     {
         get
         {
-            return "Anim:" + Anim;
+            return "Vel";
         }
 
         set

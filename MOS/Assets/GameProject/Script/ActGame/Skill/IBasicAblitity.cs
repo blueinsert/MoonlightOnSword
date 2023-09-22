@@ -13,5 +13,9 @@ public interface IBasicAblitity {
 
     Vector2 GetVel();
 
-    void SetVel(Vector2 vel);
+    Vector2 GetFacing();
+
+    void SetVelH(Vector2 vel);
+
+    void SetVelV(float v);
 }

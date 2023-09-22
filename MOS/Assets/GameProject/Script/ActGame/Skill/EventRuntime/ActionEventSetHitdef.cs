@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionEventSetHitdef : EventRuntimeBase
+public class ActionEventSetHitdef : EventExecuteBase
 {
 	public ColliderHandlerComp m_hitCom;
 	public int m_hitId;

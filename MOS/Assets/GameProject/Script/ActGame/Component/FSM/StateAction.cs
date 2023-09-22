@@ -10,7 +10,7 @@ public class StateAction : FsmStateBase
     public float m_actionStartTime;
     public float m_actionEndTime;
     public float m_actionTime;
-    public List<EventRuntimeBase> m_actionEventList = new List<EventRuntimeBase>();
+    public List<EventExecuteBase> m_actionEventList = new List<EventExecuteBase>();
     public bool m_isEnd = false;
     public float m_hitPauseStartTime;
     public float m_hitPauseEndTime;

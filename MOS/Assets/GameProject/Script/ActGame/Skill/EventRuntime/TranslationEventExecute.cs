@@ -3,18 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class TranslationEventExecute : EventRuntimeBase
+public class TranslationEventExecute : EventExecuteBase
 {
 
     private TranslationEvent m_e;
 
-    public void Setup(TranslationEvent e)
+    public override void Setup(EventBase e)
     {
-        m_e = e;
-        var start = e.StartTime;
-        var end = e.EndTime;
-        SetStartTime(start);
-        SetEndTime(end);
+        m_e = e as TranslationEvent;
+        base.Setup(e);
     }
 
     public override void OnStart()

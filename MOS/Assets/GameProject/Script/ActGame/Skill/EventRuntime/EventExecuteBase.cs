@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EventRuntimeBase  {
+public abstract class EventExecuteBase  {
 
 	public bool IsEnd { get { return m_isEnd; } }
 
@@ -13,8 +13,9 @@ public abstract class EventRuntimeBase  {
 	public bool m_isStart = false;
 	public bool m_isEnd = false;
 	public ActorBase m_owner = null;
+	private EventBase m_e;
 
-	protected IBasicAblitity m_basicAblity = null;
+    protected IBasicAblitity m_basicAblity = null;
 
 	public float EndTime { 
 		get {
@@ -25,6 +26,15 @@ public abstract class EventRuntimeBase  {
     public void Initialize(IBasicAblitity basicAblity)
     {
 		m_basicAblity = basicAblity;
+    }
+
+    public virtual void Setup(EventBase e)
+	{
+        var start = e.StartTime;
+        var end = e.EndTime;
+        SetStartTime(start);
+        SetEndTime(end);
+		m_e = e;
     }
 
     [Obsolete]

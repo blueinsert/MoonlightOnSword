@@ -4,8 +4,34 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class Converter {
+    /*
+    public static IEnumerable<EventBase> GetAllEvents(this FSequence sequence)
+    {
+        List<EventBase> events = new List<EventBase>();
 
-	public static SkillConfig ToSkillConfig(this FSequence sequence)
+        foreach (var container in sequence.Containers)
+        {
+            foreach (var track in container.Tracks)
+            {
+                foreach (var evt in track.Events)
+                {
+                    var ds = evt.ToDS() as EventBase;
+                    if (ds != null)
+                    {
+                        events.Add(ds);
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < events.Count; i++)
+        {
+            yield return events[i];
+        }
+    }
+    */
+
+    public static SkillConfig ToSkillConfig(this FSequence sequence)
 	{
 		SkillConfig skillConfig = new SkillConfig();
 		skillConfig.ID = sequence.ID;
@@ -15,71 +41,21 @@ public static class Converter {
 		{
 			foreach(var track in container.Tracks)
 			{
-				foreach(var evt in track.Events)
-				{
-					AddEvent(skillConfig, evt);
-				}
+                if (track.enabled)
+                {
+                    foreach (var evt in track.Events)
+                    {
+                        var ds = evt.ToDS();
+                        if (ds != null && ds is EventBase)
+                        {
+                            skillConfig.AddEvent(ds as EventBase);
+                        }
+                    }
+                }
 			}
 		}
 
 		return skillConfig;
 	}
 
-    private static void AddEvent(SkillConfig skillConfig, FEvent e)
-    {
-
-        if (e is FAnimEvent)
-        {
-            AddAnimEvent(skillConfig, e as FAnimEvent);
-        } else if (e is FFrictionEvent)
-        {
-            AddFrictionEvent(skillConfig, e as FFrictionEvent);
-        }else if(e is FTranslationEvent)
-        {
-            AddTranslationEvent(skillConfig, e as FTranslationEvent);
-        }
-
-	}
-
-	private static void AddAnimEvent(SkillConfig skillConfig, FAnimEvent e)
-	{
-        List<AnimEvent> aes = new List<AnimEvent>();
-        if (skillConfig.AnimEvents != null)
-        {
-            aes.AddRange(skillConfig.AnimEvents);
-        }
-
-        var ae = e .ToDS();
-        aes.Add(ae);
-       
-        skillConfig.AnimEvents = aes.ToArray();
-    }
-
-    private static void AddFrictionEvent(SkillConfig skillConfig, FFrictionEvent e)
-    {
-        List<FrictionSetEvent> aes = new List<FrictionSetEvent>();
-        if (skillConfig.FrictionSetEvents != null)
-        {
-            aes.AddRange(skillConfig.FrictionSetEvents);
-        }
-
-        var ae = e.ToDS();
-        aes.Add(ae);
-
-        skillConfig.FrictionSetEvents = aes.ToArray();
-    }
-
-    private static void AddTranslationEvent(SkillConfig skillConfig, FTranslationEvent e)
-    {
-        List<TranslationEvent> aes = new List<TranslationEvent>();
-        if (skillConfig.TranslationEvents != null)
-        {
-            aes.AddRange(skillConfig.TranslationEvents);
-        }
-
-        var ae = e.ToDS();
-        aes.Add(ae);
-
-        skillConfig.TranslationEvents = aes.ToArray();
-    }
 }

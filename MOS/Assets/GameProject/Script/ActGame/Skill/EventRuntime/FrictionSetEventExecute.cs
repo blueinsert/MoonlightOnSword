@@ -2,18 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FrictionSetEventExecute : EventRuntimeBase
+public class FrictionSetEventExecute : EventExecuteBase
 {
-
+    private FrictionSetEvent m_fe;
     private float m_value;
 
-    public void Setup(FrictionSetEvent e)
+    public override void Setup(EventBase e)
     {
-        m_value = e.Value;
-        var start = e.StartTime;
-        var end = e.EndTime;
-        SetStartTime(start);
-        SetEndTime(end);
+        m_fe = e as FrictionSetEvent;
+        m_value = m_fe.Value;
+        base.Setup(e);
     }
 
     public override void OnStart()
@@ -37,6 +35,6 @@ public class FrictionSetEventExecute : EventRuntimeBase
             speed = 0f;
         var newVel = dir * speed;
 
-        m_basicAblity.SetVel(newVel);
+        m_basicAblity.SetVelH(newVel);
     }
 }

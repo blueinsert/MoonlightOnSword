@@ -306,6 +306,8 @@ namespace Flux
 		{
 			return e1.Start.CompareTo( e2.Start );
 		}
+
+		public virtual object ToDS() { return null; }
 	}
 
 

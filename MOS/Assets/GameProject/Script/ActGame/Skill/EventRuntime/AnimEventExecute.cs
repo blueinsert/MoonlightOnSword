@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimEventExecute : EventRuntimeBase {
+public class AnimEventExecute : EventExecuteBase {
 
     private string m_animName;
     private float m_speed = 1.0f;
+    private AnimEvent m_animEvent;
 
-	public void Setup(AnimEvent animEvent)
+    public override void Setup(EventBase e)
 	{
+        m_animEvent = e as AnimEvent;
+        var animEvent = m_animEvent;
         m_animName = animEvent.Anim;
-        var start = animEvent.StartTime;
-		var end = animEvent.EndTime;
-		SetStartTime(start);
-		SetEndTime(end);
+        base.Setup(e);
         var oriLen = animEvent.OriginLen;
-        var len = end - start;
+        var len = m_endTime - m_startTime;
         m_speed = oriLen / len;
 	}
 

@@ -475,8 +475,6 @@ namespace FluxEditor
 		{
 //			Color c = EditorGUIUtility.isProSkin ? TEXT_COLOR_PRO : TEXT_COLOR;
 			Color c = TEXT_COLOR_PRO;
-			if( Application.isPlaying )
-				c.a *= 0.5f;
 			return c;
 		}
 

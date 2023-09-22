@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Flux;
 
+//[FEventDS(typeof(TranslationEvent))]
 [FEvent("Translation", typeof(FTranslationTrack))]
 public class FTranslationEvent : FEvent
 {
@@ -11,7 +12,7 @@ public class FTranslationEvent : FEvent
     [SerializeField]
     public int To;
 
-    public TranslationEvent ToDS()
+    public override object ToDS()
     {
         TranslationEvent fe = new TranslationEvent();
         fe.To = To;

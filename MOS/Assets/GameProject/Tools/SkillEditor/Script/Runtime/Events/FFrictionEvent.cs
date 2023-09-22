@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Flux;
 
+//[FEventDS(typeof(FrictionSetEvent))]
 [FEvent("Friction", typeof(FFrictionTrack))]
 public class FFrictionEvent : FEvent {
 
 	public float Value;
 
-	public FrictionSetEvent ToDS()
+	public override object ToDS()
 	{
 		FrictionSetEvent fe = new FrictionSetEvent();
 		fe.Value = this.Value;

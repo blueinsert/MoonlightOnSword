@@ -12,6 +12,8 @@ public class MoveComp : ComponentBase
     public float Speed { get { return m_speed; } }
     public Vector2 VelPreferHorizon { get { return m_hPreferVel; } }
 
+    public Vector2 Facing { get { return m_facingDir; } }
+
     public CharacterController m_cc;
     //期望速度
     public float m_vPreferVel;

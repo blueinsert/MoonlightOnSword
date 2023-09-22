@@ -75,6 +75,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1381124222610390
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4193200813116414}
+  - component: {fileID: 114858690854205580}
+  m_Layer: 0
+  m_Name: FVelSetEvent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1487412580690808
 GameObject:
   m_ObjectHideFlags: 1
@@ -139,6 +155,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1882127925005746
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4244872226007806}
+  - component: {fileID: 114914472562837766}
+  m_Layer: 0
+  m_Name: Vel Set
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1946733690963524
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,6 +186,33 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4193200813116414
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1381124222610390}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4244872226007806}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4244872226007806
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1882127925005746}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4193200813116414}
+  m_Father: {fileID: 4557813827951458}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4400032020865066
 Transform:
   m_ObjectHideFlags: 1
@@ -221,6 +280,7 @@ Transform:
   - {fileID: 4853139865112304}
   - {fileID: 4837591035955510}
   - {fileID: 4985976302501532}
+  - {fileID: 4244872226007806}
   m_Father: {fileID: 4533439789048958}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -315,6 +375,7 @@ MonoBehaviour:
   - {fileID: 114457066995960846}
   - {fileID: 114584548809450042}
   - {fileID: 114349880168544670}
+  - {fileID: 114914472562837766}
 --- !u!114 &114094363600777606
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -349,7 +410,7 @@ MonoBehaviour:
   _id: 0
   _track: {fileID: 114584548809450042}
   _frameRange:
-    _start: 0
+    _start: 12
     _end: 60
   Value: 15
 --- !u!114 &114349880168544670
@@ -418,3 +479,39 @@ MonoBehaviour:
   - {fileID: 114045262910289760}
   _version: 210
   _length: 300
+--- !u!114 &114858690854205580
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1381124222610390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5b4cc5c5f29fb4e8743451bf87637f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 0
+  _track: {fileID: 114914472562837766}
+  _frameRange:
+    _start: 0
+    _end: 12
+  Relative: 1
+  VX: 0
+  VY: 0
+  VZ: 1.5
+--- !u!114 &114914472562837766
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1882127925005746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7af7a346e829014eb96ddd2394ff0a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 3
+  _container: {fileID: 114045262910289760}
+  _evtTypeStr: FVelSetEvent
+  _events:
+  - {fileID: 114858690854205580}

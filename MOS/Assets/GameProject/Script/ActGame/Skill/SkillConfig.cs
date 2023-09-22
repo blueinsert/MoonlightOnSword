@@ -1,11 +1,22 @@
 ﻿using Flux;
 using System;
+using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class AnimEvent
+public class EventBase
+{
+    [SerializeField]
+    public float StartTime;
+    [SerializeField]
+    public float EndTime;
+}
+
+[ExecutableEvent(typeof(AnimEventExecute))]
+[Serializable]
+public class AnimEvent : EventBase
 {
     [SerializeField]
     public string Anim;
@@ -14,32 +25,34 @@ public class AnimEvent
     /// </summary>
     [SerializeField]
     public float OriginLen;
-    [SerializeField]
-    public float StartTime;
-    [SerializeField]
-    public float EndTime;
+   
 }
 
+public enum VelRelativeType
+{
+    World,
+    Local,
+}
+
+[ExecutableEvent(typeof(VelSetEventExecute))]
 [Serializable]
-public class VelSetEvent
+public class VelSetEvent : EventBase
 {
     [SerializeField]
-    public int Relative;//0:世界绝对值 1:相对角色朝向
+    public VelRelativeType Relative;//0:世界绝对值 1:相对角色朝向
     [SerializeField]
     public float VX;
     [SerializeField]
     public float VY;
     [SerializeField]
     public float VZ;
-    [SerializeField]
-    public float StartTime;
 }
 
 /// <summary>
 /// 加速度设置
 /// </summary>
 [Serializable]
-public class AcclerSetEvent
+public class AcclerSetEvent : EventBase
 {
     [SerializeField]
     public int Relative;//0:世界绝对值 1:相对角色朝向
@@ -55,10 +68,6 @@ public class AcclerSetEvent
     public float AY;
     [SerializeField]
     public float AZ;
-    [SerializeField]
-    public float StartTime;
-    [SerializeField]
-    public float EndTime;
 }
 
 [Serializable]
@@ -74,7 +83,8 @@ public class TranslateCondition
 /// 状态转移设置
 /// </summary>
 [Serializable]
-public class TranslationEvent
+[ExecutableEvent(typeof(TranslationEventExecute))]
+public class TranslationEvent : EventBase
 {
     /// <summary>
     /// target skill id
@@ -83,10 +93,6 @@ public class TranslationEvent
     public int To;
     [SerializeField]
     public List<TranslateCondition> ConditionList;
-    [SerializeField]
-    public float StartTime;
-    [SerializeField]
-    public float EndTime;
 }
 
 /// <summary>
@@ -95,14 +101,11 @@ public class TranslationEvent
 /// 大小与加速度含义相同
 /// </summary>
 [Serializable]
-public class FrictionSetEvent
+[ExecutableEvent(typeof(FrictionSetEventExecute))]
+public class FrictionSetEvent : EventBase
 {
     [SerializeField]
     public float Value;
-    [SerializeField]
-    public float StartTime;
-    [SerializeField]
-    public float EndTime;
 }
 
 [Serializable]
@@ -111,12 +114,54 @@ public class SkillConfig {
     public string Name;
     [SerializeField]
     public int ID;
+
+    //[ExecutableEventList(typeof(AnimEventExecute))]
 	[SerializeField]
-	public AnimEvent[] AnimEvents;
+	public List<AnimEvent> AnimEvents = new List<AnimEvent>();
+
+    //[ExecutableEventList(typeof(AnimEventExecute))]
     [SerializeField]
-    public FrictionSetEvent[] FrictionSetEvents;
+    public List<FrictionSetEvent> FrictionSetEvents = new List<FrictionSetEvent>();
+
+    //[ExecutableEventList(typeof(AnimEventExecute))]
     [SerializeField]
-    public TranslationEvent[] TranslationEvents;
+    public List<TranslationEvent> TranslationEvents = new List<TranslationEvent>();
+
+    [SerializeField]
+    public List<VelSetEvent> VelSetEvents = new List<VelSetEvent>();
+
+    public IEnumerable<EventBase> GetAllEvents()
+    {
+        List<EventBase> events = new List<EventBase>();
+        foreach (var ae in AnimEvents) events.Add(ae);
+        foreach (var ae in FrictionSetEvents) events.Add(ae);
+        foreach (var ae in TranslationEvents) events.Add(ae);
+        foreach (var ae in VelSetEvents) events.Add(ae);
+        for (int i = 0; i < events.Count; i++)
+        {
+            yield return events[i];
+        }
+    }
+
+    public void AddEvent(EventBase e)
+    {
+        if(e is AnimEvent)
+        {
+            AnimEvents.Add(e as AnimEvent);
+        }
+        if(e is FrictionSetEvent)
+        {
+            FrictionSetEvents.Add(e as FrictionSetEvent);
+        }
+        if((e is TranslationEvent))
+        {
+            TranslationEvents.Add(e as TranslationEvent);
+        }
+        if(e is VelSetEvent)
+        {
+            VelSetEvents.Add(e as VelSetEvent);
+        }
+    }
 }
 
 

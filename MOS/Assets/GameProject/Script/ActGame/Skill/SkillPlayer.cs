@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,12 @@ public class SkillPlayer : IBasicAblitity {
 
     public SkillConfig m_skillConfig;
 
-	private List<EventRuntimeBase> m_events = new List<EventRuntimeBase>();
+    /// <summary>
+    /// eventType - exeEvtType
+    /// </summary>
+    private Dictionary<Type, Type> m_cacheExeTypeDic = new Dictionary<Type, Type>();
+
+	private List<EventExecuteBase> m_events = new List<EventExecuteBase>();
 	[SerializeField]
 	public bool m_isStart = false;
     [SerializeField]
@@ -53,53 +59,49 @@ public class SkillPlayer : IBasicAblitity {
 		m_isEnd = false;
     }
 
+    private void AddExecuteEvent(EventBase e, Type exeType)
+    {
+        var ee = Activator.CreateInstance(exeType) as EventExecuteBase;
+        ee.Initialize(this);
+        ee.Setup(e);
+        m_events.Add(ee);
+
+        m_skillDuration = Mathf.Max(m_skillDuration, ee.m_endTime);
+    }
+
+    private Type GetExeEvtType(Type evtType)
+    {
+        if (m_cacheExeTypeDic.ContainsKey(evtType))
+        {
+            return m_cacheExeTypeDic[evtType];
+        }
+        var attributes = evtType.GetCustomAttributes(typeof(ExecutableEventAttribute), true);
+        ExecutableEventAttribute target = null;
+        if (attributes.Length != 0)
+        {
+            target = attributes[0] as ExecutableEventAttribute;
+        }
+        if (target != null)
+        {
+            var exeType = target.ExecuteClassType;
+            Debug.Log(string.Format("register evtType:{0} exeType:{1}", evtType.Name, exeType.Name));
+            m_cacheExeTypeDic.Add(evtType, exeType);
+            return exeType;
+        }
+        return null;
+    }
+
 	private void InitEventExecuterListFromCfg()
 	{
 		m_events.Clear();
-		float maxTime = -1;
-        if (m_skillConfig.AnimEvents!=null && m_skillConfig.AnimEvents.Length != 0)
-		{
-			foreach(var e in m_skillConfig.AnimEvents)
-			{
-				AnimEventExecute ae = new AnimEventExecute();
-				ae.Initialize(this);
-				ae.Setup(e);
-				m_events.Add(ae);
-				if(ae.EndTime > maxTime)
-				{
-					maxTime = ae.EndTime;
-				}
-            }
-		}
-        if (m_skillConfig.FrictionSetEvents != null && m_skillConfig.FrictionSetEvents.Length != 0)
+        foreach(var evt in m_skillConfig.GetAllEvents())
         {
-            foreach (var e in m_skillConfig.FrictionSetEvents)
+            var exeType = GetExeEvtType(evt.GetType());
+            if (exeType != null)
             {
-                FrictionSetEventExecute ae = new FrictionSetEventExecute();
-                ae.Initialize(this);
-                ae.Setup(e);
-                m_events.Add(ae);
-                if (ae.EndTime > maxTime)
-                {
-                    maxTime = ae.EndTime;
-                }
+                AddExecuteEvent(evt, exeType);
             }
         }
-        if (m_skillConfig.TranslationEvents != null && m_skillConfig.TranslationEvents.Length != 0)
-        {
-            foreach (var e in m_skillConfig.TranslationEvents)
-            {
-                TranslationEventExecute ae = new TranslationEventExecute();
-                ae.Initialize(this);
-                ae.Setup(e);
-                m_events.Add(ae);
-                if (ae.EndTime > maxTime)
-                {
-                    maxTime = ae.EndTime;
-                }
-            }
-        }
-        m_skillDuration = maxTime;
 	}
 
 	public void Start()
@@ -172,7 +174,7 @@ public class SkillPlayer : IBasicAblitity {
         return m_moveComp.VelPreferHorizon;
     }
 
-    public void SetVel(Vector2 vel)
+    public void SetVelH(Vector2 vel)
     {
         m_moveComp.SetPreferVelHorizon(vel.x, vel.y);
     }
@@ -190,6 +192,16 @@ public class SkillPlayer : IBasicAblitity {
     public void PlaySkill(int id)
     {
         m_nextSkillId = id;
+    }
+
+    public Vector2 GetFacing()
+    {
+        return m_moveComp.Facing;
+    }
+
+    public void SetVelV(float v)
+    {
+        m_moveComp.SetPreferVelVertical(v);
     }
     #endregion
 }
