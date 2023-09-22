@@ -61,7 +61,7 @@ namespace FluxEditor
 				FOBJECT obj = (FOBJECT)_editors[i].Obj;
 				_objects.Add( obj );
 
-				if( obj.GetType() != _editors[0].Obj.GetType() )
+				if(obj != null && obj.GetType() != _editors[0].Obj.GetType() )
 					_allSameType = false;
 			}
 

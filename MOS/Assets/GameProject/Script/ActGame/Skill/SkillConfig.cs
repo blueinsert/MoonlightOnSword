@@ -108,6 +108,18 @@ public class FrictionSetEvent : EventBase
     public float Value;
 }
 
+//todo
+public class ColliderSetEvent : EventBase
+{
+
+}
+
+//todo
+public class HitDefSetEvent : EventBase
+{
+
+}
+
 [Serializable]
 public class SkillConfig {
     [SerializeField]
