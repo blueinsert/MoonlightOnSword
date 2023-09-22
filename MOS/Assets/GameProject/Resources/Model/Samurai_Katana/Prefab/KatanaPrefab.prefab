@@ -573,6 +573,8 @@ GameObject:
   - component: {fileID: 114696105204943380}
   - component: {fileID: 114176665693579020}
   - component: {fileID: 114282764780112692}
+  - component: {fileID: 114363275644308044}
+  - component: {fileID: 114929044779356250}
   m_Layer: 0
   m_Name: KatanaPrefab
   m_TagString: Untagged
@@ -933,13 +935,13 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1724916284218568
 GameObject:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4882724452118518}
-  - component: {fileID: 114689240166863444}
+  - component: {fileID: 114923328601626894}
   m_Layer: 0
   m_Name: CollideBoxes
   m_TagString: Untagged
@@ -2127,7 +2129,6 @@ Transform:
   - {fileID: 4884529122179058}
   - {fileID: 4416147356906804}
   - {fileID: 4333312461840568}
-  - {fileID: 4882724452118518}
   m_Father: {fileID: 4817286332451620}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2186,6 +2187,7 @@ Transform:
   - {fileID: 4661541381262354}
   - {fileID: 4795233762794278}
   - {fileID: 4530504188887764}
+  - {fileID: 4882724452118518}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2288,8 +2290,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4128239646326752}
-  m_Father: {fileID: 4795233762794278}
-  m_RootOrder: 7
+  m_Father: {fileID: 4817286332451620}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4884529122179058
 Transform:
@@ -2506,11 +2508,15 @@ MonoBehaviour:
   m_skillPlayer:
     m_animComp: {fileID: 0}
     m_moveComp: {fileID: 0}
+    m_inputComp: {fileID: 0}
+    m_skillComp: {fileID: 0}
     m_skillConfig:
       Name: 
       ID: 0
       AnimEvents: []
       FrictionSetEvents: []
+      TranslationEvents: []
+      VelSetEvents: []
     m_isStart: 0
     m_isEnd: 0
     m_skillDuration: 0
@@ -2541,12 +2547,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbcd4d67198962c49b1b9d9d66277582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_sequenceList:
-  - {fileID: 114818659249799398, guid: b6f7678113d13da439e4f2f741a999c0, type: 2}
-  - {fileID: 114099916029370542, guid: db6d78c99ae12b744b5da46a870ca12a, type: 2}
-  - {fileID: 114408652500032336, guid: 8127cf6e7e401d048a86b36c33fd51b6, type: 2}
-  - {fileID: 114335992059566778, guid: 6606e6788a97de148a400f2f897b4a8c, type: 2}
+  m_skillContainer: {fileID: 0}
   m_skillList: []
+--- !u!114 &114363275644308044
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1380573731349950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a112781e35ff4f74c84a8d9958b8caa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_isEnable: 1
+  m_isDestroying: 0
+  m_campType: 0
 --- !u!114 &114493584466246994
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2574,19 +2590,6 @@ MonoBehaviour:
   m_speed: 0
   m_g: -9.7
   m_drawGizmons: 1
---- !u!114 &114689240166863444
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1724916284218568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35f8a179bb63cde4aa64897381387a48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_attackBoxList:
-  - {fileID: 65278950465063164}
 --- !u!114 &114696105204943380
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2645,6 +2648,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_target: {fileID: 4057207951813028}
+--- !u!114 &114923328601626894
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1724916284218568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599a9ee451d8b4d41a1bf3b1f7a8f495, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_attackBoxList:
+  - {fileID: 65278950465063164}
+  m_defenceBoxList:
+  - {fileID: 136768558195300908}
+  - {fileID: 143488660633848808}
+  m_occupyBoxList:
+  - {fileID: 136768558195300908}
+  - {fileID: 143488660633848808}
+--- !u!114 &114929044779356250
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1380573731349950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae674e0f5b697d47869467d1f2833ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_isEnable: 1
+  m_isDestroying: 0
+  m_collidersDesc: {fileID: 0}
+  m_attackColliders: []
+  m_defenseColliders: []
 --- !u!114 &114953376787213362
 MonoBehaviour:
   m_ObjectHideFlags: 1

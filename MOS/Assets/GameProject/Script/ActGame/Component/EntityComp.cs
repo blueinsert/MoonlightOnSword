@@ -2,15 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityComp : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+//纯数据
+public class EntityComp : ComponentBase
+{
+	public CampType CampType { get { return m_campType; } set { m_campType = value; } }
+	public CampType m_campType;
 }

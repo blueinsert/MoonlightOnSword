@@ -13,13 +13,13 @@ TagManager:
   - UI
   - 
   - 
+  - 
+  - 
+  - 
   - PlayerAttackCollider
   - EnemyAttackCollider
-  - 
-  - 
-  - Player
-  - Enemy
-  - 
+  - PlayerDefenseCollider
+  - EnemyDefenseCollider
   - 
   - 
   - 

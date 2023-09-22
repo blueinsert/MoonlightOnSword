@@ -6,6 +6,9 @@ public class TimeManger : MonoBehaviour {
 	public static TimeManger Instance;
 	public float m_curTime;
 	public float m_deltaTime;
+	public int m_frame;
+
+	public int Frame { get { return m_frame; } }
 
 	public float CurTime { 
 		get {
@@ -34,6 +37,7 @@ public class TimeManger : MonoBehaviour {
 	public void Tick()
 	{
 		m_deltaTime = Time.deltaTime;
-		m_curTime += m_deltaTime;	
+		m_curTime += m_deltaTime;
+		m_frame++;
 	}
 }

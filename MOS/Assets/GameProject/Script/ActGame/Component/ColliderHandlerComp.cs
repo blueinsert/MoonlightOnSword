@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ColliderHandlerComp : ComponentBase
 {
-	public HitboxsDesc m_hitboxDesc = null;
-	private Dictionary<string, ActorAttackCollider> m_attackColliderDic = new Dictionary<string, ActorAttackCollider>();
+	public CollidersDesc m_hitboxDesc = null;
+	private Dictionary<string, AttackColliderDesc> m_attackColliderDic = new Dictionary<string, AttackColliderDesc>();
 
 	public override void Init(ActorBase actor)
 	{
@@ -16,7 +16,7 @@ public class ColliderHandlerComp : ComponentBase
 	public override void PostInit()
 	{
 		base.PostInit();
-		m_hitboxDesc = GetComponentInChildren<HitboxsDesc>();
+		m_hitboxDesc = GetComponentInChildren<CollidersDesc>();
 		var layerMask1 = LayerMask.NameToLayer("PlayerAttackCollider");
 		var layerMask2 = LayerMask.NameToLayer("EnemyAttackCollider");
 
@@ -24,9 +24,9 @@ public class ColliderHandlerComp : ComponentBase
 		{
 			collider.enabled = false;
 			collider.gameObject.layer = m_owner.GetCampType() == CampType.Player ? layerMask1 : layerMask2;
-			var attackCollider = collider.gameObject.AddComponent<ActorAttackCollider>();
+			var attackCollider = collider.gameObject.AddComponent<AttackColliderDesc>();
 			attackCollider.Init();
-			attackCollider.SetOwner(this.m_owner);
+			//attackCollider.SetOwner(this.m_owner);
 			m_attackColliderDic.Add(collider.gameObject.name, attackCollider);
 		}
 	}
@@ -39,11 +39,11 @@ public class ColliderHandlerComp : ComponentBase
 	public void EnableAttackCollider(int id)
 	{
 		var hitDefCfg = ConfigDataManager.Instance.GetConfigDataHitEffectConfig(id);
-		ActorAttackCollider attackCollider;
+		AttackColliderDesc attackCollider;
 		m_attackColliderDic.TryGetValue(hitDefCfg.HitCollideName, out attackCollider);
 		if (attackCollider != null)
 		{
-			attackCollider.SetHitDef(hitDefCfg);
+			//attackCollider.SetHitDef(hitDefCfg);
 			attackCollider.Enable();
 		}
 	}
@@ -51,7 +51,7 @@ public class ColliderHandlerComp : ComponentBase
 	public void DisableAttackCollider(int id)
 	{
 		var hitDefCfg = ConfigDataManager.Instance.GetConfigDataHitEffectConfig(id);
-		ActorAttackCollider attackCollider;
+		AttackColliderDesc attackCollider;
 		m_attackColliderDic.TryGetValue(hitDefCfg.HitCollideName, out attackCollider);
 		if (attackCollider != null)
 		{

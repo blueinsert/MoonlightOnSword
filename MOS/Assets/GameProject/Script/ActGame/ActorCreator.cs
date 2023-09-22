@@ -16,6 +16,7 @@ public class ActorCreator : MonoBehaviour {
             CameraManager.Instance.BindTarget(go);
         }
         go.name = "Actor_" + m_id;
+        go.GetComponent<EntityComp>().CampType = this.m_campType;
         Destroy(this.gameObject);
 	}
 }
