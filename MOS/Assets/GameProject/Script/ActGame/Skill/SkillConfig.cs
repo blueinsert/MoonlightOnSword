@@ -108,16 +108,22 @@ public class FrictionSetEvent : EventBase
     public float Value;
 }
 
-//todo
+[Serializable]
+[ExecutableEvent(typeof(ColliderSetEventExecute))]
 public class ColliderSetEvent : EventBase
 {
-
+    [SerializeField]
+    public string Name;
+    [SerializeField]
+    public bool IsEnable;
 }
 
-//todo
+[Serializable]
+[ExecutableEvent(typeof(HitDefSetEventExecute))]
 public class HitDefSetEvent : EventBase
 {
-
+    [SerializeField]
+    public HitDef HitDef;
 }
 
 [Serializable]
@@ -142,6 +148,12 @@ public class SkillConfig {
     [SerializeField]
     public List<VelSetEvent> VelSetEvents = new List<VelSetEvent>();
 
+    [SerializeField]
+    public List<ColliderSetEvent> ColliderSetEvents = new List<ColliderSetEvent>();
+
+    [SerializeField]
+    public List<HitDefSetEvent> HitDefSetEvents = new List<HitDefSetEvent>();
+
     public IEnumerable<EventBase> GetAllEvents()
     {
         List<EventBase> events = new List<EventBase>();
@@ -149,6 +161,8 @@ public class SkillConfig {
         foreach (var ae in FrictionSetEvents) events.Add(ae);
         foreach (var ae in TranslationEvents) events.Add(ae);
         foreach (var ae in VelSetEvents) events.Add(ae);
+        foreach (var ae in ColliderSetEvents) events.Add(ae);
+        foreach (var ae in HitDefSetEvents) events.Add(ae);
         for (int i = 0; i < events.Count; i++)
         {
             yield return events[i];
@@ -172,6 +186,14 @@ public class SkillConfig {
         if(e is VelSetEvent)
         {
             VelSetEvents.Add(e as VelSetEvent);
+        }
+        if (e is ColliderSetEvent)
+        {
+            ColliderSetEvents.Add(e as ColliderSetEvent);
+        }
+        if (e is HitDefSetEvent)
+        {
+            HitDefSetEvents.Add(e as HitDefSetEvent);
         }
     }
 }

@@ -5,16 +5,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class SkillPlayer : IBasicAblitity {
+public class SkillPlayer {
 
 	public bool IsEnd { get { return m_isEnd; } }
 	public bool IsStart { get { return m_isStart; } }
     public int NextSkillId { get { return m_nextSkillId; } }
 
-    public AnimComp m_animComp;
-    public MoveComp m_moveComp;
-	public InputComp m_inputComp;
-	public BehaviorSkillComp m_skillComp;
+    public IBasicAblitity m_basicAblitity;
 
     public SkillConfig m_skillConfig;
 
@@ -38,18 +35,16 @@ public class SkillPlayer : IBasicAblitity {
         m_nextSkillId = 0;
     }
 
-	/// <summary>
-	/// basic comp
-	/// </summary>
-	/// <param name="anim"></param>
-	/// <param name="move"></param>
-	public void Initialize(AnimComp anim,MoveComp move,InputComp input,BehaviorSkillComp skill)
-	{
-		m_moveComp = move;
-		m_animComp = anim;
-		m_inputComp = input;
-		m_skillComp = skill;
-	}
+    public void SetNextSkill(int id)
+    {
+        m_nextSkillId = id;
+    }
+
+    public void Initialize(EntityComp entity)
+    {
+        m_basicAblitity = new BasicAblitityIml();
+        (m_basicAblitity as BasicAblitityIml).Initialize(this, entity);
+    }
 
 	public void Setup(SkillConfig skillConfig)
 	{
@@ -62,7 +57,7 @@ public class SkillPlayer : IBasicAblitity {
     private void AddExecuteEvent(EventBase e, Type exeType)
     {
         var ee = Activator.CreateInstance(exeType) as EventExecuteBase;
-        ee.Initialize(this);
+        ee.Initialize(m_basicAblitity);
         ee.Setup(e);
         m_events.Add(ee);
 
@@ -153,8 +148,7 @@ public class SkillPlayer : IBasicAblitity {
 		m_skillConfig = null;
 		m_skillDuration = 0;
 		m_events.Clear();
-		m_animComp = null;
-		m_moveComp = null;
+
 	}
 
 	private void OnEnd()
@@ -163,45 +157,5 @@ public class SkillPlayer : IBasicAblitity {
 
     }
 
-    #region IBasicAbility
-    public void PlayAnim(string name)
-    {
-		m_animComp.PlayAnim(name);
-    }
-
-    public Vector2 GetVel()
-    {
-        return m_moveComp.VelPreferHorizon;
-    }
-
-    public void SetVelH(Vector2 vel)
-    {
-        m_moveComp.SetPreferVelHorizon(vel.x, vel.y);
-    }
-
-    public void SetAnimSpeed(float speed)
-    {
-		m_animComp.SetSpeed(speed);
-    }
-
-    public bool IsAttackingClick()
-    {
-		return m_inputComp.IsAttackClick;
-    }
-
-    public void PlaySkill(int id)
-    {
-        m_nextSkillId = id;
-    }
-
-    public Vector2 GetFacing()
-    {
-        return m_moveComp.Facing;
-    }
-
-    public void SetVelV(float v)
-    {
-        m_moveComp.SetPreferVelVertical(v);
-    }
-    #endregion
+   
 }

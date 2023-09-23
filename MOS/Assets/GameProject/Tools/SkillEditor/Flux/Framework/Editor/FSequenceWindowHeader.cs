@@ -168,7 +168,8 @@ namespace FluxEditor
                 }
                 if (isContain)
                 {
-                    skillComp.ForcePlaySkill(sequence.ID);
+                    if(skillComp.gameObject.activeSelf)
+                        skillComp.ForcePlaySkill(sequence.ID);
                 }
             }
             _sequenceWindow.GetSequenceEditor().Play();

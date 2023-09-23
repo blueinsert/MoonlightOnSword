@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface IBasicAblitity {
+    void SetHitDef(HitDef hitDef);
+
+    void SetCollider(string name, bool isEnable);
+
     void PlaySkill(int id);
 
     bool IsAttackingClick();

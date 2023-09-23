@@ -13,6 +13,8 @@ public class BehaviorSkillComp : ComponentBase
     public void Start()
     {
         m_skillsDesc = GetComponentInChildren<SkillsDesc>();
+
+        m_skillPlayer.Initialize(this.GetComp<EntityComp>());
     }
 
     public override void Tick()
@@ -50,11 +52,7 @@ public class BehaviorSkillComp : ComponentBase
     public bool TryPlaySkill(int id, int from = -1)
     {
         Debug.Log(string.Format("BehaviorSkillComp:TryPlaySkill {0}",id));
-        var move = this.GetComp<MoveComp>();
-        var anim = this.GetComp<AnimComp>();
-        var input = this.GetComp<InputComp>();
         var skillCfg = m_skillsDesc.GetSkillConfig(id);
-        m_skillPlayer.Initialize(anim, move, input, this);
         m_skillPlayer.Setup(skillCfg);
         m_skillPlayer.Start();
         return true;
@@ -64,11 +62,8 @@ public class BehaviorSkillComp : ComponentBase
     public void ForcePlaySkill(int id)
     {
         m_skillsDesc.RefreshSkills();
-        var move = this.GetComp<MoveComp>();
-        var anim = this.GetComp<AnimComp>();
-        var input = this.GetComp<InputComp>();
+       
         var skillCfg = m_skillsDesc.GetSkillConfig(id);
-        m_skillPlayer.Initialize(anim, move, input, this);
         m_skillPlayer.Setup(skillCfg);
         m_skillPlayer.Start();
     }

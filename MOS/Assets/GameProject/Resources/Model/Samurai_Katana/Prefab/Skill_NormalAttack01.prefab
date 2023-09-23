@@ -123,6 +123,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1621932490431158
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4048010382396988}
+  - component: {fileID: 114901043419405916}
+  m_Layer: 0
+  m_Name: FColliderSetEvent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1658507046454966
 GameObject:
   m_ObjectHideFlags: 1
@@ -150,6 +166,22 @@ GameObject:
   - component: {fileID: 114301882350894494}
   m_Layer: 0
   m_Name: FFrictionEvent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1865571655468326
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4425510201275280}
+  - component: {fileID: 114921672089469820}
+  m_Layer: 0
+  m_Name: Hit Def Set
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -186,6 +218,51 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1947494379641704
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4732741775958532}
+  - component: {fileID: 114509825435365936}
+  m_Layer: 0
+  m_Name: FHitDefSetEvent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1977931835006958
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4679441594542370}
+  - component: {fileID: 114140622419557444}
+  m_Layer: 0
+  m_Name: Collider Set
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4048010382396988
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1621932490431158}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4679441594542370}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4193200813116414
 Transform:
   m_ObjectHideFlags: 1
@@ -225,6 +302,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4853139865112304}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4425510201275280
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1865571655468326}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4732741775958532}
+  m_Father: {fileID: 4557813827951458}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4429801271772704
 Transform:
@@ -281,7 +372,36 @@ Transform:
   - {fileID: 4837591035955510}
   - {fileID: 4985976302501532}
   - {fileID: 4244872226007806}
+  - {fileID: 4679441594542370}
+  - {fileID: 4425510201275280}
   m_Father: {fileID: 4533439789048958}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4679441594542370
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1977931835006958}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4048010382396988}
+  m_Father: {fileID: 4557813827951458}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4732741775958532
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1947494379641704}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4425510201275280}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4756028437245850
@@ -376,6 +496,8 @@ MonoBehaviour:
   - {fileID: 114584548809450042}
   - {fileID: 114349880168544670}
   - {fileID: 114914472562837766}
+  - {fileID: 114140622419557444}
+  - {fileID: 114921672089469820}
 --- !u!114 &114094363600777606
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -396,6 +518,22 @@ MonoBehaviour:
   - Type: CMD
     Value: A
   To: 2
+--- !u!114 &114140622419557444
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1977931835006958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 107fd50c558ecab40833a36f3bda757a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 4
+  _container: {fileID: 114045262910289760}
+  _evtTypeStr: FColliderSetEvent
+  _events:
+  - {fileID: 114901043419405916}
 --- !u!114 &114301882350894494
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -445,6 +583,30 @@ MonoBehaviour:
   _evtTypeStr: FAnimEvent
   _events:
   - {fileID: 114013894215854960}
+--- !u!114 &114509825435365936
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1947494379641704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 626834b82697bc441b79950ef31538e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 0
+  _track: {fileID: 114921672089469820}
+  _frameRange:
+    _start: 13
+    _end: 24
+  HitDef:
+    Level: 0
+    ForceVDir: 0
+    P1HitPauseTime: 0
+    P2HitPauseTime: 0
+    HitBackHSpeed: 0
+    HitBackVSpeed: 0
+    HitRecoverTime: 0
 --- !u!114 &114584548809450042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -499,6 +661,24 @@ MonoBehaviour:
   VX: 0
   VY: 0
   VZ: 1.5
+--- !u!114 &114901043419405916
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1621932490431158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b7a985a74284e74a87efd2bb67f42b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 0
+  _track: {fileID: 114140622419557444}
+  _frameRange:
+    _start: 13
+    _end: 24
+  Name: Weapon
+  IsEnable: 1
 --- !u!114 &114914472562837766
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -515,3 +695,19 @@ MonoBehaviour:
   _evtTypeStr: FVelSetEvent
   _events:
   - {fileID: 114858690854205580}
+--- !u!114 &114921672089469820
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1865571655468326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae3c0e70b23a0049a92aeaa1cfb3f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 5
+  _container: {fileID: 114045262910289760}
+  _evtTypeStr: FHitDefSetEvent
+  _events:
+  - {fileID: 114509825435365936}

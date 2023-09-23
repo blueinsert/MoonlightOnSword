@@ -575,6 +575,7 @@ GameObject:
   - component: {fileID: 114282764780112692}
   - component: {fileID: 114363275644308044}
   - component: {fileID: 114929044779356250}
+  - component: {fileID: 114613394210376808}
   m_Layer: 0
   m_Name: KatanaPrefab
   m_TagString: Untagged
@@ -2506,10 +2507,6 @@ MonoBehaviour:
   m_isEnable: 1
   m_isDestroying: 0
   m_skillPlayer:
-    m_animComp: {fileID: 0}
-    m_moveComp: {fileID: 0}
-    m_inputComp: {fileID: 0}
-    m_skillComp: {fileID: 0}
     m_skillConfig:
       Name: 
       ID: 0
@@ -2517,6 +2514,8 @@ MonoBehaviour:
       FrictionSetEvents: []
       TranslationEvents: []
       VelSetEvents: []
+      ColliderSetEvents: []
+      HitDefSetEvents: []
     m_isStart: 0
     m_isEnd: 0
     m_skillDuration: 0
@@ -2590,6 +2589,27 @@ MonoBehaviour:
   m_speed: 0
   m_g: -9.7
   m_drawGizmons: 1
+--- !u!114 &114613394210376808
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1380573731349950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fb1c9aeeb0ba5d48806b3f4e41a265a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_isEnable: 1
+  m_isDestroying: 0
+  m_hitDef:
+    Level: 0
+    ForceVDir: 0
+    P1HitPauseTime: 0
+    P2HitPauseTime: 0
+    HitBackHSpeed: 0
+    HitBackVSpeed: 0
+    HitRecoverTime: 0
 --- !u!114 &114696105204943380
 MonoBehaviour:
   m_ObjectHideFlags: 1

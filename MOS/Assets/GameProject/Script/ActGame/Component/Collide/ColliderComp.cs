@@ -14,6 +14,9 @@ public class ColliderComp : ComponentBase {
     public List<AttackColliderDesc> m_attackColliders = new List<AttackColliderDesc>();
     public List<DefenseColliderDesc> m_defenseColliders = new List<DefenseColliderDesc>();
 
+    private Dictionary<string, AttackColliderDesc> m_attackColliderDic = new Dictionary<string, AttackColliderDesc>();
+    private Dictionary<string, DefenseColliderDesc> m_defenseColliderDic = new Dictionary<string, DefenseColliderDesc>();
+
     public List<ColliderTriggerInfo> m_cacheTriggerInfoList = new List<ColliderTriggerInfo>();
 
     public void Start()
@@ -32,6 +35,7 @@ public class ColliderComp : ComponentBase {
             c.Init();
             m_attackColliders.Add(c);
             c.gameObject.layer = campType == CampType.Player ? layerMask1 : layerMask2;
+            m_attackColliderDic.Add(c.gameObject.name, c);
         }
         foreach (var coll in m_collidersDesc.m_defenceBoxList)
         {
@@ -39,6 +43,7 @@ public class ColliderComp : ComponentBase {
             c.Init();
             m_defenseColliders.Add(c);
             c.gameObject.layer = campType == CampType.Player ? layerMask3 : layerMask4;
+            m_defenseColliderDic.Add(c.gameObject.name, c);
         }
     }
 
@@ -63,13 +68,18 @@ public class ColliderComp : ComponentBase {
         return m_cacheTriggerInfoList;
     }
 
-    public void EnableCollider(string name)
-    {
 
+    public void SetColliderEnable(string name,bool isEnable)
+    {
+        if (m_attackColliderDic.ContainsKey(name))
+        {
+            m_attackColliderDic[name].m_collider.enabled = isEnable;
+        }
+        if (m_defenseColliderDic.ContainsKey(name))
+        {
+            m_defenseColliderDic[name].m_collider.enabled = isEnable;
+        }
     }
 
-    public void DisableCollider(string name)
-    {
-
-    }
+    
 }
