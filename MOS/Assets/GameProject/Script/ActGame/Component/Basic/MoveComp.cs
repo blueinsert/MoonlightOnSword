@@ -47,6 +47,8 @@ public class MoveComp : ComponentBase
     [Header("重力加速度")]
     public float m_g = -9.7f;
     public bool m_drawGizmons = true;
+    //自驱移动：只能往前走，有转弯半径
+    public bool m_isInActive = true;
 
     public void Start()
     {
@@ -84,71 +86,67 @@ public class MoveComp : ComponentBase
 
     private void UpdateVelGround()
     {
+        Vector2 newVel = m_vel;
+        var speed = Mathf.Sqrt(m_vel.x * m_vel.x + m_vel.z * m_vel.z);
         var preferDir = m_hPreferVel.normalized;
         var preferSpeed = m_hPreferVel.magnitude;
-        if (Mathf.Abs(preferSpeed) > 0.001f)
+
+        if (m_isInActive)
         {
-            //lerp的思路
-            //var newFacingDir = MathUtil.VectorLerp(m_facingDir, preferDir, 0.5f);
-            //var newFacingDir = Vector2.Lerp(m_facingDir, preferDir, Time.deltaTime * 30f);//todo 球面插值
-            //if (newFacingDir.magnitude == 0)
-            //{
-            //    Debug.LogError(string.Format("{0} {1} {2} {3}", m_facingDir, preferDir, 0.5f, newFacingDir));
-            //}
-
-            //每帧旋转一定角度的思路
-            var newFacingDir = m_facingDir;
-            float angle = MathUtil.Vector2Angle(m_facingDir, preferDir);
-            var newRotateValue = 0.0f; 
-            //m_rotateValue = Mathf.Lerp(m_rotateValue, newRotateValue, Time.deltaTime * 40f);//rotate damp
-            if (Mathf.Abs(angle) > 5.1f)
+            if (Mathf.Abs(preferSpeed) > 0.001f)
             {
-                //旋转当前朝向得到新的朝向
-                float angleSpeed = 720f; //360f;//180 degree per second
-                var degreePerFrame = -Mathf.Sign(angle) * angleSpeed * Time.deltaTime;
-                var rotation = Quaternion.AngleAxis(degreePerFrame, Vector3.up);
-                var t = rotation * new Vector3(m_facingDir.x, 0, m_facingDir.y);
-                newFacingDir = new Vector2(t.x, t.z);
+                //lerp的思路
+                //var newFacingDir = MathUtil.VectorLerp(m_facingDir, preferDir, 0.5f);
+                //var newFacingDir = Vector2.Lerp(m_facingDir, preferDir, Time.deltaTime * 30f);//todo 球面插值
+                //if (newFacingDir.magnitude == 0)
+                //{
+                //    Debug.LogError(string.Format("{0} {1} {2} {3}", m_facingDir, preferDir, 0.5f, newFacingDir));
+                //}
 
-                newRotateValue = Mathf.Clamp(angle / 90f, -1, 1);
+                //每帧旋转一定角度的思路
+                var newFacingDir = m_facingDir;
+                float angle = MathUtil.Vector2Angle(m_facingDir, preferDir);
+                var newRotateValue = 0.0f;
+                //m_rotateValue = Mathf.Lerp(m_rotateValue, newRotateValue, Time.deltaTime * 40f);//rotate damp
+                if (Mathf.Abs(angle) > 5.1f)
+                {
+                    //旋转当前朝向得到新的朝向
+                    float angleSpeed = 720f; //360f;//180 degree per second
+                    var degreePerFrame = -Mathf.Sign(angle) * angleSpeed * Time.deltaTime;
+                    var rotation = Quaternion.AngleAxis(degreePerFrame, Vector3.up);
+                    var t = rotation * new Vector3(m_facingDir.x, 0, m_facingDir.y);
+                    newFacingDir = new Vector2(t.x, t.z);
+
+                    newRotateValue = Mathf.Clamp(angle / 90f, -1, 1);
+                }
+                else
+                {
+                    newRotateValue = 0;
+                }
+                m_rotateValue = newRotateValue;
+                m_facingDir = newFacingDir.normalized;
+
+            }
+           
+            var newSpeed = speed;
+            if (newSpeed < preferSpeed)
+            {
+                newSpeed += m_accler * Time.deltaTime;
+                newSpeed = Mathf.Clamp(newSpeed, 0, preferSpeed);
             }
             else
             {
-                newRotateValue = 0;
+                newSpeed += m_unaccler * Time.deltaTime;
+                newSpeed = Mathf.Clamp(newSpeed, 0, preferSpeed);
             }
-            m_rotateValue = newRotateValue;
-            m_facingDir = newFacingDir.normalized;
 
-        }
-        var speed = Mathf.Sqrt(m_vel.x * m_vel.x + m_vel.z * m_vel.z);
-        var newSpeed = speed;
-        if (newSpeed < preferSpeed)
-        {
-            newSpeed += m_accler * Time.deltaTime;
-            newSpeed = Mathf.Clamp(newSpeed, 0, preferSpeed);
+             newVel = m_facingDir * newSpeed;
         }
         else
         {
-            newSpeed += m_unaccler * Time.deltaTime;
-            newSpeed = Mathf.Clamp(newSpeed, 0, preferSpeed);
+            speed = preferSpeed;
+            newVel = preferSpeed * preferDir;
         }
-        //if (m_rotateValue != 0)
-        //{
-            //preferSpeed = Mathf.Min(preferSpeed, 2.5f);//转身时避免速度过大
-        //}
-        //var newSpeed = Mathf.Lerp(speed, preferSpeed, Time.deltaTime * 30f);//speed damp
-        var newVel = m_facingDir * newSpeed;
-        
-        /*
-        var frictionAccer = Mathf.Abs(m_g) * m_friction * (-new Vector2(m_vel.x, m_vel.z).normalized);
-        var hVelDelta = frictionAccer * Time.deltaTime;
-        if (hVelDelta.magnitude <= 0.1f)
-        {
-            hVelDelta = Vector2.zero;
-        }
-        newVel.x += hVelDelta.x;
-        newVel.y += hVelDelta.y;
-        */
         m_vel = new Vector3(newVel.x, m_vel.y, newVel.y);
         m_speed = speed;
     }

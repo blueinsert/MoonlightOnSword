@@ -7,7 +7,7 @@ public class HitDetectionSystem : SystemBase {
 
     private void TickHitDetection(HitDetectionComp comp)
     {
-        Debug.Log("TickHitDetection");
+        //Debug.Log("TickHitDetection");
         var colliderComp = comp.GetComp<ColliderComp>();
         if (comp.IsValid)
         {

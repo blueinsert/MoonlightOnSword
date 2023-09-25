@@ -11,6 +11,22 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1153705001397826}
   m_IsPrefabParent: 1
+--- !u!1 &1139830273617034
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4373796136499134}
+  - component: {fileID: 114390306578066884}
+  m_Layer: 0
+  m_Name: FVelSetEvent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1153705001397826
 GameObject:
   m_ObjectHideFlags: 0
@@ -22,22 +38,6 @@ GameObject:
   - component: {fileID: 114818659249799398}
   m_Layer: 0
   m_Name: GetHit
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1182182896393606
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4837591035955510}
-  - component: {fileID: 114584548809450042}
-  m_Layer: 0
-  m_Name: Friction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,15 +107,31 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1745660542999536
+--- !u!1 &1516452865291370
 GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4434432580464498}
-  - component: {fileID: 114301882350894494}
+  - component: {fileID: 4047954989777406}
+  - component: {fileID: 114180495196258696}
+  m_Layer: 0
+  m_Name: Friction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1622487043954416
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4549450237626474}
+  - component: {fileID: 114477796707900050}
   m_Layer: 0
   m_Name: FFrictionEvent
   m_TagString: Untagged
@@ -154,6 +170,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4047954989777406
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1516452865291370}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4549450237626474}
+  m_Father: {fileID: 4557813827951458}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4193200813116414
 Transform:
   m_ObjectHideFlags: 1
@@ -178,8 +208,22 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4193200813116414}
+  - {fileID: 4373796136499134}
   m_Father: {fileID: 4557813827951458}
-  m_RootOrder: 2
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4373796136499134
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1139830273617034}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4244872226007806}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4400032020865066
 Transform:
@@ -208,19 +252,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4434432580464498
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1745660542999536}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4837591035955510}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4533439789048958
 Transform:
   m_ObjectHideFlags: 1
@@ -235,6 +266,19 @@ Transform:
   m_Father: {fileID: 4429801271772704}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4549450237626474
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1622487043954416}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4047954989777406}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4557813827951458
 Transform:
   m_ObjectHideFlags: 1
@@ -246,24 +290,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4853139865112304}
-  - {fileID: 4837591035955510}
   - {fileID: 4244872226007806}
+  - {fileID: 4047954989777406}
   m_Father: {fileID: 4533439789048958}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4837591035955510
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1182182896393606}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4434432580464498}
-  m_Father: {fileID: 4557813827951458}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4853139865112304
 Transform:
@@ -313,25 +343,44 @@ MonoBehaviour:
   _color: {r: 0.14, g: 0.14, b: 0.14, a: 0.7}
   _tracks:
   - {fileID: 114457066995960846}
-  - {fileID: 114584548809450042}
   - {fileID: 114914472562837766}
---- !u!114 &114301882350894494
+  - {fileID: 114180495196258696}
+--- !u!114 &114180495196258696
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1745660542999536}
+  m_GameObject: {fileID: 1516452865291370}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83c1e748c82a8b647a7f57b1815ee4d2, type: 3}
+  m_Script: {fileID: 11500000, guid: c9e62bcbcc4687f4690f2ccb739adc6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 0
-  _track: {fileID: 114584548809450042}
+  _id: 2
+  _container: {fileID: 114045262910289760}
+  _evtTypeStr: FFrictionEvent
+  _events:
+  - {fileID: 114477796707900050}
+--- !u!114 &114390306578066884
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1139830273617034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5b4cc5c5f29fb4e8743451bf87637f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 1
+  _track: {fileID: 114914472562837766}
   _frameRange:
     _start: 36
     _end: 44
-  Value: 15
+  Relative: 1
+  VX: 0
+  VY: 0
+  VZ: 0
 --- !u!114 &114457066995960846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -348,22 +397,23 @@ MonoBehaviour:
   _evtTypeStr: FAnimEvent
   _events:
   - {fileID: 114013894215854960}
---- !u!114 &114584548809450042
+--- !u!114 &114477796707900050
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1182182896393606}
+  m_GameObject: {fileID: 1622487043954416}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9e62bcbcc4687f4690f2ccb739adc6c, type: 3}
+  m_Script: {fileID: 11500000, guid: 83c1e748c82a8b647a7f57b1815ee4d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 1
-  _container: {fileID: 114045262910289760}
-  _evtTypeStr: FFrictionEvent
-  _events:
-  - {fileID: 114301882350894494}
+  _id: 0
+  _track: {fileID: 114180495196258696}
+  _frameRange:
+    _start: 36
+    _end: 44
+  Value: 0
 --- !u!114 &114818659249799398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -401,7 +451,7 @@ MonoBehaviour:
   Relative: 1
   VX: 0
   VY: 0
-  VZ: -2
+  VZ: -1
 --- !u!114 &114914472562837766
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -413,8 +463,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7af7a346e829014eb96ddd2394ff0a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _id: 2
+  _id: 1
   _container: {fileID: 114045262910289760}
   _evtTypeStr: FVelSetEvent
   _events:
   - {fileID: 114858690854205580}
+  - {fileID: 114390306578066884}
