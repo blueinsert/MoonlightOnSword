@@ -22,4 +22,6 @@ public interface IBasicAblitity {
     void SetVelH(Vector2 vel);
 
     void SetVelV(float v);
+
+    void Initialize(EntityComp entity);
 }

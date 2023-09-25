@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillSequenceResourceContainer : MonoBehaviour {
+public class ResourceContainer : MonoBehaviour {
 
     [Serializable]
     public class AssetCacheItem
@@ -17,7 +17,19 @@ public class SkillSequenceResourceContainer : MonoBehaviour {
         public UnityEngine.Object RuntimeAssetCache;    // 运行期的资源缓存
     }
 
-    public void LoadSkill()
+    public UnityEngine.Object GetAsset(string name)
+    {
+        foreach(var item in AssetList)
+        {
+            if(item.Name == name)
+            {
+                return item.RuntimeAssetCache;
+            }
+        }
+        return null;
+    }
+
+    public void LoadAllResources()
     {
         foreach(var item in AssetList)
         {

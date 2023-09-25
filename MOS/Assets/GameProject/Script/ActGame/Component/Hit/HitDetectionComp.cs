@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HitDetectionComp : ComponentBase {
 
+    public bool IsValid { get { return m_isValid; } }
+
     public HitDef m_hitDef = null;
     public bool m_isValid = false;
 

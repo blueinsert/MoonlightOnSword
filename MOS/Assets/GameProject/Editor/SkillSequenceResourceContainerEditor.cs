@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(SkillSequenceResourceContainer))]
+[CustomEditor(typeof(ResourceContainer))]
 public class SkillSequenceResourceContainerEditor : Editor {
 
     void OnEnable()
     {
-        m_prefabResourceContainer = target as SkillSequenceResourceContainer;
+        m_prefabResourceContainer = target as ResourceContainer;
         RecordAssetList();
     }
 
@@ -75,6 +75,6 @@ public class SkillSequenceResourceContainerEditor : Editor {
         return false;
     }
 
-    private SkillSequenceResourceContainer m_prefabResourceContainer;
+    private ResourceContainer m_prefabResourceContainer;
     private List<UnityEngine.Object> m_assetList;
 }

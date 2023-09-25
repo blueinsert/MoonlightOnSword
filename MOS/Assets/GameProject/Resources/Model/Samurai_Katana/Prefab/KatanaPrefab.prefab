@@ -188,10 +188,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4530504188887764}
-  - component: {fileID: 114293084460092864}
-  - component: {fileID: 114953376787213362}
+  - component: {fileID: 114246100930532766}
+  - component: {fileID: 114088059685514450}
   m_Layer: 0
-  m_Name: SkillSquences
+  m_Name: GetHitSquences
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -576,6 +576,7 @@ GameObject:
   - component: {fileID: 114363275644308044}
   - component: {fileID: 114929044779356250}
   - component: {fileID: 114613394210376808}
+  - component: {fileID: 114208211168159450}
   m_Layer: 0
   m_Name: KatanaPrefab
   m_TagString: Untagged
@@ -929,6 +930,23 @@ GameObject:
   - component: {fileID: 4871784355895768}
   m_Layer: 0
   m_Name: BladeL_Bone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1722622566937064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4506651283591112}
+  - component: {fileID: 114293084460092864}
+  - component: {fileID: 114764072677728450}
+  m_Layer: 0
+  m_Name: SkillSquences
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1806,6 +1824,19 @@ Transform:
   m_Father: {fileID: 4843578495342390}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4506651283591112
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1722622566937064}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4817286332451620}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4514810959616464
 Transform:
   m_ObjectHideFlags: 1
@@ -1840,12 +1871,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1155537706252714}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4817286332451620}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4555628251717364
 Transform:
@@ -2187,8 +2218,9 @@ Transform:
   m_Children:
   - {fileID: 4661541381262354}
   - {fileID: 4795233762794278}
-  - {fileID: 4530504188887764}
+  - {fileID: 4506651283591112}
   - {fileID: 4882724452118518}
+  - {fileID: 4530504188887764}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2493,6 +2525,28 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114088059685514450
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1155537706252714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4d7a43fd45779540b66177666ee1988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_resourceContainer: {fileID: 0}
+  m_sequence: {fileID: 0}
+  m_bahaviorCfg:
+    Name: 
+    ID: 0
+    AnimEvents: []
+    FrictionSetEvents: []
+    TranslationEvents: []
+    VelSetEvents: []
+    ColliderSetEvents: []
+    HitDefSetEvents: []
 --- !u!114 &114176665693579020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2506,20 +2560,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_isEnable: 1
   m_isDestroying: 0
-  m_skillPlayer:
-    m_skillConfig:
-      Name: 
-      ID: 0
-      AnimEvents: []
-      FrictionSetEvents: []
-      TranslationEvents: []
-      VelSetEvents: []
-      ColliderSetEvents: []
-      HitDefSetEvents: []
-    m_isStart: 0
-    m_isEnd: 0
-    m_skillDuration: 0
   m_skillsDesc: {fileID: 0}
+--- !u!114 &114208211168159450
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1380573731349950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fb337ff5a73fcd4d8788074c99379f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_isEnable: 1
+  m_isDestroying: 0
+  m_desc: {fileID: 0}
+--- !u!114 &114246100930532766
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1155537706252714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc0a3525bfbce3f4289520572c83478e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AssetList:
+  - Name: GetHit
+    Asset: {fileID: 1153705001397826, guid: 377f96f4102f30a46b4db4dc6ecd66dd, type: 2}
+    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/GetHit.prefab
+    RuntimeAssetCache: {fileID: 0}
 --- !u!114 &114282764780112692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2540,7 +2611,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1155537706252714}
+  m_GameObject: {fileID: 1722622566937064}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbcd4d67198962c49b1b9d9d66277582, type: 3}
@@ -2610,6 +2681,7 @@ MonoBehaviour:
     HitBackHSpeed: 0
     HitBackVSpeed: 0
     HitRecoverTime: 0
+  m_isValid: 0
 --- !u!114 &114696105204943380
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2623,6 +2695,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_isEnable: 1
   m_isDestroying: 0
+--- !u!114 &114764072677728450
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1722622566937064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc0a3525bfbce3f4289520572c83478e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AssetList:
+  - Name: NA1
+    Asset: {fileID: 1153705001397826, guid: b6f7678113d13da439e4f2f741a999c0, type: 2}
+    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/Skill_NormalAttack01.prefab
+    RuntimeAssetCache: {fileID: 0}
+  - Name: NA2
+    Asset: {fileID: 1458345975188670, guid: db6d78c99ae12b744b5da46a870ca12a, type: 2}
+    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/Skill_NormalAttack02.prefab
+    RuntimeAssetCache: {fileID: 0}
+  - Name: NA3
+    Asset: {fileID: 1121695202583352, guid: 8127cf6e7e401d048a86b36c33fd51b6, type: 2}
+    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/Skill_NormalAttack03.prefab
+    RuntimeAssetCache: {fileID: 0}
+  - Name: NA4
+    Asset: {fileID: 1872181982023150, guid: 6606e6788a97de148a400f2f897b4a8c, type: 2}
+    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/Skill_NormalAttack04.prefab
+    RuntimeAssetCache: {fileID: 0}
 --- !u!114 &114787711192395388
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2703,34 +2803,6 @@ MonoBehaviour:
   m_collidersDesc: {fileID: 0}
   m_attackColliders: []
   m_defenseColliders: []
---- !u!114 &114953376787213362
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1155537706252714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af3dc2aa1b419d4438914d90f88da29d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AssetList:
-  - Name: NA1
-    Asset: {fileID: 1153705001397826, guid: b6f7678113d13da439e4f2f741a999c0, type: 2}
-    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/Skill_NormalAttack01.prefab
-    RuntimeAssetCache: {fileID: 0}
-  - Name: NA2
-    Asset: {fileID: 1458345975188670, guid: db6d78c99ae12b744b5da46a870ca12a, type: 2}
-    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/Skill_NormalAttack02.prefab
-    RuntimeAssetCache: {fileID: 0}
-  - Name: NA3
-    Asset: {fileID: 1121695202583352, guid: 8127cf6e7e401d048a86b36c33fd51b6, type: 2}
-    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/Skill_NormalAttack03.prefab
-    RuntimeAssetCache: {fileID: 0}
-  - Name: NA4
-    Asset: {fileID: 1872181982023150, guid: 6606e6788a97de148a400f2f897b4a8c, type: 2}
-    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/Skill_NormalAttack04.prefab
-    RuntimeAssetCache: {fileID: 0}
 --- !u!136 &136768558195300908
 CapsuleCollider:
   m_ObjectHideFlags: 1

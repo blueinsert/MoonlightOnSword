@@ -17,6 +17,11 @@ public class ActorCreator : MonoBehaviour {
         }
         go.name = "Actor_" + m_id;
         go.GetComponent<EntityComp>().CampType = this.m_campType;
+        var input = go.GetComponent<InputComp>();
+        if (input != null)
+        {
+            input.m_isEnable = m_campType == CampType.Player;
+        }
         Destroy(this.gameObject);
 	}
 }

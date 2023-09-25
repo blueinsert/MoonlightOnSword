@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,11 +11,9 @@ public class BasicAblitityIml : IBasicAblitity {
     public BehaviorSkillComp m_skillComp;
     public ColliderComp m_colliderComp;
     public HitDetectionComp m_hitDetectionComp;
-    public SkillPlayer m_skillPlayer;
 
-    public void Initialize(SkillPlayer skillPlayer, EntityComp entity)
+    public void Initialize(EntityComp entity)
     {
-        m_skillPlayer = skillPlayer;
         m_moveComp = entity.GetComp<MoveComp>();
         m_animComp = entity.GetComp<AnimComp>();
         m_inputComp = entity.GetComp<InputComp>();
@@ -49,9 +48,9 @@ public class BasicAblitityIml : IBasicAblitity {
         return m_inputComp.IsAttackClick;
     }
 
-    public void PlaySkill(int id)
+    public virtual void PlaySkill(int id)
     {
-        m_skillPlayer.SetNextSkill(id);
+        throw new NotImplementedException();
     }
 
     public Vector2 GetFacing()

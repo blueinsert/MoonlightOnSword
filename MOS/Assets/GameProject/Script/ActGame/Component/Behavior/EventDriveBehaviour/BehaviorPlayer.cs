@@ -1,70 +1,49 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public class SkillPlayer {
+public class BehaviorPlayer
+{
 
-	public bool IsEnd { get { return m_isEnd; } }
-	public bool IsStart { get { return m_isStart; } }
-    public int NextSkillId { get { return m_nextSkillId; } }
+    public bool IsPlaying { get { return m_isStart && !m_isEnd; } }
+    public bool IsEnd { get { return m_isEnd; } }
+    public bool IsStart { get { return m_isStart; } }
 
-    public IBasicAblitity m_basicAblitity;
+    protected IBasicAblitity m_basicAblitity;
 
-    public SkillConfig m_skillConfig;
 
     /// <summary>
     /// eventType - exeEvtType
     /// </summary>
-    private Dictionary<Type, Type> m_cacheExeTypeDic = new Dictionary<Type, Type>();
+    protected Dictionary<Type, Type> m_cacheExeTypeDic = new Dictionary<Type, Type>();
 
-	private List<EventExecuteBase> m_events = new List<EventExecuteBase>();
-	[SerializeField]
-	public bool m_isStart = false;
+    protected List<EventExecuteBase> m_events = new List<EventExecuteBase>();
+    [SerializeField]
+    public bool m_isStart = false;
     [SerializeField]
     public bool m_isEnd = false;
     [SerializeField]
-    public float m_skillDuration = 0f;
+    public float m_duration = 0f;
 
-    private int m_nextSkillId = 0;
 
-    public void ClearNextSkill()
-    {
-        m_nextSkillId = 0;
-    }
-
-    public void SetNextSkill(int id)
-    {
-        m_nextSkillId = id;
-    }
-
-    public void Initialize(EntityComp entity)
+    public virtual void Initialize(EntityComp entity)
     {
         m_basicAblitity = new BasicAblitityIml();
-        (m_basicAblitity as BasicAblitityIml).Initialize(this, entity);
+        m_basicAblitity.Initialize(entity);
     }
 
-	public void Setup(SkillConfig skillConfig)
-	{
-		m_skillConfig = skillConfig;
-		InitEventExecuterListFromCfg();
-		m_isStart = false;
-		m_isEnd = false;
-    }
-
-    private void AddExecuteEvent(EventBase e, Type exeType)
+    protected void AddExecuteEvent(EventBase e, Type exeType)
     {
         var ee = Activator.CreateInstance(exeType) as EventExecuteBase;
         ee.Initialize(m_basicAblitity);
         ee.Setup(e);
         m_events.Add(ee);
 
-        m_skillDuration = Mathf.Max(m_skillDuration, ee.m_endTime);
+        m_duration = Mathf.Max(m_duration, ee.m_endTime);
     }
 
-    private Type GetExeEvtType(Type evtType)
+    protected Type GetExeEvtType(Type evtType)
     {
         if (m_cacheExeTypeDic.ContainsKey(evtType))
         {
@@ -86,10 +65,10 @@ public class SkillPlayer {
         return null;
     }
 
-	private void InitEventExecuterListFromCfg()
-	{
-		m_events.Clear();
-        foreach(var evt in m_skillConfig.GetAllEvents())
+    public void Setup(List<EventBase> events)
+    {
+        m_events.Clear();
+        foreach (var evt in events)
         {
             var exeType = GetExeEvtType(evt.GetType());
             if (exeType != null)
@@ -97,14 +76,16 @@ public class SkillPlayer {
                 AddExecuteEvent(evt, exeType);
             }
         }
-	}
+        m_isStart = false;
+        m_isEnd = false;
+    }
 
-	public void Start()
-	{
+    public void Start()
+    {
         Debug.Log("SkillPlayer:Start");
         m_isStart = true;
         m_isEnd = false;
-	}
+    }
 
     public void Stop()
     {
@@ -118,44 +99,41 @@ public class SkillPlayer {
 
     private void TickEvents(float deltaTime)
     {
-		bool isAllEnd = true;
+        bool isAllEnd = true;
         foreach (var ae in m_events)
         {
             ae.Tick(deltaTime);
-			if (!ae.IsEnd)
-				isAllEnd = false;
+            if (!ae.IsEnd)
+                isAllEnd = false;
         }
-		if (!m_isEnd && isAllEnd)
-		{
-			OnEnd();
-		}
-		m_isEnd = isAllEnd;
+        if (!m_isEnd && isAllEnd)
+        {
+            OnEnd();
+        }
+        m_isEnd = isAllEnd;
     }
 
     public void Tick()
-	{
-		if (!m_isStart || m_isEnd)
-			return;
-		var deltaTime = TimeManger.Instance.DeltaTime;
-		TickEvents(deltaTime);
+    {
+        if (!m_isStart || m_isEnd)
+            return;
+        var deltaTime = TimeManger.Instance.DeltaTime;
+        TickEvents(deltaTime);
 
     }
 
-	private void Clear()
-	{
-		m_isStart = false;
-		m_isEnd = false;
-		m_skillConfig = null;
-		m_skillDuration = 0;
-		m_events.Clear();
-
-	}
-
-	private void OnEnd()
-	{
-		Clear();
-
+    protected virtual void Clear()
+    {
+        m_isStart = false;
+        m_isEnd = false;
+        m_duration = 0;
+        m_events.Clear();
     }
 
-   
+    private void OnEnd()
+    {
+        Clear();
+    }
+
+
 }

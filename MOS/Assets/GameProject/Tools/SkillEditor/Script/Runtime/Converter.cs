@@ -30,10 +30,36 @@ public static class Converter {
         }
     }
     */
+    public static BehaviorConfig ToBehaviorConfig(this FSequence sequence)
+    {
+        BehaviorConfig skillConfig = new BehaviorConfig();
+        skillConfig.ID = sequence.ID;
+        skillConfig.Name = sequence.name;
+
+        foreach (var container in sequence.Containers)
+        {
+            foreach (var track in container.Tracks)
+            {
+                if (track.enabled)
+                {
+                    foreach (var evt in track.Events)
+                    {
+                        var ds = evt.ToDS();
+                        if (ds != null && ds is EventBase)
+                        {
+                            skillConfig.AddEvent(ds as EventBase);
+                        }
+                    }
+                }
+            }
+        }
+
+        return skillConfig;
+    }
 
     public static SkillConfig ToSkillConfig(this FSequence sequence)
 	{
-		SkillConfig skillConfig = new SkillConfig();
+        SkillConfig skillConfig = new SkillConfig();
 		skillConfig.ID = sequence.ID;
 		skillConfig.Name = sequence.name;
 

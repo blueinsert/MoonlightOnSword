@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BehaviorSkillComp : ComponentBase
 {
-    public bool IsPlaying { get { return m_skillPlayer.IsStart && !m_skillPlayer.IsEnd; } }
+    public bool IsPlaying { get { return m_skillPlayer.IsPlaying; } }
 
     public SkillPlayer m_skillPlayer = new SkillPlayer();
 
