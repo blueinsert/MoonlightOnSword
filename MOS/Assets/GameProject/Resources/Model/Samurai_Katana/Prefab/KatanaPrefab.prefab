@@ -579,6 +579,7 @@ GameObject:
   - component: {fileID: 114208211168159450}
   - component: {fileID: 114343736187572530}
   - component: {fileID: 114557063301679758}
+  - component: {fileID: 114610864438752578}
   m_Layer: 0
   m_Name: KatanaPrefab
   m_TagString: Untagged
@@ -2564,6 +2565,7 @@ MonoBehaviour:
   m_isDestroying: 0
   m_skillsDesc: {fileID: 0}
   m_hitResponseComp: {fileID: 0}
+  m_autoTrack: 1
 --- !u!114 &114208211168159450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2586,6 +2588,7 @@ MonoBehaviour:
     HitBackHSpeed: 0
     HitBackVSpeed: 0
     HitRecoverTime: 0
+  m_hitPauseComp: {fileID: 0}
 --- !u!114 &114246100930532766
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2700,6 +2703,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_isEnable: 1
   m_isDestroying: 0
+--- !u!114 &114610864438752578
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1380573731349950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb4cfdf0184ccc4fb6069184a58f84c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_isEnable: 1
+  m_isDestroying: 0
+  m_startFrame: 0
+  m_endFrame: 0
 --- !u!114 &114613394210376808
 MonoBehaviour:
   m_ObjectHideFlags: 1

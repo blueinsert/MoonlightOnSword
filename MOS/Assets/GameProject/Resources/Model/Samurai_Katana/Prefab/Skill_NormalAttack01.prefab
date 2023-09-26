@@ -597,14 +597,14 @@ MonoBehaviour:
   _id: 0
   _track: {fileID: 114921672089469820}
   _frameRange:
-    _start: 13
+    _start: 10
     _end: 24
   HitDef:
     Level: 0
     ForceVDir: 0
-    P1HitPauseTime: 3
-    P2HitPauseTime: 0
-    HitBackHSpeed: 2
+    P1HitPauseTime: 4
+    P2HitPauseTime: 9
+    HitBackHSpeed: 1
     HitBackVSpeed: 0
     HitRecoverTime: 0
 --- !u!114 &114584548809450042
@@ -675,7 +675,7 @@ MonoBehaviour:
   _id: 0
   _track: {fileID: 114140622419557444}
   _frameRange:
-    _start: 13
+    _start: 10
     _end: 24
   Name: Weapon
   IsEnable: 1
