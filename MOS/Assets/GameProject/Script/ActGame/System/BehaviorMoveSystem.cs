@@ -31,7 +31,7 @@ public class BehaviorMoveSystem : SystemBase
             var preferDir = forward * inputDir.y + left * inputDir.x;
             preferDir = preferDir.normalized;
             var preferVel = preferDir * speed * inputDir.magnitude;
-            move.SetPreferVelHorizon(preferVel.x, preferVel.z);
+            move.SetPreferVelHorizon(preferVel.x, preferVel.z, true);
 
             anim.Walk(move.Speed, move.RotateValue);
         }

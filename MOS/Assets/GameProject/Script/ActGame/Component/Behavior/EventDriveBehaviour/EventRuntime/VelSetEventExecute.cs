@@ -33,9 +33,13 @@ public class VelSetEventExecute : EventExecuteBase
             var right = Vector3.Cross(front, Vector3.up).normalized;
             var up = Vector3.up;
             var vel = front * m_e.VZ + right * m_e.VX + up * m_e.VY;
-            m_basicAblity.SetVelH(new Vector2(vel.x,vel.z));
+            m_basicAblity.SetVelH(new Vector2(vel.x,vel.z), true);
             m_basicAblity.SetVelV(vel.y);
 
+        }else if(m_e.Relative == VelRelativeType.FromHit)
+        {
+            m_basicAblity.SetVelH(new Vector2(m_e.VX, m_e.VZ), false);
+            m_basicAblity.SetVelV(m_e.VY);
         }
     }
 }

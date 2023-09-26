@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface IBasicAblitity {
+    void FreezeAnim();
+    void UnFreezeAnim();
+
+    void EnableMove();
+    void DisableMove();
+
+
     void SetHitDef(HitDef hitDef);
 
     void SetCollider(string name, bool isEnable);
@@ -19,7 +26,7 @@ public interface IBasicAblitity {
 
     Vector2 GetFacing();
 
-    void SetVelH(Vector2 vel);
+    void SetVelH(Vector2 vel,bool? isSelfDrive = null);
 
     void SetVelV(float v);
 

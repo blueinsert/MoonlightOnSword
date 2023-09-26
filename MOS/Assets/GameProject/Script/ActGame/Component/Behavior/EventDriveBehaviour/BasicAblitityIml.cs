@@ -33,9 +33,9 @@ public class BasicAblitityIml : IBasicAblitity {
         return m_moveComp.VelPreferHorizon;
     }
 
-    public void SetVelH(Vector2 vel)
+    public void SetVelH(Vector2 vel, bool? isSelfDrive)
     {
-        m_moveComp.SetPreferVelHorizon(vel.x, vel.y);
+        m_moveComp.SetPreferVelHorizon(vel.x, vel.y, isSelfDrive);
     }
 
     public void SetAnimSpeed(float speed)
@@ -71,6 +71,26 @@ public class BasicAblitityIml : IBasicAblitity {
     public void SetHitDef(HitDef hitDef)
     {
         m_hitDetectionComp.SetHitDef(hitDef);
+    }
+
+    public void FreezeAnim()
+    {
+        m_animComp.Freeze();
+    }
+
+    public void UnFreezeAnim()
+    {
+        m_animComp.UnFreeze();
+    }
+
+    public void EnableMove()
+    {
+        m_moveComp.m_isEnable = true;
+    }
+
+    public void DisableMove()
+    {
+        m_moveComp.m_isEnable = false;
     }
     #endregion
 }

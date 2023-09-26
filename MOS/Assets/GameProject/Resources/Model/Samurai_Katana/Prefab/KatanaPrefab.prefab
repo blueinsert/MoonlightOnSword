@@ -577,6 +577,8 @@ GameObject:
   - component: {fileID: 114929044779356250}
   - component: {fileID: 114613394210376808}
   - component: {fileID: 114208211168159450}
+  - component: {fileID: 114343736187572530}
+  - component: {fileID: 114557063301679758}
   m_Layer: 0
   m_Name: KatanaPrefab
   m_TagString: Untagged
@@ -2561,6 +2563,7 @@ MonoBehaviour:
   m_isEnable: 1
   m_isDestroying: 0
   m_skillsDesc: {fileID: 0}
+  m_hitResponseComp: {fileID: 0}
 --- !u!114 &114208211168159450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2575,6 +2578,14 @@ MonoBehaviour:
   m_isEnable: 1
   m_isDestroying: 0
   m_desc: {fileID: 0}
+  m_hitDef:
+    Level: 0
+    ForceVDir: 0
+    P1HitPauseTime: 0
+    P2HitPauseTime: 0
+    HitBackHSpeed: 0
+    HitBackVSpeed: 0
+    HitRecoverTime: 0
 --- !u!114 &114246100930532766
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2619,6 +2630,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_skillContainer: {fileID: 0}
   m_skillList: []
+--- !u!114 &114343736187572530
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1380573731349950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 243b0b6133d141f4fa1b21b97d6a0a21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_isEnable: 1
+  m_isDestroying: 0
+  m_startFrame: 0
+  m_endFrame: 0
 --- !u!114 &114363275644308044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2660,6 +2686,20 @@ MonoBehaviour:
   m_speed: 0
   m_g: -9.7
   m_drawGizmons: 1
+  m_isSelfDrive: 1
+--- !u!114 &114557063301679758
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1380573731349950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c306054fd46af48927f26fa4754e1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_isEnable: 1
+  m_isDestroying: 0
 --- !u!114 &114613394210376808
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2756,6 +2796,7 @@ MonoBehaviour:
   m_isEnable: 1
   m_isDestroying: 0
   m_animator: {fileID: 0}
+  m_lastSpeed: 1
 --- !u!114 &114920105532311648
 MonoBehaviour:
   m_ObjectHideFlags: 1

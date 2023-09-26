@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BehaviorPlayer
 {
-
+    public IBasicAblitity BaiscAblitity { get { return m_basicAblitity; } }
     public bool IsPlaying { get { return m_isStart && !m_isEnd; } }
     public bool IsEnd { get { return m_isEnd; } }
     public bool IsStart { get { return m_isStart; } }

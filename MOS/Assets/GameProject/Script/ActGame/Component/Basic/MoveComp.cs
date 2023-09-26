@@ -48,7 +48,7 @@ public class MoveComp : ComponentBase
     public float m_g = -9.7f;
     public bool m_drawGizmons = true;
     //自驱移动：只能往前走，有转弯半径
-    public bool m_isInActive = true;
+    public bool m_isSelfDrive = true;
 
     public void Start()
     {
@@ -66,10 +66,12 @@ public class MoveComp : ComponentBase
 
     #region 外部接口
 
-    public void SetPreferVelHorizon(float vX, float vZ)
+    public void SetPreferVelHorizon(float vX, float vZ, bool? isSelfDrive = null)
     {
         m_hPreferVel.x = vX;
         m_hPreferVel.y = vZ;
+        if(isSelfDrive != null)
+            m_isSelfDrive = isSelfDrive.Value;
     }
 
     public void SetPreferVelVertical(float vY)
@@ -91,7 +93,7 @@ public class MoveComp : ComponentBase
         var preferDir = m_hPreferVel.normalized;
         var preferSpeed = m_hPreferVel.magnitude;
 
-        if (m_isInActive)
+        if (m_isSelfDrive)
         {
             if (Mathf.Abs(preferSpeed) > 0.001f)
             {
@@ -175,6 +177,13 @@ public class MoveComp : ComponentBase
     void UpdateIsOnGround()
     {
         m_isOnGround = m_cc.isGrounded;
+    }
+
+    public void LookAt(Vector3 targetPos)
+    {
+        var dir = (targetPos - this.transform.position).normalized;
+        m_facingDir = new Vector2(dir.x, dir.z).normalized;
+        this.transform.LookAt(this.transform.position + new Vector3(m_facingDir.x, 0, m_facingDir.y) * 3f);
     }
 
     public override void Tick()

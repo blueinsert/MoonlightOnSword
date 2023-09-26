@@ -6,6 +6,7 @@ public class AnimComp : ComponentBase {
 
 	public Animator m_animator;
 
+	public float m_lastSpeed = 1;
 
 	public void Start()
 	{
@@ -46,12 +47,13 @@ public class AnimComp : ComponentBase {
 
 	public void Freeze()
 	{
-		m_animator.speed = 0;
+		m_lastSpeed = m_animator.speed;
+        m_animator.speed = 0;
 	}
 
 	public void UnFreeze()
 	{
-		m_animator.speed = 1;
+		m_animator.speed = m_lastSpeed;
 	}
 
 }

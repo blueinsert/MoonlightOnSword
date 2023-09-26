@@ -39,6 +39,7 @@ public enum VelRelativeType
 {
     World,
     Local,
+    FromHit,
 }
 
 [ExecutableEvent(typeof(VelSetEventExecute))]

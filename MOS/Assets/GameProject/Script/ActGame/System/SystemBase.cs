@@ -19,16 +19,21 @@ public abstract class SystemBase : BehaviourBase{
 
     public override void Tick()
     {
-        foreach(var comp in m_compList)
-        {
-            if(comp.IsEnable)
-                comp.Tick();
-        }
-        foreach(var comp in m_newAdds)
+        OnTick();
+        foreach (var comp in m_newAdds)
         {
             m_compList.Add(comp);
         }
         m_newAdds.Clear();
+    }
+
+    protected virtual void OnTick()
+    {
+        foreach (var comp in m_compList)
+        {
+            if (comp.IsEnable)
+                comp.Tick();
+        }
     }
 
     public void AddComp(ComponentBase comp)

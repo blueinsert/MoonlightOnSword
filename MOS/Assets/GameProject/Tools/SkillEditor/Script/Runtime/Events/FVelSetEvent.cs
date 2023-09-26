@@ -7,13 +7,17 @@ using Flux;
 public class FVelSetEvent : FEvent {
 
     [SerializeField]
+    [HideInInspector]
     public VelRelativeType Relative;
+    [HideInInspector]
     [SerializeField]
-    public float VX;
+    private float VX;
     [SerializeField]
-    public float VY;
+    [HideInInspector]
+    private float VY;
     [SerializeField]
-    public float VZ;
+    [HideInInspector]
+    private float VZ;
 
     public override object ToDS()
     {

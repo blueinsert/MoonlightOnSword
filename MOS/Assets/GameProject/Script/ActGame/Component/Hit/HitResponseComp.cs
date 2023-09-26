@@ -7,5 +7,19 @@ using UnityEngine;
 /// </summary>
 public class HitResponseComp : ComponentBase {
 
-	
+	public int m_startFrame;
+	public int m_endFrame;
+
+	public bool IsInPause()
+	{
+		var cur = TimeManger.Instance.Frame;
+		return cur >= m_startFrame && cur <= m_endFrame;
+    }
+
+	public void StartPause(int pauseTime)
+	{
+		m_startFrame = TimeManger.Instance.Frame;
+		m_endFrame = m_startFrame + pauseTime;
+
+    }
 }

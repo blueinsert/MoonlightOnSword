@@ -16,7 +16,7 @@ public class ActGame : MonoBehaviour {
     //compType - compIns
     private Dictionary<object, Dictionary<Type, ComponentBase>> m_compInsDic = new Dictionary<object, Dictionary<Type, ComponentBase>>();
 	//compType - systemIns
-	private Dictionary<Type, SystemBase> m_systemDic = new Dictionary<Type, SystemBase>();
+	private List<KeyValuePair<Type, SystemBase>> m_systemDic = new List<KeyValuePair<Type, SystemBase>>();
 
     private List<SystemBase> m_systemList = new List<SystemBase>();
 
@@ -39,7 +39,7 @@ public class ActGame : MonoBehaviour {
 		//Debug.Log(string.Format("ActGame:RegisterSystem {0} success,care comp type:{1}", system.GetType().Name, caredCompType.Name));
 		foreach(var type in caredCompTypes)
 		{
-            m_systemDic.Add(type, system);
+            m_systemDic.Add(new KeyValuePair<Type, SystemBase>(type, system));
         }
         m_systemList.Add(system);
 	}
@@ -54,15 +54,13 @@ public class ActGame : MonoBehaviour {
         }
 		m_compInsDic[owner].Add(type, comp);
 
-		if (m_systemDic.ContainsKey(type))
+		foreach(var pair in m_systemDic)
 		{
-			var system = m_systemDic[type];
-			system.AddComp(comp);
-        }
-        else
-        {
-            Debug.LogWarning(string.Format("ActGame:RegisterComponent the comp {0} is not add to any system!", type.Name));
-        }
+			if(pair.Key == type)
+			{
+				pair.Value.AddComp(comp);
+			}
+		}
     }
 
     public T GetComp<T>(object owner) where T : ComponentBase
