@@ -42,6 +42,7 @@ public class PushSystem : SystemBase
                         ProcessCollidePair(pair);
                     }
                 }
+                pushComp.ClearCollidePairs();
             }
             
         }

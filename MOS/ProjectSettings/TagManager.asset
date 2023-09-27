@@ -20,8 +20,8 @@ TagManager:
   - EnemyAttackCollider
   - PlayerDefenseCollider
   - EnemyDefenseCollider
-  - OccupyCollider
-  - 
+  - PushCollider
+  - Entity
   - 
   - 
   - 

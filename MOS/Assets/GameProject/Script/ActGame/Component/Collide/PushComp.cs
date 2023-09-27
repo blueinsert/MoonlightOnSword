@@ -13,7 +13,7 @@ public class PushCollidePair
 
 public class PushComp : ComponentBase
 {
-    public CharacterController m_cc;
+    CollidersDesc m_collidersDesc = null;
     public PushColliderDesc m_pushColliderDesc;
     public float m_radius = 1f;
 
@@ -21,14 +21,20 @@ public class PushComp : ComponentBase
 
     public void Start()
     {
-        m_cc = this.GetComponentInChildren<CharacterController>();
-        m_radius = m_cc.radius;
+        m_collidersDesc = this.GetComponentInChildren<CollidersDesc>();
+        if (m_collidersDesc.m_pushCollider == null)
+        {
+            m_isEnable = false;
+            return;
+        }
+        var pushCollider = m_collidersDesc.m_pushCollider;
+        m_radius = pushCollider.radius;
 
-        var layerMask5 = LayerMask.NameToLayer("OccupyCollider");
+        var layerMask = LayerMask.NameToLayer("PushCollider");
 
-        m_cc.gameObject.layer = layerMask5;
+        pushCollider.gameObject.layer = layerMask;
 
-        m_pushColliderDesc = m_cc.gameObject.AddComponent<PushColliderDesc>();
+        m_pushColliderDesc = pushCollider.gameObject.AddComponent<PushColliderDesc>();
         m_pushColliderDesc.Init();
 
         for(int i=0;i< PushColliderDesc.MaxNeighborCount; i++)
@@ -58,6 +64,11 @@ public class PushComp : ComponentBase
         }
         len = count;
         return m_cacheCollidePair;
+    }
+
+    public void ClearCollidePairs()
+    {
+        m_pushColliderDesc.ClearTriggersInfo();
     }
 }
 

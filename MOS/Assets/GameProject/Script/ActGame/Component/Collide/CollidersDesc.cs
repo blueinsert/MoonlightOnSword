@@ -15,6 +15,7 @@ public class CollidersDesc : MonoBehaviour {
     /// 占据一定空间，会和其他occupyBox发生推挤
     /// </summary>
     //public List<Collider> m_occupyBoxList = new List<Collider>();
+    public CapsuleCollider m_pushCollider = null;
 
     public void Awake()
     {
