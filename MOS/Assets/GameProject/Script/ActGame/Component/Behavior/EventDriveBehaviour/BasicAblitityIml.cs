@@ -23,7 +23,7 @@ public class BasicAblitityIml : IBasicAblitity {
     }
 
     #region IBasicAbility
-    public void PlayAnim(string name)
+    public void PlayAnim(string name,bool useTrigger)
     {
         m_animComp.PlayAnim(name);
     }

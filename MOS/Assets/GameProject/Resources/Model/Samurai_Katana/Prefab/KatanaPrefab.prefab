@@ -580,6 +580,7 @@ GameObject:
   - component: {fileID: 114343736187572530}
   - component: {fileID: 114557063301679758}
   - component: {fileID: 114610864438752578}
+  - component: {fileID: 114152984434082934}
   m_Layer: 0
   m_Name: KatanaPrefab
   m_TagString: Untagged
@@ -695,7 +696,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1450352848695652
 GameObject:
   m_ObjectHideFlags: 1
@@ -2464,7 +2465,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1446763662718646}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2550,6 +2551,21 @@ MonoBehaviour:
     VelSetEvents: []
     ColliderSetEvents: []
     HitDefSetEvents: []
+--- !u!114 &114152984434082934
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1380573731349950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c0f2eb6347ce9469ff416d08ecb902, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_isEnable: 1
+  m_isDestroying: 0
+  m_cc: {fileID: 0}
+  m_pushColliderDesc: {fileID: 0}
 --- !u!114 &114176665693579020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2589,6 +2605,8 @@ MonoBehaviour:
     HitBackVSpeed: 0
     HitRecoverTime: 0
   m_hitPauseComp: {fileID: 0}
+  m_time: 0
+  m_hitPuaseStartTime: -1
 --- !u!114 &114246100930532766
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2842,10 +2860,6 @@ MonoBehaviour:
   - {fileID: 65278950465063164}
   m_defenceBoxList:
   - {fileID: 136768558195300908}
-  - {fileID: 143488660633848808}
-  m_occupyBoxList:
-  - {fileID: 136768558195300908}
-  - {fileID: 143488660633848808}
 --- !u!114 &114929044779356250
 MonoBehaviour:
   m_ObjectHideFlags: 1

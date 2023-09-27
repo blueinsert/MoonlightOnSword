@@ -23,24 +23,17 @@ public class AnimComp : ComponentBase {
         m_animator.speed = speed;
     }
 
-	public void PlayAnim(string animName, float speed = 1.0f, float transDuration = 0.02f)
+	public void PlayAnim(string animName, bool useTrigger = false)
 	{
-        if(animName == "GetHit")
+        if(useTrigger)
         {
-            GetHit();
+            m_animator.SetTrigger("animName");
         }
         else
         {
             m_animator.Play(animName);
         }
-		//m_animator.CrossFade(animName, transDuration);
 	}
-
-    public void GetHit()
-    {
-        Debug.Log("AnimComp:GetHit");
-        m_animator.SetTrigger("BeHit");
-    }
 
 	public void PlayAnimFrom(string animName, float normalizedTime = 0f)
 	{

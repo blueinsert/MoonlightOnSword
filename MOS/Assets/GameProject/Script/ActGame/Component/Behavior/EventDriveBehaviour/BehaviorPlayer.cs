@@ -27,6 +27,18 @@ public class BehaviorPlayer
     public float m_duration = 0f;
 
 
+    public T GetEvent<T>() where T: EventExecuteBase
+    {
+        foreach(var evt in m_events)
+        {
+            if(evt is T)
+            {
+                return evt as T;
+            }
+        }
+        return null;
+    }
+
     public virtual void Initialize(EntityComp entity)
     {
         m_basicAblitity = new BasicAblitityIml();

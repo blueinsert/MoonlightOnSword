@@ -19,8 +19,8 @@ public class FAnimEventInspector : FEventInspector
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        EditorGUILayout.PropertyField(m_animName);
-        serializedObject.ApplyModifiedProperties();
+        //EditorGUILayout.PropertyField(m_animName);
+        //serializedObject.ApplyModifiedProperties();
     }
 
 }

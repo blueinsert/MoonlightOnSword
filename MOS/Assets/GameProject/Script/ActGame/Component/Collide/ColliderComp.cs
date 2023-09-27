@@ -25,6 +25,7 @@ public class ColliderComp : ComponentBase {
         var layerMask2 = LayerMask.NameToLayer("EnemyAttackCollider");
         var layerMask3 = LayerMask.NameToLayer("PlayerDefenseCollider");
         var layerMask4 = LayerMask.NameToLayer("EnemyDefenseCollider");
+       
         m_collidersDesc = this.GetComponentInChildren<CollidersDesc>();
         var entityComp = GetComp<EntityComp>();
         var campType = entityComp.CampType;

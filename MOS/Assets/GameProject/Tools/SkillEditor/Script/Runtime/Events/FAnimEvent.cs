@@ -8,19 +8,22 @@ using Flux;
 public class FAnimEvent : FEvent {
 
     [SerializeField]
-    [HideInInspector]
-    private string Anim;
+    public string Anim;
     /// <summary>
     /// 原始长度
     /// </summary>
     [SerializeField]
     public float OriginLen;
 
+    [SerializeField]
+    public bool IsUseTrigger = false;
+
     public override object ToDS()
     {
         AnimEvent ae = new AnimEvent();
         ae.Anim = Anim;
         ae.OriginLen = this.OriginLen;
+        ae.IsUseTrigger = this.IsUseTrigger;
         ae.StartTime = this.FrameRange.Start / 60f;
         ae.EndTime = this.FrameRange.End / 60f;
         return ae;

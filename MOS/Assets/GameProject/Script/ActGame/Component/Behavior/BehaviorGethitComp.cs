@@ -17,9 +17,12 @@ public class BehaviorGethitComp : ComponentBase {
 
     public HitPauseComp m_hitPauseComp = null;
 
+    public AnimEventExecute m_animEventExecute = null;
+
     private bool m_isInHitPauseing = false;
 
     public int m_time = 0;
+    public int m_hitPuaseStartTime = -1;
 
     public void Start()
     {
@@ -66,12 +69,12 @@ public class BehaviorGethitComp : ComponentBase {
         
         m_player.Setup(evts);
 
+        m_animEventExecute = m_player.GetEvent<AnimEventExecute>();
+
         m_player.Start();
 
-        var anim = GetComp<AnimComp>();
-        anim.GetHit();
-
         m_time = 0;
+        m_hitPuaseStartTime = -1;
     }
 
     private void OnHitPauseStart()
@@ -92,7 +95,11 @@ public class BehaviorGethitComp : ComponentBase {
         if (!m_player.IsPlaying)
             return;
         m_time++;
-        if (m_time == 2)
+        if (m_animEventExecute != null && m_animEventExecute.IsStart && m_hitPuaseStartTime==-1)
+        {
+            m_hitPuaseStartTime = m_time + 1;
+        }
+        if(m_time == m_hitPuaseStartTime)
         {
             //延迟开始暂停
             if (m_hitDef.P2HitPauseTime > 0 && m_hitPauseComp != null)

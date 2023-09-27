@@ -33,6 +33,9 @@ public class AnimEvent : EventBase
     [SerializeField]
     public float OriginLen;
 
+    [SerializeField]
+    public bool IsUseTrigger = false;
+
 }
 
 public enum VelRelativeType

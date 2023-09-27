@@ -6,8 +6,9 @@ using UnityEngine;
 public abstract class EventExecuteBase  {
 
 	public bool IsEnd { get { return m_isEnd; } }
+    public bool IsStart { get { return m_isStart; } }
 
-	public float m_time = 0;
+    public float m_time = 0;
 	public float m_startTime;
 	public float m_endTime;
 	public bool m_isStart = false;

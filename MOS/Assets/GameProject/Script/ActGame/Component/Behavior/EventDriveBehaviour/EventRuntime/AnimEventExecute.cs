@@ -8,6 +8,8 @@ public class AnimEventExecute : EventExecuteBase {
     private float m_speed = 1.0f;
     private AnimEvent m_animEvent;
 
+    private float m_lastSpeed = 1;//todo
+
     public override void Setup(EventBase e)
 	{
         m_animEvent = e as AnimEvent;
@@ -22,7 +24,7 @@ public class AnimEventExecute : EventExecuteBase {
     public override void OnStart()
     {
         m_basicAblity.SetAnimSpeed(m_speed);
-        m_basicAblity.PlayAnim(m_animName);
+        m_basicAblity.PlayAnim(m_animName, m_animEvent.IsUseTrigger);
     }
 
     public override void OnEnd()

@@ -18,7 +18,7 @@ public interface IBasicAblitity {
 
     bool IsAttackingClick();
 
-    void PlayAnim(string animName);
+    void PlayAnim(string animName,bool useTrigger=false);
 
     void SetAnimSpeed(float speed);
 
