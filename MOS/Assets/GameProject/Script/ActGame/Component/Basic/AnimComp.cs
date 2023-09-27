@@ -27,7 +27,7 @@ public class AnimComp : ComponentBase {
 	{
         if(useTrigger)
         {
-            m_animator.SetTrigger("animName");
+            m_animator.SetTrigger(animName);
         }
         else
         {

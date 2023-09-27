@@ -7,7 +7,13 @@ using UnityEngine;
 /// </summary>
 public class BehaviorGethitComp : ComponentBase {
 
-	public GetHitBehaviorDesc m_desc = null;
+    public const string ResourceName_GetHitFront = "GetHitFront";
+    public const string ResourceName_GetHitBack = "GetHitBack";
+    public const string ResourceName_GetHitLeft = "GetHitLeft";
+    public const string ResourceName_GetHitRight = "GetHitRight";
+    public const string ResourceName_GetHitUp = "GetHitUp";
+
+    public GetHitBehaviorDesc m_desc = null;
 
     public BehaviorPlayer m_player = new BehaviorPlayer();
 
@@ -33,10 +39,42 @@ public class BehaviorGethitComp : ComponentBase {
         m_hitPauseComp = GetComp<HitPauseComp>();
     }
 
+    private BehaviorConfig GetBehaviorCfg(EntityComp attack, HitDef hitDef)
+    {
+        //计算相对角度
+        var p1 = attack.gameObject.transform.position;
+        var p2 = this.gameObject.transform.position;
+        var move = GetComp<MoveComp>();
+        var facing = move.Facing;
+        var dir = (p1 - p2);
+        dir.y = 0;
+        dir.Normalize();
+        Vector2 dir2d = new Vector2(dir.x, dir.z);
+        var angle = Vector2.SignedAngle(facing, dir2d);
+        string rname = ResourceName_GetHitFront;
+        if (angle >= -45 && angle < 45)
+        {
+            rname = ResourceName_GetHitFront;
+        }else if(angle >= -135 && angle < -45)
+        {
+            rname = ResourceName_GetHitLeft;
+        }
+        else if(angle >=45 && angle < 135)
+        {
+            rname =  ResourceName_GetHitRight;
+        }
+        else if(angle >=-180 && angle <-135 || angle >=135 && angle <= 180)
+        {
+            rname = ResourceName_GetHitBack;
+        }
+        return m_desc.GetBehaviorCfg(rname);
+    }
+
     private List<EventBase> GetEvents(EntityComp attack, HitDef hitDef)
     {
-        var cfg = m_desc.m_bahaviorCfg;
-
+        var cfg = GetBehaviorCfg(attack,hitDef);
+        if (cfg == null)
+            return null;
         var evts = new List<EventBase>(cfg.GetAllEvents());
         //处理速度
         foreach (var evt in evts)
@@ -66,7 +104,11 @@ public class BehaviorGethitComp : ComponentBase {
         m_hitDef = hitDef;
 
         var evts = GetEvents(attack, hitDef);
-        
+        if (evts == null)
+        {
+            Debug.LogError("BehaviorGethitComp:StartGetHit GetEvents == null");
+            return;
+        }
         m_player.Setup(evts);
 
         m_animEventExecute = m_player.GetEvent<AnimEventExecute>();
@@ -97,7 +139,7 @@ public class BehaviorGethitComp : ComponentBase {
         m_time++;
         if (m_animEventExecute != null && m_animEventExecute.IsStart && m_hitPuaseStartTime==-1)
         {
-            m_hitPuaseStartTime = m_time + 1;
+            m_hitPuaseStartTime = m_time;
         }
         if(m_time == m_hitPuaseStartTime)
         {

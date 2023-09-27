@@ -638,7 +638,8 @@ MonoBehaviour:
     _start: 0
     _end: 45
   Anim: Attack2
-  OriginLen: 0.73
+  OriginLen: 0.75
+  IsUseTrigger: 0
 --- !u!114 &114809358300782332
 MonoBehaviour:
   m_ObjectHideFlags: 1

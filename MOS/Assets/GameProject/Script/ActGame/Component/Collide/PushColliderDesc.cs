@@ -7,6 +7,7 @@ using UnityEngine;
 public class PushColliderTriggerInfo
 {
     public int Frame;
+    public Collider Collider;
     public PushColliderDesc Another;
 }
 
@@ -17,53 +18,46 @@ public class PushColliderDesc : MonoBehaviour
 
     public const int MaxNeighborCount = 3;
 
-    public PushColliderTriggerInfo[] m_triggerInfos = new PushColliderTriggerInfo[MaxNeighborCount];
-    public int m_triggersLen = 0;
+    public HashSet<PushColliderTriggerInfo> m_triggerInfos = new HashSet<PushColliderTriggerInfo>();
 
-    public void Enable()
-    {
-        m_collider.enabled = true;
-    }
-
-    public void Disable()
-    {
-        m_collider.enabled = false;
-    }
 
     public void Init()
     {
         m_collider = this.gameObject.GetComponent<Collider>();
-        for (int i = 0; i < m_triggerInfos.Length; i++)
-        {
-            m_triggerInfos[i] = new PushColliderTriggerInfo();
-        }
     }
 
     //在物理更新之前调用
-    public void ClearTriggersInfo()
-    {
-        m_triggersLen = 0;
-    }
+    //public void ClearTriggersInfo()
+    //{
+    //    m_triggersLen = 0;
+    //}
 
     public void OnTriggerEnter(Collider other)
     {
-        Debug.Log(string.Format("PushColliderDesc:OnTriggerEnter {0}", other.name));
-        if (m_triggersLen >= MaxNeighborCount)
+        //Debug.Log(string.Format("PushColliderDesc:OnTriggerEnter {0}", other.name));
+        if (m_triggerInfos.Count >= MaxNeighborCount)
             return;
         var another = other.GetComponent<PushColliderDesc>();
         if (another != null)
         {
-            var info = m_triggerInfos[m_triggersLen++];
-            info.Another = another;
-            info.Frame = TimeManger.Instance.Frame;
+            m_triggerInfos.Add(new PushColliderTriggerInfo() {
+                Another = another,
+                Frame = TimeManger.Instance.Frame,
+                Collider = other,
+            });
         }
         
     }
 
-
-    public PushColliderTriggerInfo GetTriggerInfo(int index)
+    public void OnTriggerExit(Collider other)
     {
-        return m_triggerInfos[index];
+        m_triggerInfos.RemoveWhere((item) => { return item.Collider == other; });
     }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(string.Format("PushColliderDesc:OnCollisionEnter {0}", collision.collider.name));
+    }
+
 }
 

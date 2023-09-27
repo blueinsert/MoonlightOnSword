@@ -25,7 +25,7 @@ public class BasicAblitityIml : IBasicAblitity {
     #region IBasicAbility
     public void PlayAnim(string name,bool useTrigger)
     {
-        m_animComp.PlayAnim(name);
+        m_animComp.PlayAnim(name,useTrigger);
     }
 
     public Vector2 GetVel()

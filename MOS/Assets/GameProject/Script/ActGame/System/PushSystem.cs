@@ -9,15 +9,21 @@ public class PushSystem : SystemBase
 {
     private void ProcessCollidePair(PushCollidePair pair)
     {
+        //Debug.Log(string.Format("PushSystem:ProcessCollidePair"));
+
         var p1 = pair.P1;
         var p2 = pair.P2;
         var dist = (p1.gameObject.transform.position - p2.gameObject.transform.position).magnitude;
+        float intersect = (p1.m_radius + p2.m_radius) * 1.1f - dist;
+        if (intersect <= 0)
+            return;
         var dir = p1.gameObject.transform.position - p2.gameObject.transform.position;
         dir.y = 0;
         dir.Normalize();
-        float intersect = (p1.m_radius + p2.m_radius) * 1.1f - dist;
-        var offset1 = -intersect * dir * 0.5f;
-        var offset2 = intersect * dir * 0.5f;
+        
+        intersect = Mathf.Lerp(0.01f, intersect, TimeManger.Instance.DeltaTime * 8f);
+        var offset1 = intersect * dir * 0.5f;
+        var offset2 = -intersect * dir * 0.5f;
 
         p1.gameObject.transform.position += offset1;
         p2.gameObject.transform.position += offset2;
@@ -25,7 +31,7 @@ public class PushSystem : SystemBase
 
     protected override void OnTick()
     {
-        Debug.Log(string.Format("PushSystem:OnTick comp Count:{0}", m_compList.Count));
+        //Debug.Log(string.Format("PushSystem:OnTick comp Count:{0}", m_compList.Count));
         //base.OnTick();
         foreach(var comp in m_compList)
         {
@@ -42,7 +48,6 @@ public class PushSystem : SystemBase
                         ProcessCollidePair(pair);
                     }
                 }
-                pushComp.ClearCollidePairs();
             }
             
         }

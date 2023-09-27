@@ -24,6 +24,6 @@ public class DefenseColliderDesc : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        Debug.Log(string.Format("DefenseColliderDesc:OnTriggerEnter {0}", other.name));
+        //Debug.Log(string.Format("DefenseColliderDesc:OnTriggerEnter {0}", other.name));
     }
 }

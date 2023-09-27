@@ -45,30 +45,24 @@ public class PushComp : ComponentBase
 
     public bool IsCollideWithOthers()
     {
-        return m_pushColliderDesc.m_triggersLen != 0;
+        return m_pushColliderDesc.m_triggerInfos.Count != 0;
     }
 
     public List<PushCollidePair> GetCollidePairs(out int len)
     {
-        int count = 0;
-        for(int i = 0; i < m_pushColliderDesc.m_triggersLen; i++)
+        int i = 0;
+        foreach (var triggerInfo in m_pushColliderDesc.m_triggerInfos)
         {
-            m_cacheCollidePair[i].P1 = this;
-            var p2 = m_pushColliderDesc.GetTriggerInfo(i).Another.GetComponent<PushComp>();
-            if(p2 != null && p2.IsEnable)
+            var p2 = triggerInfo.Another.GetComponentInParent<PushComp>();
+            if (p2 != null && p2.IsEnable)
             {
+                m_cacheCollidePair[i].P1 = this;
                 m_cacheCollidePair[i].P2 = p2;
-                count++;
+                i++;
             }
-            
         }
-        len = count;
+        len = i;
         return m_cacheCollidePair;
-    }
-
-    public void ClearCollidePairs()
-    {
-        m_pushColliderDesc.ClearTriggersInfo();
     }
 }
 

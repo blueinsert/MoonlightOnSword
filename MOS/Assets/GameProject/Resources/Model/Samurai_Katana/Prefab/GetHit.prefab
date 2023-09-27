@@ -325,7 +325,7 @@ MonoBehaviour:
   _frameRange:
     _start: 0
     _end: 44
-  Anim: GetHit
+  Anim: BeHit
   OriginLen: 0.63
   IsUseTrigger: 1
 --- !u!114 &114045262910289760

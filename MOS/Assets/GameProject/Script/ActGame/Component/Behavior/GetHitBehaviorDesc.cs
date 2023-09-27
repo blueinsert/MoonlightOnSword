@@ -6,19 +6,37 @@ using Flux;
 [RequireComponent(typeof(ResourceContainer))]
 public class GetHitBehaviorDesc : MonoBehaviour {
 
-	public const string ResourceName = "GetHit";
-
     public ResourceContainer m_resourceContainer = null;
 
-    public FSequence m_sequence;
-
-    public BehaviorConfig m_bahaviorCfg = null;
+    public Dictionary<string, BehaviorConfig> m_behaviorConfigDic = new Dictionary<string, BehaviorConfig>();
 
     public void Start()
     {
         m_resourceContainer = GetComponent<ResourceContainer>();
+        InitializeBehaviorsFromResource();
+    }
+
+    private void InitializeBehaviorsFromResource()
+    {
         m_resourceContainer.LoadAllResources();
-        m_sequence = (m_resourceContainer.GetAsset(ResourceName) as GameObject).GetComponent<FSequence>();
-        m_bahaviorCfg = m_sequence.ToBehaviorConfig();
+        foreach (var item in m_resourceContainer.AssetList)
+        {
+            var go = item.RuntimeAssetCache as GameObject;
+            if (go != null)
+            {
+                var sequence = go.GetComponent<FSequence>();
+                var bahaviorCfg = sequence.ToBehaviorConfig();
+                m_behaviorConfigDic.Add(item.Name, bahaviorCfg);
+            }
+        }
+    }
+
+    public BehaviorConfig GetBehaviorCfg(string name)
+    {
+        if (m_behaviorConfigDic.ContainsKey(name))
+        {
+            return m_behaviorConfigDic[name];
+        }
+        return null;
     }
 }
