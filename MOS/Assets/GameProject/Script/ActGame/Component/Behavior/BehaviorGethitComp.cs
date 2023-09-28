@@ -7,11 +7,11 @@ using UnityEngine;
 /// </summary>
 public class BehaviorGethitComp : ComponentBase {
 
-    public const string ResourceName_GetHitFront = "GetHitFront";
-    public const string ResourceName_GetHitBack = "GetHitBack";
-    public const string ResourceName_GetHitLeft = "GetHitLeft";
-    public const string ResourceName_GetHitRight = "GetHitRight";
-    public const string ResourceName_GetHitUp = "GetHitUp";
+    public const string ResourceName_GetHitFront = "BeHit_Front";
+    public const string ResourceName_GetHitBack = "BeHit_Back";
+    public const string ResourceName_GetHitLeft = "BeHit_Left";
+    public const string ResourceName_GetHitRight = "BeHit_Right";
+    public const string ResourceName_GetHitUp = "BeHit_Up";
 
     public GetHitBehaviorDesc m_desc = null;
 

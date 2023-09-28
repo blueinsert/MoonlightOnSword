@@ -2560,16 +2560,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_resourceContainer: {fileID: 0}
-  m_sequence: {fileID: 0}
-  m_bahaviorCfg:
-    Name: 
-    ID: 0
-    AnimEvents: []
-    FrictionSetEvents: []
-    TranslationEvents: []
-    VelSetEvents: []
-    ColliderSetEvents: []
-    HitDefSetEvents: []
 --- !u!114 &114152984434082934
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2638,9 +2628,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AssetList:
-  - Name: GetHit
+  - Name: BeHit_Front
     Asset: {fileID: 1153705001397826, guid: 377f96f4102f30a46b4db4dc6ecd66dd, type: 2}
-    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/GetHit.prefab
+    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/BeHit_Front.prefab
+    RuntimeAssetCache: {fileID: 0}
+  - Name: BeHit_Back
+    Asset: {fileID: 1520795259722378, guid: ddc7c388407770744b66eaffe6259d83, type: 2}
+    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/BeHit_Back.prefab
+    RuntimeAssetCache: {fileID: 0}
+  - Name: BeHit_Left
+    Asset: {fileID: 1755118138700956, guid: 298f155444af16448bee19460a3942dc, type: 2}
+    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/BeHit_Left.prefab
+    RuntimeAssetCache: {fileID: 0}
+  - Name: BeHit_Right
+    Asset: {fileID: 1925143038049008, guid: fb2c83bd30fe655409a367c8068a6658, type: 2}
+    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/BeHit_Right.prefab
+    RuntimeAssetCache: {fileID: 0}
+  - Name: BeHit_Up
+    Asset: {fileID: 1357769479554844, guid: 69017460327db8947bc1e2401126b26c, type: 2}
+    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/BeHit_Up.prefab
     RuntimeAssetCache: {fileID: 0}
 --- !u!114 &114282764780112692
 MonoBehaviour:
