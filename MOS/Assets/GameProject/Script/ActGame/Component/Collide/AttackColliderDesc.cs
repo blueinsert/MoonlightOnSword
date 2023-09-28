@@ -6,8 +6,7 @@ public class AttackColliderDesc : MonoBehaviour {
 
     public Collider m_collider = null;
 
-    public ColliderTriggerInfo[] m_triggerInfos = new ColliderTriggerInfo[10];
-    public int m_triggersLen = 0;
+    public Dictionary<Collider, ColliderTriggerInfo> m_triggerInfoDic = new Dictionary<Collider, ColliderTriggerInfo>();
 
     public void Enable()
     {
@@ -22,25 +21,26 @@ public class AttackColliderDesc : MonoBehaviour {
     public void Init()
     {
         m_collider = this.gameObject.GetComponent<Collider>();
-        for(int i=0;i< m_triggerInfos.Length; i++)
-        {
-            m_triggerInfos[i] = new ColliderTriggerInfo();
-        }
     }
 
     //在物理更新之前调用
     public void ClearTriggersInfo()
     {
-        m_triggersLen = 0;
+        m_triggerInfoDic.Clear();
     }
 
     public void OnTriggerEnter(Collider other)
     {
         Debug.Log(string.Format("AttackCollider:OnTriggerEnter {0}", other.name));
-        if (m_triggersLen >= 10)
-            return;
-        var info = m_triggerInfos[m_triggersLen++];
-        info.Collider = other;
-        info.Frame = TimeManger.Instance.Frame;
+        m_triggerInfoDic.Add(other, new ColliderTriggerInfo() {
+            Collider = other,
+            Frame = TimeManger.Instance.Frame
+        });
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        Debug.Log(string.Format("AttackCollider:OnTriggerExit {0}", other.name));
+        m_triggerInfoDic.Remove(other);
     }
 }

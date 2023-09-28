@@ -9,7 +9,7 @@ public class PushSystem : SystemBase
 {
     private void ProcessCollidePair(PushCollidePair pair)
     {
-        //Debug.Log(string.Format("PushSystem:ProcessCollidePair"));
+        Debug.Log(string.Format("PushSystem:ProcessCollidePair"));
 
         var p1 = pair.P1;
         var p2 = pair.P2;
@@ -18,6 +18,13 @@ public class PushSystem : SystemBase
         if (intersect <= 0)
             return;
         var dir = p1.gameObject.transform.position - p2.gameObject.transform.position;
+        if(dist <= 0.001f)
+        {
+            var x = UnityEngine.Random.Range(0, 100);
+            var z = UnityEngine.Random.Range(0, 100);
+            dir.x = x;
+            dir.z = z;
+        }
         dir.y = 0;
         dir.Normalize();
         

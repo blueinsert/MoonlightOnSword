@@ -58,8 +58,9 @@ public abstract class EventExecuteBase  {
 	{
 		if (!m_isEnd)
 		{
-			m_isEnd = true;
-			OnEnd();
+			if(m_isStart)
+                OnEnd();
+            m_isEnd = true;
 		}
 	}
 

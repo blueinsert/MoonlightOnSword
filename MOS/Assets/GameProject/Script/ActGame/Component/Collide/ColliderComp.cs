@@ -61,10 +61,7 @@ public class ColliderComp : ComponentBase {
         m_cacheTriggerInfoList.Clear();
         foreach (var attackCollider in m_attackColliders)
         {
-            for(int i = 0; i < attackCollider.m_triggersLen; i++)
-            {
-                m_cacheTriggerInfoList.Add(attackCollider.m_triggerInfos[i]);
-            }
+            m_cacheTriggerInfoList.AddRange(attackCollider.m_triggerInfoDic.Values);
         }
         return m_cacheTriggerInfoList;
     }

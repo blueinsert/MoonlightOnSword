@@ -109,6 +109,12 @@ public class BehaviorGethitComp : ComponentBase {
             Debug.LogError("BehaviorGethitComp:StartGetHit GetEvents == null");
             return;
         }
+
+        if (m_player.IsPlaying)
+        {
+            m_player.Stop();
+        }
+
         m_player.Setup(evts);
 
         m_animEventExecute = m_player.GetEvent<AnimEventExecute>();
@@ -139,7 +145,7 @@ public class BehaviorGethitComp : ComponentBase {
         m_time++;
         if (m_animEventExecute != null && m_animEventExecute.IsStart && m_hitPuaseStartTime==-1)
         {
-            m_hitPuaseStartTime = m_time;
+            m_hitPuaseStartTime = m_time;// + 2;
         }
         if(m_time == m_hitPuaseStartTime)
         {
