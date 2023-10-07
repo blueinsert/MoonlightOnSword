@@ -46,6 +46,11 @@ public class AnimComp : ComponentBase {
         m_animator.SetFloat("RotateValue", rotateValue);
     }
 
+	public void Blocking(bool isOn)
+	{
+		m_animator.SetBool("IsBlocking", isOn);
+	}
+
 	public void SetTurnProgress(float v)
 	{
 		m_animator.SetFloat("TurnProgress", v);

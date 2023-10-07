@@ -581,6 +581,7 @@ GameObject:
   - component: {fileID: 114557063301679758}
   - component: {fileID: 114610864438752578}
   - component: {fileID: 114152984434082934}
+  - component: {fileID: 114961518927514168}
   m_Layer: 16
   m_Name: KatanaPrefab
   m_TagString: Untagged
@@ -2902,6 +2903,19 @@ MonoBehaviour:
   m_collidersDesc: {fileID: 0}
   m_attackColliders: []
   m_defenseColliders: []
+--- !u!114 &114961518927514168
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1380573731349950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a657009a17448c845902d899a3a9d2bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_isEnable: 1
+  m_isDestroying: 0
 --- !u!136 &136205863089245630
 CapsuleCollider:
   m_ObjectHideFlags: 1

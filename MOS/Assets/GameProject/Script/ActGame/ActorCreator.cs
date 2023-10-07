@@ -11,7 +11,7 @@ public class ActorCreator : MonoBehaviour {
 	void Start()
 	{
         var go = CreateFactory.CreateActor("GameProject/Resources/Model/Samurai_Katana/Prefab/KatanaPrefab.prefab", this.transform.parent,this.transform.position,this.transform.rotation);
-        if(m_campType == CampType.Player)
+        if(m_campType == CampType.Player1)
         {
             CameraManager.Instance.BindTarget(go);
         }
@@ -20,7 +20,7 @@ public class ActorCreator : MonoBehaviour {
         var input = go.GetComponent<InputComp>();
         if (input != null)
         {
-            input.m_isEnable = m_campType == CampType.Player;
+            input.m_isEnable = m_campType == CampType.Player1 || m_campType == CampType.Player2;
         }
         Destroy(this.gameObject);
 	}

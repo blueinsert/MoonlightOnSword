@@ -13,6 +13,8 @@ public class BehaviorGethitComp : ComponentBase {
     public const string ResourceName_GetHitRight = "BeHit_Right";
     public const string ResourceName_GetHitUp = "BeHit_Up";
 
+    public bool IsPlaying { get { return m_player.IsPlaying; } }
+
     public GetHitBehaviorDesc m_desc = null;
 
     public BehaviorPlayer m_player = new BehaviorPlayer();

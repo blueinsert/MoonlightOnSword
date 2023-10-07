@@ -35,7 +35,7 @@ public class ColliderComp : ComponentBase {
             var c =coll.gameObject.AddComponent<AttackColliderDesc>();
             c.Init();
             m_attackColliders.Add(c);
-            c.gameObject.layer = campType == CampType.Player ? layerMask1 : layerMask2;
+            c.gameObject.layer = campType == CampType.Player1 ? layerMask1 : layerMask2;
             m_attackColliderDic.Add(c.gameObject.name, c);
         }
         foreach (var coll in m_collidersDesc.m_defenceBoxList)
@@ -43,7 +43,7 @@ public class ColliderComp : ComponentBase {
             var c = coll.gameObject.AddComponent<DefenseColliderDesc>();
             c.Init();
             m_defenseColliders.Add(c);
-            c.gameObject.layer = campType == CampType.Player ? layerMask3 : layerMask4;
+            c.gameObject.layer = campType == CampType.Player1 ? layerMask3 : layerMask4;
             m_defenseColliderDic.Add(c.gameObject.name, c);
         }
     }

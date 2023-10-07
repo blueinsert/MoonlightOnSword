@@ -14,6 +14,13 @@ public class HitDetectionSystem : SystemBase {
         }
         Debug.Log(string.Format("{0} hit {1}", attacker.gameObject.name, p2.gameObject.name));
         hitdef.RecordHit(p2);
+        //判断是否被防御
+        bool isBeblocking = false;
+        var block = p2.GetComp<BehaviorBlockComp>();
+        if (block != null)
+        {
+
+        }
         //todo damage
         var gethitComp = p2.GetComp<BehaviorGethitComp>();
         //被攻击者有BehaviorGethitComp才会有受创状态

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum CampType {
-    Player,
+    Player1,
+    Player2,
     Enemy,
     Neutral,
 }

@@ -1,6 +1,26 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+[Serializable]
+public class PlayerInputMapDic
+{
+    [SerializeField]
+    public CampType CampType;
+    [SerializeField]
+    public KeyCode Left;
+    [SerializeField]
+    public KeyCode Right;
+    [SerializeField]
+    public KeyCode Up;
+    [SerializeField]
+    public KeyCode Down;
+    [SerializeField]
+    public KeyCode Attack;
+    [SerializeField]
+    public KeyCode Defense;
+}
 
 /// <summary>
 /// 根据配置从输入中提取对应部分，形成及存储输入指令
@@ -24,12 +44,28 @@ public class InputComp : ComponentBase {
             return m_isAttackClick;
         } 
     }
+
+    public bool IsBlcokHoldon
+    {
+        get
+        {
+            return m_isBlockHoldon;
+        }
+    }
+
+    public bool m_isBlockHoldon = false;
+    public float m_blockClickTime = float.MinValue;
     public bool m_isAttackClick = false;
     public float m_attackClickTime = float.MinValue;
+
+    public InputMapingDesc m_intpuMappingDesc = null;
+    public EntityComp m_entity = null;
 
     private void Start()
     {
         PostInit();
+        m_intpuMappingDesc = FindObjectOfType<InputMapingDesc>();
+        m_entity = GetComp<EntityComp>();
     }
 
     public override void PostInit()
@@ -40,20 +76,23 @@ public class InputComp : ComponentBase {
     public override void Tick()
     {
         base.Tick();
+        var inputMapping = m_intpuMappingDesc.GetInputMapping(m_entity.CampType);
+        if (inputMapping == null)
+            return;
         Vector2 moveValue = Vector2.zero;
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey((KeyCode)inputMapping.Up))
         {
             moveValue.y = 1;
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(inputMapping.Down))
         {
             moveValue.y = -1;
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(inputMapping.Left))
         {
             moveValue.x = -1;
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(inputMapping.Right))
         {
             moveValue.x = 1;
         }
@@ -73,11 +112,18 @@ public class InputComp : ComponentBase {
         m_lastMousePosition = Input.mousePosition;
         m_scrollValue = Input.mouseScrollDelta;
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetKeyUp(inputMapping.Attack))
         {
             m_isAttackClick = true;
             m_attackClickTime = TimeManger.Instance.CurTime;
         }
-        m_isAttackClick = TimeManger.Instance.CurTime < m_attackClickTime + 10 / 60f;
+        m_isAttackClick = TimeManger.Instance.CurTime < m_attackClickTime + 10 / 60f;//缓存指令
+
+        if (Input.GetKey(inputMapping.Defense))
+        {
+            m_isBlockHoldon = true;
+            m_blockClickTime = TimeManger.Instance.CurTime;
+        }
+        m_isBlockHoldon = TimeManger.Instance.CurTime < m_blockClickTime + 10 / 60f;
     }
 }
