@@ -582,7 +582,10 @@ MonoBehaviour:
     P2HitPauseTime: 9
     HitBackHSpeed: 1
     HitBackVSpeed: 0
-    HitRecoverTime: 0
+    P1GuardPauseTime: 9
+    P2GuardPauseTime: 9
+    P2GuardRecoverTime: 10
+    GuardBackHSpeed: 1
 --- !u!114 &114094363600777606
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -691,7 +694,10 @@ MonoBehaviour:
     P2HitPauseTime: 9
     HitBackHSpeed: 1
     HitBackVSpeed: 0
-    HitRecoverTime: 0
+    P1GuardPauseTime: 9
+    P2GuardPauseTime: 9
+    P2GuardRecoverTime: 10
+    GuardBackHSpeed: 1
 --- !u!114 &114584548809450042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -731,7 +737,10 @@ MonoBehaviour:
     P2HitPauseTime: 9
     HitBackHSpeed: 1
     HitBackVSpeed: 0
-    HitRecoverTime: 0
+    P1GuardPauseTime: 9
+    P2GuardPauseTime: 9
+    P2GuardRecoverTime: 10
+    GuardBackHSpeed: 1
 --- !u!114 &114818659249799398
 MonoBehaviour:
   m_ObjectHideFlags: 1

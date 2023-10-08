@@ -100,11 +100,12 @@ public class BehaviorSkillComp : ComponentBase
         PlayerSkill(skillCfg);
     }
 
-    public void OnHitTarget(HitDef hitDef)
+    public void OnHitTarget(HitDef hitDef, bool isBeBlocking = false)
     {
-        if (hitDef.P1HitPauseTime > 0)
+        var pauseTime = isBeBlocking ? hitDef.P1GuardPauseTime : hitDef.P2HitPauseTime;
+        if (pauseTime > 0)
         {
-            m_hitResponseComp.StartPause(hitDef.P1HitPauseTime);
+            m_hitResponseComp.StartPause(pauseTime);
             OnHitPauseStart();
             m_isInHitPauseing = true;
         }

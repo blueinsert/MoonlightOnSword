@@ -26,7 +26,7 @@ public class BehaviorFsmComp : ComponentBase
     {
         if (m_skillComp.IsPlaying)
             return false;
-        if (m_blockComp.IsPlaying)
+        if (m_blockComp.IsInBlocking)
             return false;
         return true;
     }
@@ -42,6 +42,6 @@ public class BehaviorFsmComp : ComponentBase
 
     public bool IsInBlocking()
     {
-        return m_blockComp.IsPlaying;
+        return m_blockComp.IsInBlocking;
     }
 }

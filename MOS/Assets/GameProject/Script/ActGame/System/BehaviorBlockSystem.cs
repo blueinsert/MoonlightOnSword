@@ -13,13 +13,15 @@ public class BehaviorBlockSystem : SystemBase
     {
         Debug.Log(string.Format("BehaviorBlockSystem:TickBlock"));
         var fsm = comp.GetComp<BehaviorFsmComp>();
+        var anim = comp.GetComp<AnimComp>();
         if (!fsm.CanBlock())
         {
+            anim.Blocking(false);
             return; //在播放技能时，停止move逻辑
         }
         var input = comp.GetComp<InputComp>();
         var move = comp.GetComp<MoveComp>();
-        var anim = comp.GetComp<AnimComp>();
+        //var anim = comp.GetComp<AnimComp>();
         var block = comp.GetComp<BehaviorBlockComp>();
         if (!input.IsEnable) {
             return;
@@ -27,7 +29,7 @@ public class BehaviorBlockSystem : SystemBase
 
         if (input.IsBlcokHoldon)
         {
-            if (!block.IsPlaying)
+            if (!block.IsInBlocking)
             {
                 block.StartBlock();
                 move.SetPreferVelHorizon(0, 0);
@@ -40,7 +42,7 @@ public class BehaviorBlockSystem : SystemBase
         }
         else
         {
-            if (!block.IsPlaying)
+            if (block.m_status == BlockStatus.BlockEnd)
             {
                 anim.Blocking(false);
             }

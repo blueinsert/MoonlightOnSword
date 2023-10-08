@@ -37,10 +37,22 @@ public class HitDef {
     [SerializeField]
     public int HitBackVSpeed;
     /// <summary>
-    ///打击恢复时间
+    ///p1打击停顿时间
     /// </summary>
     [SerializeField]
-    public int HitRecoverTime;
+    public int P1GuardPauseTime;
+    /// <summary>
+    ///p2打击停顿时间
+    /// </summary>
+    [SerializeField]
+    public int P2GuardPauseTime;
+
+    [SerializeField]
+    public int P2GuardRecoverTime;
+
+    [SerializeField]
+    public int GuardBackHSpeed;
+
     /// <summary>
     /// 打击次数
     /// </summary>
