@@ -28,6 +28,8 @@ public class BehaviorFsmComp : ComponentBase
             return false;
         if (m_blockComp.IsInBlocking)
             return false;
+        if (m_gethitComp.IsPlaying)
+            return false;
         return true;
     }
 

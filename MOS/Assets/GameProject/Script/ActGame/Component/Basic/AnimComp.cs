@@ -51,6 +51,18 @@ public class AnimComp : ComponentBase {
 		m_animator.SetBool("IsBlocking", isOn);
 	}
 
+	public void GetHit(int level,int posType)
+	{
+		m_animator.SetTrigger("BeHit");
+		m_animator.SetInteger("HitForceType", level);
+		m_animator.SetInteger("HitPosType", posType);
+	}
+
+	public void ExitHit()
+	{
+        m_animator.SetTrigger("BeHitFinish");
+    }
+
 	public void SetTurnProgress(float v)
 	{
 		m_animator.SetFloat("TurnProgress", v);

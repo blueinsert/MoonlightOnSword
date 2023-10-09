@@ -577,10 +577,11 @@ MonoBehaviour:
     _end: 23
   HitDef:
     Level: 0
-    ForceVDir: 0
+    PosType: 0
     P1HitPauseTime: 4
     P2HitPauseTime: 9
-    HitBackHSpeed: 1
+    P2HitRecoverTime: 10
+    HitBackHSpeed: 2
     HitBackVSpeed: 0
     P1GuardPauseTime: 9
     P2GuardPauseTime: 9
@@ -689,10 +690,11 @@ MonoBehaviour:
     _end: 15
   HitDef:
     Level: 0
-    ForceVDir: 0
+    PosType: 0
     P1HitPauseTime: 4
     P2HitPauseTime: 9
-    HitBackHSpeed: 1
+    P2HitRecoverTime: 10
+    HitBackHSpeed: 2
     HitBackVSpeed: 0
     P1GuardPauseTime: 9
     P2GuardPauseTime: 9
@@ -732,10 +734,11 @@ MonoBehaviour:
     _end: 19
   HitDef:
     Level: 0
-    ForceVDir: 0
+    PosType: 0
     P1HitPauseTime: 4
     P2HitPauseTime: 9
-    HitBackHSpeed: 1
+    P2HitRecoverTime: 10
+    HitBackHSpeed: 2
     HitBackVSpeed: 0
     P1GuardPauseTime: 9
     P2GuardPauseTime: 9

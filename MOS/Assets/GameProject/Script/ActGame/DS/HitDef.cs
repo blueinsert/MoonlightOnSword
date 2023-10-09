@@ -3,6 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 打击力度
+/// </summary>
+public enum HitForceLevel
+{
+    Light = 0,
+    Heavy,
+}
+
+//打击部位类型
+public enum HitPosType
+{
+    Low,
+    High,
+}
+
+public enum HitType
+{
+    NormalAttack,
+
+}
+
 [Serializable]
 public class HitDef {
 
@@ -10,12 +32,9 @@ public class HitDef {
     ///程度(轻:0 中:1 重:2）
     /// </summary>
     [SerializeField]
-    public int Level;
-    /// <summary>
-    ///垂直方向力度分量(forward:0 up:1 down:2)
-    /// </summary>
+    public HitForceLevel Level;
     [SerializeField]
-    public int ForceVDir;
+    public HitPosType PosType;
     /// <summary>
     ///p1打击停顿时间
     /// </summary>
@@ -26,6 +45,8 @@ public class HitDef {
     /// </summary>
     [SerializeField]
     public int P2HitPauseTime;
+    [SerializeField]
+    public int P2HitRecoverTime;
     /// <summary>
     ///打击后退速度(水平)
     /// </summary>

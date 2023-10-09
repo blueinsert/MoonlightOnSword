@@ -1,47 +1,61 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+public enum BeHitStatus
+{
+    None,
+    PreHitPausing,
+    HitPausing,
+    HitRecover,
+    HitFlyBack,
+    HitFlyFalling,
+    HitFlyLanding,
+    HitFlyGetup,
+}
 
 /// <summary>
 /// 受创状态 内部是一个状态机
 /// </summary>
 public class BehaviorGethitComp : ComponentBase {
 
-    public const string ResourceName_GetHitFront = "BeHit_Front";
-    public const string ResourceName_GetHitBack = "BeHit_Back";
-    public const string ResourceName_GetHitLeft = "BeHit_Left";
-    public const string ResourceName_GetHitRight = "BeHit_Right";
-    public const string ResourceName_GetHitUp = "BeHit_Up";
+    //public const string ResourceName_GetHitFront = "BeHit_Front";
+    //public const string ResourceName_GetHitFrontHeavy = "BeHit_Front_Heavy";
+    //public const string ResourceName_GetHitUp = "BeHit_Up";
+    //public const string ResourceName_GetHitUpHeavy = "BeHit_Up_Heavy";
 
-    public bool IsPlaying { get { return m_player.IsPlaying; } }
-
-    public GetHitBehaviorDesc m_desc = null;
-
-    public BehaviorPlayer m_player = new BehaviorPlayer();
-
-    public HitDef m_hitDef = null;
-
-    //List<EventBase> m_events = new List<EventBase>();
+    public bool IsPlaying { get { return m_status != BeHitStatus.None; } }
 
     public HitPauseComp m_hitPauseComp = null;
+    public AnimComp m_animComp = null;
+    public MoveComp m_moveComp = null;
 
-    public AnimEventExecute m_animEventExecute = null;
+    public BasicAblitityIml m_basicAblitity = null;
 
-    private bool m_isInHitPauseing = false;
+    public BeHitStatus m_status;
+    public HitDef m_hitDef = null;
+    public bool m_isBeHitFly = false;
 
-    public int m_time = 0;
+    public Vector2 m_backVel;
     public int m_hitPuaseStartTime = -1;
+    public int m_hitPauseEndTime = -1;
+    public int m_hitRecoverEndTime = -1;
 
     public void Start()
     {
-        m_desc = GetComponentInChildren<GetHitBehaviorDesc>();
-
-        m_player.Initialize(this.GetComp<EntityComp>());
-
         m_hitPauseComp = GetComp<HitPauseComp>();
+        m_animComp = GetComp<AnimComp>();
+        m_moveComp = GetComp<MoveComp>();
+
+        m_basicAblitity = new BasicAblitityIml();
+        var entityComp = GetComp<EntityComp>();
+        m_basicAblitity.Initialize(entityComp);
     }
 
-    private BehaviorConfig GetBehaviorCfg(EntityComp attack, HitDef hitDef)
+    /*
+    [Obsolete]
+    private BehaviorConfig GetBehaviorCfg2(EntityComp attack, HitDef hitDef)
     {
         //计算相对角度
         var p1 = attack.gameObject.transform.position;
@@ -71,7 +85,39 @@ public class BehaviorGethitComp : ComponentBase {
         }
         return m_desc.GetBehaviorCfg(rname);
     }
+    */
 
+    /*
+    private BehaviorConfig GetBehaviorCfg(EntityComp attack, HitDef hitDef)
+    {
+        string rname = ResourceName_GetHitFront;
+        var level = hitDef.Level;
+        var posType = hitDef.PosType;
+        if(level == HitForceLevel.Light)
+        {
+            if(posType == HitPosType.Low)
+            {
+                rname = ResourceName_GetHitFront;
+            }else if(posType == HitPosType.High)
+            {
+                rname = ResourceName_GetHitUp;
+            }
+        }else if(level == HitForceLevel.Heavy)
+        {
+            if (posType == HitPosType.Low)
+            {
+                rname = ResourceName_GetHitFrontHeavy;
+            }
+            else if (posType == HitPosType.High)
+            {
+                rname = ResourceName_GetHitUpHeavy;
+            }
+        }
+        return m_desc.GetBehaviorCfg(rname);
+    }
+    */
+
+    /*
     private List<EventBase> GetEvents(EntityComp attack, HitDef hitDef)
     {
         var cfg = GetBehaviorCfg(attack,hitDef);
@@ -99,82 +145,83 @@ public class BehaviorGethitComp : ComponentBase {
 
         return evts;
     }
+    */
 
-    public void StartGetHit(EntityComp attack, HitDef hitDef)
+    private void PlayHitAnim()
+    {
+        m_animComp.GetHit((int)m_hitDef.Level, (int)m_hitDef.PosType);
+    }
+
+    private void ExitHitAnim()
+    {
+        m_animComp.ExitHit();
+    }
+
+    public void StartGetHit(EntityComp attacker, HitDef hitDef)
     {
         Debug.Log("BehaviorGethitComp:StartGetHit");
         m_hitDef = hitDef;
+        m_isBeHitFly = hitDef.HitBackVSpeed > 0;
 
-        var evts = GetEvents(attack, hitDef);
-        if (evts == null)
-        {
-            Debug.LogError("BehaviorGethitComp:StartGetHit GetEvents == null");
-            return;
-        }
+        m_hitPuaseStartTime = TimeManger.Instance.Frame + 2;//延迟1帧
+        m_hitPauseEndTime = m_hitPuaseStartTime + m_hitDef.P2HitPauseTime;
+        m_hitRecoverEndTime = m_hitPauseEndTime + m_hitDef.P2HitRecoverTime;
 
-        if (m_player.IsPlaying)
-        {
-            m_player.Stop();
-        }
+        m_status = BeHitStatus.PreHitPausing;
+        PlayHitAnim();
+        SetBackSpeed(attacker, hitDef);
+    }
 
-        m_player.Setup(evts);
+    private void SetBackSpeed(EntityComp attacker, HitDef hitdef)
+    {
+        var speed = hitdef.HitBackHSpeed;
+        var dir = (this.gameObject.transform.position - attacker.transform.position).normalized;
+        var hdir = new Vector2(dir.x, dir.z);
+        hdir.Normalize();
+        var velH = hdir * speed;
+        m_backVel = velH;
 
-        m_animEventExecute = m_player.GetEvent<AnimEventExecute>();
-
-        m_player.Start();
-
-        m_time = 0;
-        m_hitPuaseStartTime = -1;
     }
 
     private void OnHitPauseStart()
     {
-        m_player.BaiscAblitity.FreezeAnim();
-        m_player.BaiscAblitity.DisableMove();
+        m_basicAblitity.FreezeAnim();
+        m_basicAblitity.DisableMove();
     }
 
     private void OnHitPauseEnd()
     {
-        m_player.BaiscAblitity.UnFreezeAnim();
-        m_player.BaiscAblitity.EnableMove();
+        m_basicAblitity.UnFreezeAnim();
+        m_basicAblitity.EnableMove();
     }
 
     public override void Tick()
     {
         base.Tick();
-        if (!m_player.IsPlaying)
-            return;
-        m_time++;
-        if (m_animEventExecute != null && m_animEventExecute.IsStart && m_hitPuaseStartTime==-1)
+        var frame = TimeManger.Instance.Frame;
+        if(m_status == BeHitStatus.PreHitPausing)
         {
-            m_hitPuaseStartTime = m_time;// + 2;
-        }
-        if(m_time == m_hitPuaseStartTime)
-        {
-            //延迟开始暂停
-            if (m_hitDef.P2HitPauseTime > 0 && m_hitPauseComp != null)
+            if(frame >= m_hitPuaseStartTime)
             {
-                m_isInHitPauseing = true;
-                m_hitPauseComp.StartPause(m_hitDef.P2HitPauseTime);
                 OnHitPauseStart();
+                m_status = BeHitStatus.HitPausing;
             }
-        }
-        
-        if (m_isInHitPauseing)
+        }else if(m_status == BeHitStatus.HitPausing)
         {
-            if (m_hitPauseComp != null)
+            if(frame >= m_hitPauseEndTime)
             {
-                if (!m_hitPauseComp.IsInPause())
-                {
-                    OnHitPauseEnd();
-                    m_isInHitPauseing = false;
-                }
+                m_status = BeHitStatus.HitRecover;
+                OnHitPauseEnd();
+                m_basicAblitity.SetVelH(m_backVel, false);
             }
-            return;
-        }
-        if (m_player.IsPlaying)
+        }else if(m_status == BeHitStatus.HitRecover)
         {
-            m_player.Tick();
+            if(frame >= m_hitRecoverEndTime)
+            {
+                m_basicAblitity.SetVelH(Vector2.zero, false);
+                ExitHitAnim();
+                m_status = BeHitStatus.None;
+            }
         }
     }
 }

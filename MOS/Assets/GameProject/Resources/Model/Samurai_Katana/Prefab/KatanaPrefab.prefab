@@ -2608,12 +2608,15 @@ MonoBehaviour:
   m_desc: {fileID: 0}
   m_hitDef:
     Level: 0
-    ForceVDir: 0
+    PosType: 0
     P1HitPauseTime: 0
     P2HitPauseTime: 0
     HitBackHSpeed: 0
     HitBackVSpeed: 0
-    HitRecoverTime: 0
+    P1GuardPauseTime: 0
+    P2GuardPauseTime: 0
+    P2GuardRecoverTime: 0
+    GuardBackHSpeed: 0
   m_hitPauseComp: {fileID: 0}
   m_time: 0
   m_hitPuaseStartTime: -1
@@ -2633,21 +2636,17 @@ MonoBehaviour:
     Asset: {fileID: 1153705001397826, guid: 377f96f4102f30a46b4db4dc6ecd66dd, type: 2}
     AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/BeHit_Front.prefab
     RuntimeAssetCache: {fileID: 0}
-  - Name: BeHit_Back
-    Asset: {fileID: 1520795259722378, guid: ddc7c388407770744b66eaffe6259d83, type: 2}
-    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/BeHit_Back.prefab
-    RuntimeAssetCache: {fileID: 0}
-  - Name: BeHit_Left
-    Asset: {fileID: 1755118138700956, guid: 298f155444af16448bee19460a3942dc, type: 2}
-    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/BeHit_Left.prefab
-    RuntimeAssetCache: {fileID: 0}
-  - Name: BeHit_Right
-    Asset: {fileID: 1925143038049008, guid: fb2c83bd30fe655409a367c8068a6658, type: 2}
-    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/BeHit_Right.prefab
+  - Name: BeHit_Front_Heavy
+    Asset: {fileID: 1782668168597002, guid: 5f586640c83650145803152902bd6bfa, type: 2}
+    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/BeHit_Front_Heavy.prefab
     RuntimeAssetCache: {fileID: 0}
   - Name: BeHit_Up
     Asset: {fileID: 1357769479554844, guid: 69017460327db8947bc1e2401126b26c, type: 2}
     AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/BeHit_Up.prefab
+    RuntimeAssetCache: {fileID: 0}
+  - Name: BeHit_Up_Heavy
+    Asset: {fileID: 1304361137593372, guid: 9a16803c26328d24ab6bbbddb3b4047d, type: 2}
+    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/BeHit_Up_Heavy.prefab
     RuntimeAssetCache: {fileID: 0}
 --- !u!114 &114282764780112692
 MonoBehaviour:
@@ -2664,6 +2663,8 @@ MonoBehaviour:
   m_isDestroying: 0
   m_moveComp: {fileID: 0}
   m_skillComp: {fileID: 0}
+  m_blockComp: {fileID: 0}
+  m_gethitComp: {fileID: 0}
 --- !u!114 &114293084460092864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2777,12 +2778,15 @@ MonoBehaviour:
   m_isDestroying: 0
   m_hitDef:
     Level: 0
-    ForceVDir: 0
+    PosType: 0
     P1HitPauseTime: 0
     P2HitPauseTime: 0
     HitBackHSpeed: 0
     HitBackVSpeed: 0
-    HitRecoverTime: 0
+    P1GuardPauseTime: 0
+    P2GuardPauseTime: 0
+    P2GuardRecoverTime: 0
+    GuardBackHSpeed: 0
   m_isValid: 0
 --- !u!114 &114696105204943380
 MonoBehaviour:
@@ -2842,8 +2846,12 @@ MonoBehaviour:
   m_rotateValue: {x: 0, y: 0}
   m_lastMousePosition: {x: 0, y: 0, z: 0}
   m_scrollValue: {x: 0, y: 0}
+  m_isBlockHoldon: 0
+  m_blockClickTime: -3.4028235e+38
   m_isAttackClick: 0
   m_attackClickTime: -3.4028235e+38
+  m_intpuMappingDesc: {fileID: 0}
+  m_entity: {fileID: 0}
 --- !u!114 &114855337376842654
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2916,6 +2924,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_isEnable: 1
   m_isDestroying: 0
+  m_blockStartTime: 0
+  m_blockEndTime: 0
+  m_status: 0
+  m_pauseStartFrame: 0
+  m_pauseEndFrame: 0
+  m_recoverEndFrame: 0
+  m_backVel: {x: 0, y: 0}
 --- !u!136 &136205863089245630
 CapsuleCollider:
   m_ObjectHideFlags: 1
