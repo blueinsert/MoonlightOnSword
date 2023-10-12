@@ -9,7 +9,7 @@ public enum BeHitStatus
     PreHitPausing,
     HitPausing,
     HitRecover,
-    HitFlyBack,
+    HitFlyUp,
     HitFlyFalling,
     HitFlyLanding,
     HitFlyGetup,
@@ -24,6 +24,8 @@ public class BehaviorGethitComp : ComponentBase {
     //public const string ResourceName_GetHitFrontHeavy = "BeHit_Front_Heavy";
     //public const string ResourceName_GetHitUp = "BeHit_Up";
     //public const string ResourceName_GetHitUpHeavy = "BeHit_Up_Heavy";
+
+    public const float LandingDuration = 1f;
 
     public bool IsPlaying { get { return m_status != BeHitStatus.None; } }
 
@@ -151,6 +153,8 @@ public class BehaviorGethitComp : ComponentBase {
     {
         m_animComp.GetHit((int)m_hitDef.Level, (int)m_hitDef.PosType);
     }
+
+
 
     private void ExitHitAnim()
     {
