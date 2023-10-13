@@ -63,6 +63,11 @@ public class BasicAblitityIml : IBasicAblitity {
         m_moveComp.SetPreferVelVertical(v);
     }
 
+    public void SetVelVOnce(float v)
+    {
+        m_moveComp.SetPreferVelVerticalOnce(v);
+    }
+
     public void SetCollider(string name, bool isEnable)
     {
         m_colliderComp.SetColliderEnable(name, isEnable);

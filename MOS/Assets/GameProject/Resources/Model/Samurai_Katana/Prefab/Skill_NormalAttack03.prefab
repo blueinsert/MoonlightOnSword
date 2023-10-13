@@ -58,7 +58,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1193984035442998
 GameObject:
   m_ObjectHideFlags: 1
@@ -584,12 +584,16 @@ MonoBehaviour:
     _end: 27
   HitDef:
     Level: 0
-    ForceVDir: 0
+    PosType: 0
     P1HitPauseTime: 4
     P2HitPauseTime: 9
+    P2HitRecoverTime: 0
     HitBackHSpeed: 1
-    HitBackVSpeed: 0
-    HitRecoverTime: 0
+    HitBackVSpeed: 5
+    P1GuardPauseTime: 0
+    P2GuardPauseTime: 0
+    P2GuardRecoverTime: 0
+    GuardBackHSpeed: 0
 --- !u!114 &114141189167240790
 MonoBehaviour:
   m_ObjectHideFlags: 1

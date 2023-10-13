@@ -56,11 +56,35 @@ public class AnimComp : ComponentBase {
 		m_animator.SetTrigger("BeHit");
 		m_animator.SetInteger("HitForceType", level);
 		m_animator.SetInteger("HitPosType", posType);
+        m_animator.SetBool("HitFly", false);
+    }
+
+	public void BeHitFly()
+	{
+        m_animator.SetTrigger("BeHit");
+		m_animator.SetBool("HitFly", true);
+    }
+
+	public void SetVY(float vy)
+	{
+		m_animator.SetFloat("VY", vy);
+	}
+
+	public void SetLanding(bool landing)
+	{
+		m_animator.SetBool("IsLanding", landing);
+	}
+
+	public void Getup()
+	{
+		m_animator.SetTrigger("Getup");
 	}
 
 	public void ExitHit()
 	{
         m_animator.SetTrigger("BeHitFinish");
+
+        m_animator.SetBool("HitFly", false);
     }
 
 	public void SetTurnProgress(float v)

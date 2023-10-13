@@ -26,7 +26,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1182182896393606
 GameObject:
   m_ObjectHideFlags: 1
@@ -54,22 +54,6 @@ GameObject:
   - component: {fileID: 114045262910289760}
   m_Layer: 0
   m_Name: Group 0
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1265155693267962
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4129707973840628}
-  - component: {fileID: 114068017025590150}
-  m_Layer: 0
-  m_Name: FHitDefSetEvent(Clone)(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,22 +102,6 @@ GameObject:
   - component: {fileID: 114457066995960846}
   m_Layer: 0
   m_Name: Anim
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1491660138645328
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4678122632730974}
-  - component: {fileID: 114796784408688876}
-  m_Layer: 0
-  m_Name: FHitDefSetEvent(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -295,19 +263,6 @@ Transform:
   m_Father: {fileID: 4679441594542370}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4129707973840628
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1265155693267962}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4425510201275280}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4193200813116414
 Transform:
   m_ObjectHideFlags: 1
@@ -359,8 +314,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4732741775958532}
-  - {fileID: 4678122632730974}
-  - {fileID: 4129707973840628}
   m_Father: {fileID: 4557813827951458}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -423,19 +376,6 @@ Transform:
   - {fileID: 4425510201275280}
   m_Father: {fileID: 4533439789048958}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4678122632730974
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1491660138645328}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4425510201275280}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4679441594542370
 Transform:
@@ -559,34 +499,6 @@ MonoBehaviour:
   - {fileID: 114914472562837766}
   - {fileID: 114140622419557444}
   - {fileID: 114921672089469820}
---- !u!114 &114068017025590150
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1265155693267962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 626834b82697bc441b79950ef31538e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _id: 2
-  _track: {fileID: 114921672089469820}
-  _frameRange:
-    _start: 19
-    _end: 23
-  HitDef:
-    Level: 0
-    PosType: 0
-    P1HitPauseTime: 4
-    P2HitPauseTime: 9
-    P2HitRecoverTime: 10
-    HitBackHSpeed: 2
-    HitBackVSpeed: 0
-    P1GuardPauseTime: 9
-    P2GuardPauseTime: 9
-    P2GuardRecoverTime: 10
-    GuardBackHSpeed: 1
 --- !u!114 &114094363600777606
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -687,7 +599,7 @@ MonoBehaviour:
   _track: {fileID: 114921672089469820}
   _frameRange:
     _start: 10
-    _end: 15
+    _end: 22
   HitDef:
     Level: 0
     PosType: 0
@@ -695,7 +607,7 @@ MonoBehaviour:
     P2HitPauseTime: 9
     P2HitRecoverTime: 10
     HitBackHSpeed: 2
-    HitBackVSpeed: 0
+    HitBackVSpeed: 5
     P1GuardPauseTime: 9
     P2GuardPauseTime: 9
     P2GuardRecoverTime: 10
@@ -716,34 +628,6 @@ MonoBehaviour:
   _evtTypeStr: FFrictionEvent
   _events:
   - {fileID: 114301882350894494}
---- !u!114 &114796784408688876
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1491660138645328}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 626834b82697bc441b79950ef31538e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _id: 1
-  _track: {fileID: 114921672089469820}
-  _frameRange:
-    _start: 15
-    _end: 19
-  HitDef:
-    Level: 0
-    PosType: 0
-    P1HitPauseTime: 4
-    P2HitPauseTime: 9
-    P2HitRecoverTime: 10
-    HitBackHSpeed: 2
-    HitBackVSpeed: 0
-    P1GuardPauseTime: 9
-    P2GuardPauseTime: 9
-    P2GuardRecoverTime: 10
-    GuardBackHSpeed: 1
 --- !u!114 &114818659249799398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -832,5 +716,3 @@ MonoBehaviour:
   _evtTypeStr: FHitDefSetEvent
   _events:
   - {fileID: 114509825435365936}
-  - {fileID: 114796784408688876}
-  - {fileID: 114068017025590150}

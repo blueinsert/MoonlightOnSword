@@ -26,6 +26,7 @@ public class BehaviorGethitComp : ComponentBase {
     //public const string ResourceName_GetHitUpHeavy = "BeHit_Up_Heavy";
 
     public const float LandingDuration = 1f;
+    public const float GetupDuration = 1f;
 
     public bool IsPlaying { get { return m_status != BeHitStatus.None; } }
 
@@ -43,6 +44,8 @@ public class BehaviorGethitComp : ComponentBase {
     public int m_hitPuaseStartTime = -1;
     public int m_hitPauseEndTime = -1;
     public int m_hitRecoverEndTime = -1;
+    public float m_landingStartTime = 0;
+    public float m_getupStartTime = 0;
 
     public void Start()
     {
@@ -54,6 +57,8 @@ public class BehaviorGethitComp : ComponentBase {
         var entityComp = GetComp<EntityComp>();
         m_basicAblitity.Initialize(entityComp);
     }
+
+    #region obsolete
 
     /*
     [Obsolete]
@@ -149,9 +154,16 @@ public class BehaviorGethitComp : ComponentBase {
     }
     */
 
+    #endregion
+
     private void PlayHitAnim()
     {
-        m_animComp.GetHit((int)m_hitDef.Level, (int)m_hitDef.PosType);
+        if(!m_isBeHitFly)
+            m_animComp.GetHit((int)m_hitDef.Level, (int)m_hitDef.PosType);
+        else
+        {
+            m_animComp.BeHitFly();
+        }
     }
 
 
@@ -203,7 +215,8 @@ public class BehaviorGethitComp : ComponentBase {
     {
         base.Tick();
         var frame = TimeManger.Instance.Frame;
-        if(m_status == BeHitStatus.PreHitPausing)
+        var cur = TimeManger.Instance.CurTime;
+        if (m_status == BeHitStatus.PreHitPausing)
         {
             if(frame >= m_hitPuaseStartTime)
             {
@@ -214,13 +227,56 @@ public class BehaviorGethitComp : ComponentBase {
         {
             if(frame >= m_hitPauseEndTime)
             {
-                m_status = BeHitStatus.HitRecover;
-                OnHitPauseEnd();
-                m_basicAblitity.SetVelH(m_backVel, false);
+                if (!m_isBeHitFly)
+                {
+                    m_status = BeHitStatus.HitRecover;
+                    OnHitPauseEnd();
+                    m_basicAblitity.SetVelH(m_backVel, false);
+                }
+                else
+                {
+                    m_status = BeHitStatus.HitFlyUp;
+                    OnHitPauseEnd();
+                    m_basicAblitity.SetVelH(m_backVel, false);
+                    m_basicAblitity.SetVelVOnce(m_hitDef.HitBackVSpeed);
+                }
             }
         }else if(m_status == BeHitStatus.HitRecover)
         {
             if(frame >= m_hitRecoverEndTime)
+            {
+                m_basicAblitity.SetVelH(Vector2.zero, false);
+                ExitHitAnim();
+                m_status = BeHitStatus.None;
+            }
+        }
+        else if(m_status == BeHitStatus.HitFlyUp)
+        {
+            float vy = m_moveComp.m_vel.y;
+            m_animComp.SetVY(vy);
+            if (vy < 0)
+            {
+                m_status = BeHitStatus.HitFlyFalling;
+            }
+        }else if(m_status == BeHitStatus.HitFlyFalling)
+        {
+            m_animComp.SetLanding(m_moveComp.m_isOnGround);
+            if (m_moveComp.m_isOnGround)
+            {
+                m_status = BeHitStatus.HitFlyLanding;
+                m_landingStartTime = TimeManger.Instance.CurTime;
+            }
+        }else if(m_status == BeHitStatus.HitFlyLanding)
+        {
+            if(cur > m_landingStartTime + LandingDuration)
+            {
+                m_status = BeHitStatus.HitFlyGetup;
+                m_animComp.Getup();
+                m_getupStartTime = cur;
+            }
+        }else if(m_status == BeHitStatus.HitFlyGetup)
+        {
+            if(cur > m_getupStartTime + GetupDuration)
             {
                 m_basicAblitity.SetVelH(Vector2.zero, false);
                 ExitHitAnim();

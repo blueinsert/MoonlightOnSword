@@ -17,6 +17,9 @@ public class MoveComp : ComponentBase
     public CharacterController m_cc;
     //期望速度
     public float m_vPreferVel;
+    private bool m_isVPreferVelBeenUsed = false;
+    private bool m_isVPreferVelUseOnce = false;
+
     public Vector2 m_hPreferVel;
 
     public bool m_isOnGround = false;
@@ -77,11 +80,34 @@ public class MoveComp : ComponentBase
     public void SetPreferVelVertical(float vY)
     {
         m_vPreferVel = vY;
+        m_isVPreferVelBeenUsed = false;
+        m_isVPreferVelUseOnce = false;
     }
+
+    public void SetPreferVelVerticalOnce(float vY)
+    {
+        m_vPreferVel = vY;
+        m_isVPreferVelBeenUsed = false;
+        m_isVPreferVelUseOnce = true;
+    }
+
     #endregion
 
     private void UpdateVelAir()
     {
+        var deltaTime = TimeManger.Instance.DeltaTime;
+        if (m_isVPreferVelUseOnce)
+        {
+            if (!m_isVPreferVelBeenUsed)
+            {
+                m_isVPreferVelBeenUsed = true;
+                m_vel.y = m_vPreferVel;
+            }
+        }
+        else
+        {
+            m_vel.y = Mathf.Lerp(m_vel.y, m_vPreferVel, deltaTime * 30f);
+        }
         m_vel.y += m_g * Time.deltaTime;
         m_speed = m_vel.magnitude;
     }
@@ -155,8 +181,7 @@ public class MoveComp : ComponentBase
 
     private void UpdateVel()
     {
-        bool isInAir = !m_isOnGround;
-        if (isInAir)
+        if (m_vPreferVel > 0 || !m_isOnGround)
             UpdateVelAir();
         else
         {
@@ -198,7 +223,10 @@ public class MoveComp : ComponentBase
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        var pos = transform.position + new Vector3(0, m_cc.height / 2.0f, 0);
+        var pos = transform.position;
+        if (m_cc != null) {
+            pos += new Vector3(0, m_cc.height / 2.0f, 0);
+        }
         Gizmos.DrawLine(pos, pos + transform.forward);
     }
 }

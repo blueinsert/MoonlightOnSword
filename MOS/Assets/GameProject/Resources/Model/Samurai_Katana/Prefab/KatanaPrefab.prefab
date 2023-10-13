@@ -2605,21 +2605,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_isEnable: 1
   m_isDestroying: 0
-  m_desc: {fileID: 0}
+  m_hitPauseComp: {fileID: 0}
+  m_animComp: {fileID: 0}
+  m_moveComp: {fileID: 0}
+  m_status: 0
   m_hitDef:
     Level: 0
     PosType: 0
     P1HitPauseTime: 0
     P2HitPauseTime: 0
+    P2HitRecoverTime: 0
     HitBackHSpeed: 0
     HitBackVSpeed: 0
     P1GuardPauseTime: 0
     P2GuardPauseTime: 0
     P2GuardRecoverTime: 0
     GuardBackHSpeed: 0
-  m_hitPauseComp: {fileID: 0}
-  m_time: 0
+  m_isBeHitFly: 0
+  m_backVel: {x: 0, y: 0}
   m_hitPuaseStartTime: -1
+  m_hitPauseEndTime: -1
+  m_hitRecoverEndTime: -1
+  m_landingStartTime: 0
+  m_getupStartTime: 0
 --- !u!114 &114246100930532766
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2633,19 +2641,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AssetList:
   - Name: BeHit_Front
-    Asset: {fileID: 1153705001397826, guid: 377f96f4102f30a46b4db4dc6ecd66dd, type: 2}
+    Asset: {fileID: 0}
     AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/BeHit_Front.prefab
     RuntimeAssetCache: {fileID: 0}
   - Name: BeHit_Front_Heavy
-    Asset: {fileID: 1782668168597002, guid: 5f586640c83650145803152902bd6bfa, type: 2}
+    Asset: {fileID: 0}
     AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/BeHit_Front_Heavy.prefab
     RuntimeAssetCache: {fileID: 0}
   - Name: BeHit_Up
-    Asset: {fileID: 1357769479554844, guid: 69017460327db8947bc1e2401126b26c, type: 2}
+    Asset: {fileID: 0}
     AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/BeHit_Up.prefab
     RuntimeAssetCache: {fileID: 0}
   - Name: BeHit_Up_Heavy
-    Asset: {fileID: 1304361137593372, guid: 9a16803c26328d24ab6bbbddb3b4047d, type: 2}
+    Asset: {fileID: 0}
     AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/BeHit_Up_Heavy.prefab
     RuntimeAssetCache: {fileID: 0}
 --- !u!114 &114282764780112692
@@ -2781,6 +2789,7 @@ MonoBehaviour:
     PosType: 0
     P1HitPauseTime: 0
     P2HitPauseTime: 0
+    P2HitRecoverTime: 0
     HitBackHSpeed: 0
     HitBackVSpeed: 0
     P1GuardPauseTime: 0
