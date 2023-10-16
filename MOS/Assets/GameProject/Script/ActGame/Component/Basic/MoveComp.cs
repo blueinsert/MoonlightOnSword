@@ -62,7 +62,7 @@ public class MoveComp : ComponentBase
         m_facingDir = new Vector2(forward.x, forward.z);
         m_facingDir.Normalize();
         m_vel = Vector3.zero;
-        m_pushComp = GetComp<PushComp>();
+        //m_pushComp = GetComp<PushComp>();
     }
 
     public override void PostInit()

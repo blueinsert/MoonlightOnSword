@@ -202,17 +202,21 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: "Avatar Rig Configuration mis-match. Inbetween bone rotation
-      in configuration does not match rotation in animation file:\n\t'Chest' : rotation
-      error = 17.304544 deg\n"
+    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
+      copied configuration does not match position in animation file:\n\t'LeftUpLeg'
+      : position error = 3.778314 mm\n\t'RightUpLeg' : position error = 3.769028 mm\n\t'Spine'
+      : position error = 3.773587 mm\n\t'Chest' : position error = 3.818435 mm\n\t'Neck'
+      : position error = 7.651202 mm\n\t'LeftShoulder' : position error = 3.824332
+      mm\n\t'RightShoulder' : position error = 3.824881 mm\nCopied Avatar Rig Configuration
+      mis-match. Inbetween bone rotation in copied configuration does not match rotation
+      in animation file:\n\t'Chest' : rotation error = 17.303114 deg\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'HitFly_Up' has import animation warnings that
       might lower retargeting quality:\nNote: Activate translation DOF on avatar to
       improve retargeting quality.\n\t'Chest' is inbetween humanoid transforms and
-      has rotation animation that will be discarded.\n\t'LeftArm' has translation
-      animation that will be discarded.\n\t'RightArm' has translation animation that
-      will be discarded.\n\t'RightForeArm' has translation animation that will be
-      discarded.\n\t'RightHand' has translation animation that will be discarded.\n"
+      has rotation animation that will be discarded.\n\t'RightForeArm' has translation
+      animation that will be discarded.\n\t'RightHand' has translation animation that
+      will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -223,7 +227,35 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: HitFly_Up
+      takeName: HitFly_Up
+      firstFrame: 0
+      lastFrame: 10
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
