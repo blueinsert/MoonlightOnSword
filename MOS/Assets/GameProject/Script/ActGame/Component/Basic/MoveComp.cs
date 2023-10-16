@@ -53,6 +53,8 @@ public class MoveComp : ComponentBase
     //自驱移动：只能往前走，有转弯半径
     public bool m_isSelfDrive = true;
 
+    public PushComp m_pushComp = null;
+
     public void Start()
     {
         PostInit();
@@ -60,6 +62,7 @@ public class MoveComp : ComponentBase
         m_facingDir = new Vector2(forward.x, forward.z);
         m_facingDir.Normalize();
         m_vel = Vector3.zero;
+        m_pushComp = GetComp<PushComp>();
     }
 
     public override void PostInit()
@@ -185,7 +188,8 @@ public class MoveComp : ComponentBase
             UpdateVelAir();
         else
         {
-            UpdateVelGround(); 
+            UpdateVelGround();
+            m_vel.y = 0;
         }
     }
 
@@ -201,7 +205,11 @@ public class MoveComp : ComponentBase
 
     void UpdateIsOnGround()
     {
-        m_isOnGround = m_cc.isGrounded;
+        if (m_pushComp != null)
+        {
+            m_isOnGround = m_pushComp.IsOnGround;
+        }else
+            m_isOnGround = m_cc.isGrounded;
     }
 
     public void LookAt(Vector3 targetPos)

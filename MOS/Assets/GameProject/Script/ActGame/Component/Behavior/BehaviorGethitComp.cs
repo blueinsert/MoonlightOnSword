@@ -179,7 +179,7 @@ public class BehaviorGethitComp : ComponentBase {
         m_hitDef = hitDef;
         m_isBeHitFly = hitDef.HitBackVSpeed > 0;
 
-        m_hitPuaseStartTime = TimeManger.Instance.Frame + 2;//延迟1帧
+        m_hitPuaseStartTime = TimeManger.Instance.Frame + 1;//延迟1帧
         m_hitPauseEndTime = m_hitPuaseStartTime + m_hitDef.P2HitPauseTime;
         m_hitRecoverEndTime = m_hitPauseEndTime + m_hitDef.P2HitRecoverTime;
 

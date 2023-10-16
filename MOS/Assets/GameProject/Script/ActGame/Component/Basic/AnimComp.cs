@@ -85,6 +85,8 @@ public class AnimComp : ComponentBase {
         m_animator.SetTrigger("BeHitFinish");
 
         m_animator.SetBool("HitFly", false);
+
+		SetVY(0);
     }
 
 	public void SetTurnProgress(float v)

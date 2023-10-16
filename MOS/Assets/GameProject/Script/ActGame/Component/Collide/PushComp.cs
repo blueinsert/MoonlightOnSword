@@ -13,6 +13,8 @@ public class PushCollidePair
 
 public class PushComp : ComponentBase
 {
+    public bool IsOnGround { get { return m_pushColliderDesc.m_isOnGround; } }
+
     CollidersDesc m_collidersDesc = null;
     public PushColliderDesc m_pushColliderDesc;
     public float m_radius = 1f;

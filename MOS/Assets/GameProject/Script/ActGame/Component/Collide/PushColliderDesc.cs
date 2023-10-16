@@ -20,20 +20,23 @@ public class PushColliderDesc : MonoBehaviour
 
     public HashSet<PushColliderTriggerInfo> m_triggerInfos = new HashSet<PushColliderTriggerInfo>();
 
+    public bool m_isOnGround = true;
+
+    private int GroundLayerMask = -1;
 
     public void Init()
     {
         m_collider = this.gameObject.GetComponent<Collider>();
+        GroundLayerMask = LayerMask.NameToLayer("Ground");
     }
-
-    //在物理更新之前调用
-    //public void ClearTriggersInfo()
-    //{
-    //    m_triggersLen = 0;
-    //}
 
     public void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.layer == GroundLayerMask)
+        {
+            m_isOnGround = true;
+            return;
+        }
         //Debug.Log(string.Format("PushColliderDesc:OnTriggerEnter {0}", other.name));
         if (m_triggerInfos.Count >= MaxNeighborCount)
             return;
@@ -51,11 +54,17 @@ public class PushColliderDesc : MonoBehaviour
 
     public void OnTriggerExit(Collider other)
     {
+        if(other.gameObject.layer == GroundLayerMask)
+        {
+            m_isOnGround = false;
+            return;
+        }
         m_triggerInfos.RemoveWhere((item) => { return item.Collider == other; });
     }
 
     public void OnCollisionEnter(Collision collision)
     {
+
         Debug.Log(string.Format("PushColliderDesc:OnCollisionEnter {0}", collision.collider.name));
     }
 
