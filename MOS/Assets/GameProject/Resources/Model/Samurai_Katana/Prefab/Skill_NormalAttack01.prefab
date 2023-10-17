@@ -606,8 +606,8 @@ MonoBehaviour:
     P1HitPauseTime: 4
     P2HitPauseTime: 9
     P2HitRecoverTime: 10
-    HitBackHSpeed: 5
-    HitBackVSpeed: 3
+    HitBackHSpeed: 2
+    HitBackVSpeed: 0
     P1GuardPauseTime: 9
     P2GuardPauseTime: 9
     P2GuardRecoverTime: 10

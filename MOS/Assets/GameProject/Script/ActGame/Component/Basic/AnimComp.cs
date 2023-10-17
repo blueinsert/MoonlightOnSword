@@ -59,6 +59,11 @@ public class AnimComp : ComponentBase {
         m_animator.SetBool("HitFly", false);
     }
 
+	public void Dead(int type)
+	{
+        m_animator.SetTrigger("Dead");
+    }
+
 	public void BeHitFly()
 	{
         m_animator.SetTrigger("BeHit");

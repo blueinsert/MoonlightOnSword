@@ -9,6 +9,7 @@ public enum BeHitStatus
     PreHitPausing,
     HitPausing,
     HitRecover,
+    HitRecoverDead,
     HitFlyUp,
     HitFlyFalling,
     HitFlyLanding,
@@ -27,6 +28,7 @@ public class BehaviorGethitComp : ComponentBase {
 
     public const float LandingDuration = 1f;
     public const float GetupDuration = 1f;
+    public const float DeadingDuration = 0.9f;
 
     public bool IsPlaying { get { return m_status != BeHitStatus.None; } }
 
@@ -36,6 +38,7 @@ public class BehaviorGethitComp : ComponentBase {
 
     public BasicAblitityIml m_basicAblitity = null;
 
+    public bool m_isDead = false;
     public BeHitStatus m_status;
     public HitDef m_hitDef = null;
     public bool m_isBeHitFly = false;
@@ -46,6 +49,7 @@ public class BehaviorGethitComp : ComponentBase {
     public int m_hitRecoverEndTime = -1;
     public float m_landingStartTime = 0;
     public float m_getupStartTime = 0;
+    public float m_deadingEndTime = 0;
 
     public void Start()
     {
@@ -158,8 +162,12 @@ public class BehaviorGethitComp : ComponentBase {
 
     private void PlayHitAnim()
     {
-        if(!m_isBeHitFly)
-            m_animComp.GetHit((int)m_hitDef.Level, (int)m_hitDef.PosType);
+        if (!m_isBeHitFly) {
+            if (!m_isDead)
+                m_animComp.GetHit((int)m_hitDef.Level, (int)m_hitDef.PosType);
+            else
+                m_animComp.Dead(0);
+        }    
         else
         {
             m_animComp.BeHitFly();
@@ -173,11 +181,12 @@ public class BehaviorGethitComp : ComponentBase {
         m_animComp.ExitHit();
     }
 
-    public void StartGetHit(EntityComp attacker, HitDef hitDef)
+    public void StartGetHit(EntityComp attacker, HitDef hitDef,bool isDead = false)
     {
         Debug.Log("BehaviorGethitComp:StartGetHit");
         m_hitDef = hitDef;
         m_isBeHitFly = hitDef.HitBackVSpeed > 0;
+        m_isDead = isDead;
 
         m_hitPuaseStartTime = TimeManger.Instance.Frame + 1;//延迟1帧
         m_hitPauseEndTime = m_hitPuaseStartTime + m_hitDef.P2HitPauseTime;
@@ -229,9 +238,13 @@ public class BehaviorGethitComp : ComponentBase {
             {
                 if (!m_isBeHitFly)
                 {
-                    m_status = BeHitStatus.HitRecover;
+                    m_status = m_isDead ? BeHitStatus.HitRecoverDead : BeHitStatus.HitRecover;
                     OnHitPauseEnd();
                     m_basicAblitity.SetVelH(m_backVel, false);
+                    if (m_isDead)
+                    {
+                        m_deadingEndTime = cur + DeadingDuration;
+                    }
                 }
                 else
                 {
@@ -247,6 +260,14 @@ public class BehaviorGethitComp : ComponentBase {
             {
                 m_basicAblitity.SetVelH(Vector2.zero, false);
                 ExitHitAnim();
+                m_status = BeHitStatus.None;
+            }
+        }else if(m_status == BeHitStatus.HitRecoverDead)
+        {
+            //todo
+            if(cur > m_deadingEndTime)
+            {
+                m_basicAblitity.SetVelH(Vector2.zero, false);
                 m_status = BeHitStatus.None;
             }
         }
@@ -265,10 +286,11 @@ public class BehaviorGethitComp : ComponentBase {
             {
                 m_status = BeHitStatus.HitFlyLanding;
                 m_landingStartTime = TimeManger.Instance.CurTime;
+                m_basicAblitity.SetVelH(Vector2.zero, false);
             }
         }else if(m_status == BeHitStatus.HitFlyLanding)
         {
-            if(cur > m_landingStartTime + LandingDuration)
+            if(!m_isDead && cur > m_landingStartTime + LandingDuration)
             {
                 m_status = BeHitStatus.HitFlyGetup;
                 m_animComp.Getup();

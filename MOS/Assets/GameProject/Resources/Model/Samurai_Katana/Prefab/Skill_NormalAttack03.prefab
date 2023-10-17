@@ -585,11 +585,11 @@ MonoBehaviour:
   HitDef:
     Level: 0
     PosType: 0
-    P1HitPauseTime: 4
-    P2HitPauseTime: 9
+    P1HitPauseTime: 10
+    P2HitPauseTime: 14
     P2HitRecoverTime: 0
-    HitBackHSpeed: 1
-    HitBackVSpeed: 5
+    HitBackHSpeed: 2
+    HitBackVSpeed: 4
     P1GuardPauseTime: 0
     P2GuardPauseTime: 0
     P2GuardRecoverTime: 0
@@ -710,7 +710,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1748848711350208}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5f41e39daa2dc5478316d317eec4c69, type: 3}
   m_Name: 

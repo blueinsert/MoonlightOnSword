@@ -111,6 +111,11 @@ public class MoveComp : ComponentBase
         {
             m_vel.y = Mathf.Lerp(m_vel.y, m_vPreferVel, deltaTime * 30f);
         }
+        //m_vel.x = m_hPreferVel.x;
+        //m_vel.y = m_hPreferVel.y;
+        m_vel.x = Mathf.Lerp(m_vel.x, m_hPreferVel.x, TimeManger.Instance.DeltaTime * 30);
+        m_vel.z = Mathf.Lerp(m_vel.z, m_hPreferVel.y, TimeManger.Instance.DeltaTime * 30);
+        
         m_vel.y += m_g * Time.deltaTime;
         m_speed = m_vel.magnitude;
     }
@@ -189,7 +194,7 @@ public class MoveComp : ComponentBase
         else
         {
             UpdateVelGround();
-            m_vel.y = 0;
+            m_vel.y = -0.1f;//接近0会使cc.isOnGround飘动
         }
     }
 
