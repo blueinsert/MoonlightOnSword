@@ -46,4 +46,15 @@ public class BehaviorFsmComp : ComponentBase
     {
         return m_blockComp.IsInBlocking;
     }
+
+    public bool CanAttack()
+    {
+        if (m_skillComp.IsPlaying)
+            return false;
+        if (m_blockComp.IsInBlocking)
+            return false;
+        if (m_gethitComp.IsPlaying)
+            return false;
+        return true;
+    }
 }

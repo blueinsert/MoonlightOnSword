@@ -61,7 +61,7 @@ public class HitDetectionSystem : SystemBase {
         //被攻击者有BehaviorGethitComp才会有受创状态
         if (!beblocking && gethitComp != null)
         { 
-            gethitComp.StartGetHit(attacker, hitdef, true);
+            gethitComp.StartGetHit(attacker, hitdef, false);
         }
         var skill = attacker.GetComp<BehaviorSkillComp>();
         skill.OnHitTarget(hitdef, beblocking);

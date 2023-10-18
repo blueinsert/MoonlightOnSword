@@ -1,0 +1,1 @@
+{"trees":[{"name":"Katana","node":{"type":"Game.AIBehaviorTree.BNodeSelector","name":"Selector","arg":{},"child":[{"type":"ActionAttack","name":"Attack","arg":{},"child":[]}]}}]}

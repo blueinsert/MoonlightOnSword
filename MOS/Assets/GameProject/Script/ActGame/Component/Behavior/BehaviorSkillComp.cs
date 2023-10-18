@@ -15,6 +15,8 @@ public class BehaviorSkillComp : ComponentBase
     public bool m_autoTrack = true;
     private bool m_isInHitPauseing = false;
 
+    private BehaviorFsmComp m_fsmComp = null;
+
     public void Start()
     {
         m_hitResponseComp = GetComp<HitResponseComp>();
@@ -22,6 +24,8 @@ public class BehaviorSkillComp : ComponentBase
         m_skillsDesc = GetComponentInChildren<SkillsDesc>();
 
         m_skillPlayer.Initialize(this.GetComp<EntityComp>());
+
+        m_fsmComp = GetComp<BehaviorFsmComp>();
     }
 
     public override void Tick()
@@ -51,6 +55,8 @@ public class BehaviorSkillComp : ComponentBase
 
     public bool TryAttack()
     {
+        if (!m_fsmComp.CanAttack())
+            return false;
         //Debug.Log("BehaviorSkillComp:TryAttack");
         if (!IsPlaying)
         {

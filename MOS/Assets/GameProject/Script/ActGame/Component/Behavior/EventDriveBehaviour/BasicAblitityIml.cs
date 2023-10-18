@@ -45,7 +45,7 @@ public class BasicAblitityIml : IBasicAblitity {
 
     public bool IsAttackingClick()
     {
-        return m_inputComp.IsAttackClick;
+        return m_inputComp != null && m_inputComp.IsAttackClick;
     }
 
     public virtual void PlaySkill(int id)

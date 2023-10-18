@@ -20,7 +20,7 @@ public class BehaviorMoveSystem : SystemBase
         var move = comp.GetComp<MoveComp>();
         var anim = comp.GetComp<AnimComp>();
         float speed = 5f;
-        if (input.IsEnable)
+        if (input != null && input.IsEnable)
         {
             var forward = CameraManager.Instance.GetForward();//摄像机朝向
             var inputDir = input.Dir;//摇杆输入

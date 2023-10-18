@@ -23,7 +23,7 @@ public class BehaviorBlockSystem : SystemBase
         var move = comp.GetComp<MoveComp>();
         //var anim = comp.GetComp<AnimComp>();
         var block = comp.GetComp<BehaviorBlockComp>();
-        if (!input.IsEnable) {
+        if (input == null || !input.IsEnable) {
             return;
         }
 

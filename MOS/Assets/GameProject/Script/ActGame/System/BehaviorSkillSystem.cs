@@ -12,7 +12,7 @@ public class BehaviorSkillSystem : SystemBase
         var move = comp.GetComp<MoveComp>();
         var anim = comp.GetComp<AnimComp>();
 
-        if (input.IsAttackClick)
+        if (input != null && input.IsAttackClick)
         {
             comp.TryAttack();
         }
