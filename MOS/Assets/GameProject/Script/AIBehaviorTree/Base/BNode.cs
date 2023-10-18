@@ -62,10 +62,11 @@ namespace Game.AIBehaviorTree
 				{
 					string str = arg[info.Name].ToString();
 					object val = null;
-					if(info.FieldType == typeof(int)) val = int.Parse(str);
-					else if(info.FieldType == typeof(float)) val = float.Parse(str);
-					else if(info.FieldType == typeof(bool)) val = bool.Parse(str);
-					else if(info.FieldType == typeof(string)) val = str;
+                    if (info.FieldType == typeof(int)) val = int.Parse(str);
+                    else if (info.FieldType == typeof(float)) val = float.Parse(str);
+                    else if (info.FieldType == typeof(bool)) val = bool.Parse(str);
+                    else if (info.FieldType == typeof(string)) val = str;
+                    else if (info.FieldType == typeof(Vector3)) val = Vector3.zero;//todo
 					info.SetValue(this,val);
 				}
 			}
@@ -223,7 +224,12 @@ namespace Game.AIBehaviorTree
 						GUI.Label(new Rect(x,y+i*20,100,20),info.Name);
 						fieldvalue = GUI.TextField(new Rect(x+100,y+i*20,100,20) , fieldvalue);
 						vl = fieldvalue;
-					}
+					}else if(info.FieldType == typeof(Vector3))
+                    {
+                        Vector3 fieldvalue = (Vector3)info.GetValue(this);
+                        fieldvalue = EditorGUI.Vector3Field(new Rect(x + 100, y + i * 20, 100, 20), info.Name, fieldvalue);
+                        vl = fieldvalue;
+                    }
 
 					info.SetValue(this,vl);
 				}

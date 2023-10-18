@@ -7,14 +7,24 @@ public class AIInput : BInput,IAIAblitity {
 
     private AIAblitity m_aiAblitity = null;
 
+    public void Initialize(EntityComp entity)
+    {
+        m_aiAblitity = new AIAblitity();
+        m_aiAblitity.Initialize(entity);
+    }
+
     public bool Attack()
     {
         return m_aiAblitity.Attack();
     }
 
-    public void Initialize(EntityComp entity)
+    public bool IsNearTo(Vector3 position, float range)
     {
-        m_aiAblitity = new AIAblitity();
-        m_aiAblitity.Initialize(entity);
+        return m_aiAblitity.IsNearTo(position, range);
+    }
+
+    public void MoveTo(Vector3 targetPos)
+    {
+        m_aiAblitity.MoveTo(targetPos);
     }
 }

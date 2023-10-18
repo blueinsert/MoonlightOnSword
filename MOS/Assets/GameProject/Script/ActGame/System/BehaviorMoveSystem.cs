@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CaredCompType(typeof(BehaviorMoveComp))]
+[CaredCompType(typeof(BehaviorMoveComp), typeof(AIBehaviorMoveToPositionComp))]
 public class BehaviorMoveSystem : SystemBase
 {
     /// <summary>
@@ -37,6 +37,11 @@ public class BehaviorMoveSystem : SystemBase
         }
     }
 
+    private void TickAIMove(AIBehaviorMoveToPositionComp comp)
+    {
+        //Debug.Log("BehaviorMoveSystem:TickAIMove");
+    }
+
     public override void Tick()
     {
         //Debug.Log(string.Format("BehaviorMoveSystem:Tick comp Count:{0}", m_compList.Count));
@@ -46,6 +51,9 @@ public class BehaviorMoveSystem : SystemBase
             if(comp.IsEnable && comp is BehaviorMoveComp)
             {
                 TickMove(comp as BehaviorMoveComp);
+            }else if(comp.IsEnable && comp is AIBehaviorMoveToPositionComp)
+            {
+                TickAIMove(comp as AIBehaviorMoveToPositionComp);
             }
         }
         base.Tick();

@@ -11,7 +11,7 @@ public class BehaviorBlockSystem : SystemBase
     /// <param name="comp"></param>
     private void TickBlock(BehaviorBlockComp comp)
     {
-        Debug.Log(string.Format("BehaviorBlockSystem:TickBlock"));
+        //Debug.Log(string.Format("BehaviorBlockSystem:TickBlock"));
         var fsm = comp.GetComp<BehaviorFsmComp>();
         var anim = comp.GetComp<AnimComp>();
         if (!fsm.CanBlock())
