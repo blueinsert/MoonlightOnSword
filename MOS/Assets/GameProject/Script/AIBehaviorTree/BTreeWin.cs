@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using Game.AIBehaviorTree;
 using System.Linq;
+using System.IO;
+using LitJson;
 
 
 //	BTreeWin.cs
@@ -33,6 +35,9 @@ public class BTreeWin : EditorWindow
     private Vector2 m_editUIScrollPos = new Vector2(0, 0);
 
     private string m_strInputName = "";
+
+    private string m_jsonPath = "";
+
 
     [@MenuItem("BTree/Editor")]
     static void initwin()
@@ -84,6 +89,9 @@ public class BTreeWin : EditorWindow
         GUI.BeginGroup(new Rect(0, 0, GUI_WIDTH,1000));
         int x = 0;
         int y = 0;
+        GUI.Label(new Rect(x, y, 200, 20), string.Format("path:{0}",m_jsonPath));
+        y += 20;
+
         List<BTree> lst = BTreeMgr.sInstance.GetTrees();
         if (GUI.Button(new Rect(x, y, 200, 40), "Load"))
         {
@@ -93,13 +101,18 @@ public class BTreeWin : EditorWindow
             last_tree_index = -1;
             select_create_node_id = -1;
             select = null;
-
-            BTreeMgr.sInstance.EditorLoad();
+            EditorLoad();
         }
         y += 40;
         if (GUI.Button(new Rect(x, y, 200, 40), "Save"))
         {
-            BTreeMgr.sInstance.EditorSave();
+            EditorSave();
+            AssetDatabase.Refresh();
+        }
+        y += 40;
+        if (GUI.Button(new Rect(x, y, 200, 40), "Save As"))
+        {
+            EditorSaveAs();
             AssetDatabase.Refresh();
         }
         y += 40;
@@ -215,6 +228,44 @@ public class BTreeWin : EditorWindow
         GUI.EndGroup();
         GUI.EndScrollView();
         //////////////////// draw editor gui /////////////////////
+    }
+
+
+    //editor load data
+    public void EditorLoad()
+    {
+        string filepath = EditorUtility.OpenFilePanel("Bahvior Tree", Application.dataPath, "json");
+        if (filepath == "") return;
+        string txt = File.ReadAllText(filepath);
+        var res = BTreeMgr.sInstance.Load(txt);
+        if (res)
+        {
+            m_jsonPath = filepath;
+        }
+        ShowNotification(new GUIContent("Load Success"));
+    }
+
+    public void EditorSave()
+    {
+        if (string.IsNullOrEmpty(m_jsonPath))
+        {
+            EditorSaveAs();
+        }
+        else
+        {
+            var data = BTreeMgr.sInstance.ToJsonData();
+            File.WriteAllText(m_jsonPath, data.ToJson());
+            ShowNotification(new GUIContent("Save Success"));
+        }
+    }
+
+    public void EditorSaveAs()
+    {
+        string filepath = EditorUtility.SaveFilePanel("Behavior Tree", Application.dataPath, "", "json");
+        Debug.Log(filepath);
+        var data = BTreeMgr.sInstance.ToJsonData();
+        File.WriteAllText(filepath, data.ToJson());
+        ShowNotification(new GUIContent("Save Success"));
     }
 
     void Update()

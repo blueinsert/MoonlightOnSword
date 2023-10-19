@@ -5,8 +5,12 @@ using UnityEngine;
 
 public class ActionMoveToPosition : BNodeAction
 {
+    [SerializeField]
     public Vector3 m_targetPosition;
-    public const float MaxDuration = 20f;
+    [SerializeField]
+    public float m_range;
+
+    private const float MaxDuration = 20f;
     private float m_startTime;
 
     public ActionMoveToPosition()

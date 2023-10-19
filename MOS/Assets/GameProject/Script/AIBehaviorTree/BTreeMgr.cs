@@ -42,46 +42,43 @@ namespace Game.AIBehaviorTree
 		}
 
 		//load data
-		public void Load(string jsontxt)
+		public bool Load(string jsontxt)
 		{
-			JsonData json = JsonMapper.ToObject(jsontxt);
-			json = json["trees"];
-			int count = json.Count;
-			for(int i = 0 ; i<count ; i++)
+            this.m_mapTree.Clear();
+
+			try
 			{
-				BTree bt = new BTree();
-				JsonData data = json[i];
-				bt.ReadJson(data);
-				this.m_mapTree.Add(bt.m_strName , bt);
+				JsonData json = JsonMapper.ToObject(jsontxt);
+				json = json["trees"];
+				int count = json.Count;
+				for (int i = 0; i < count; i++)
+				{
+					BTree bt = new BTree();
+					JsonData data = json[i];
+					bt.ReadJson(data);
+					this.m_mapTree.Add(bt.m_strName, bt);
+				}
 			}
+			catch(Exception e)
+			{
+				Debug.LogError(e.ToString());
+				return false;
+			}
+
+			return true;
 		}
 
-#if UNITY_EDITOR
-		//editor save data
-		public void EditorSave()
+		public JsonData ToJsonData()
 		{
-			string filepath = EditorUtility.SaveFilePanel("Behavior Tree" , Application.dataPath , "","json");
-			Debug.Log(filepath);
-			JsonData data = new JsonData();
-			data["trees"] = new JsonData();
-			data["trees"].SetJsonType(JsonType.Array);
-			foreach( KeyValuePair<string , BTree> item in this.m_mapTree )
-			{
-				item.Value.WriteJson(data["trees"]);
-			}
-			File.WriteAllText(filepath,data.ToJson());
-		}
-
-		//editor load data
-		public void EditorLoad()
-		{
-			string filepath = EditorUtility.OpenFilePanel("Bahvior Tree" , Application.dataPath ,"json");
-			if(filepath == "") return;
-			this.m_mapTree.Clear();
-			string txt = File.ReadAllText(filepath);
-			Load(txt);
-		}
-#endif
+            JsonData data = new JsonData();
+            data["trees"] = new JsonData();
+            data["trees"].SetJsonType(JsonType.Array);
+            foreach (KeyValuePair<string, BTree> item in this.m_mapTree)
+            {
+                item.Value.WriteJson(data["trees"]);
+            }
+			return data;
+        }
 
 		public BTree GetTree( string name )
 		{
