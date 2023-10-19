@@ -9,6 +9,8 @@ public class ActionMoveToPosition : BNodeAction
     public Vector3 m_targetPosition;
     [SerializeField]
     public float m_range;
+    [SerializeField]
+    public float m_speed;
 
     private const float MaxDuration = 20f;
     private float m_startTime;
@@ -22,7 +24,7 @@ public class ActionMoveToPosition : BNodeAction
     public override void OnEnter(BInput input)
     {
         AIInput tinput = input as AIInput;
-        tinput.MoveTo(m_targetPosition);
+        tinput.MoveTo(m_targetPosition, m_speed);
         this.m_startTime = TimeManger.Instance.CurTime;
         Debug.Log("MoveToPosition");
     }
@@ -37,6 +39,9 @@ public class ActionMoveToPosition : BNodeAction
         if (aiInput.IsNearTo(m_targetPosition, 0.5f)){
             return ActionResult.SUCCESS;
         }
-        return ActionResult.RUNNING;
+        if (aiInput.IsMoving())
+            return ActionResult.RUNNING;
+        else
+            return ActionResult.FAILURE;
     }
 }

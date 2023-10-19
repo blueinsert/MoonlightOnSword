@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.AIBehaviorTree;
 
-public class AIInput : BInput,IAIAblitity {
+public class AIInput : BInput, IAIAblitity {
 
     private AIAblitity m_aiAblitity = null;
 
@@ -23,8 +23,13 @@ public class AIInput : BInput,IAIAblitity {
         return m_aiAblitity.IsNearTo(position, range);
     }
 
-    public void MoveTo(Vector3 targetPos)
+    public void MoveTo(Vector3 targetPos, float speed)
     {
-        m_aiAblitity.MoveTo(targetPos);
+        m_aiAblitity.MoveTo(targetPos, speed);
+    }
+
+    public bool IsMoving()
+    {
+        return m_aiAblitity.IsMoving();
     }
 }

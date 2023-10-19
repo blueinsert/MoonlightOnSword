@@ -63,6 +63,7 @@ public class BehaviorBlockComp : ComponentBase
     //格挡成功
     public void OnBlockHit(EntityComp attacker, HitDef hitdef)
     {
+        m_status = BlockStatus.None;
         StartBlockPause(hitdef);
         SetBackSpeed(attacker, hitdef);
     }

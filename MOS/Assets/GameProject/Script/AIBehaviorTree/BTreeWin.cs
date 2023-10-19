@@ -84,12 +84,13 @@ public class BTreeWin : EditorWindow
         //////////////////// draw the tree /////////////////////
 
         //////////////////// draw editor gui /////////////////////
-        this.m_editUIScrollPos = GUI.BeginScrollView(new Rect(position.width - GUI_WIDTH, 0, GUI_WIDTH, 1000), this.m_editUIScrollPos, new Rect(0, 0, this.maxSize.x, this.maxSize.y));
+        this.m_editUIScrollPos = GUI.BeginScrollView(new Rect(position.width - GUI_WIDTH, 0, GUI_WIDTH, position.height), this.m_editUIScrollPos, new Rect(0, 0, this.maxSize.x, this.maxSize.y));
         //GUI.BeginGroup(new Rect(position.width - GUI_WIDTH, 0, GUI_WIDTH, 1000));
-        GUI.BeginGroup(new Rect(0, 0, GUI_WIDTH,1000));
+        //GUI.BeginGroup(new Rect(0, 0, GUI_WIDTH,1000));
         int x = 0;
         int y = 0;
-        GUI.Label(new Rect(x, y, 200, 20), string.Format("path:{0}",m_jsonPath));
+        var index = m_jsonPath.IndexOf("Assets");
+        EditorGUI.LabelField(new Rect(x, y, 1000, 20), string.Format("path:{0}",m_jsonPath.Substring(index)));
         y += 20;
 
         List<BTree> lst = BTreeMgr.sInstance.GetTrees();
@@ -225,7 +226,7 @@ public class BTreeWin : EditorWindow
             cur_node.RenderEditor(x, y);
         }
         //
-        GUI.EndGroup();
+        //GUI.EndGroup();
         GUI.EndScrollView();
         //////////////////// draw editor gui /////////////////////
     }

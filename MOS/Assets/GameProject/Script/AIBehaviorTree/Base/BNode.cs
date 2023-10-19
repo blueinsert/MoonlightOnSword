@@ -49,6 +49,7 @@ namespace Game.AIBehaviorTree
             this.m_strType = this.GetType().FullName;
             this.m_strName = this.GetType().Name;
             GetFieldInfos();
+            this.m_eState = ActionResult.NONE;
         }
 
         private bool IsFieldNeedSave(FieldInfo fieldInfo)
@@ -151,7 +152,8 @@ namespace Game.AIBehaviorTree
             return json;
         }
 
-        private ActionResult m_eState;
+        private ActionResult m_eState = ActionResult.NONE;
+
         public ActionResult RunNode(BInput input)
         {
             if (this.m_eState == ActionResult.NONE)

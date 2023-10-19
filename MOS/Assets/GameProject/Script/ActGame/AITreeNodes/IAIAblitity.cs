@@ -5,6 +5,7 @@ using UnityEngine;
 public interface IAIAblitity {
 
 	bool Attack();
-    void MoveTo(Vector3 targetPos);
+    void MoveTo(Vector3 targetPos, float speed);
+    bool IsMoving();
     bool IsNearTo(Vector3 position, float range);
 }

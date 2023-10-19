@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIBehaviorMoveToPositionComp : ComponentBase {
+public class AIBehaviorMoveToPositionComp : BehaviorCompBase {
+
+    public AIBehaviorMoveToPositionComp() : base(BehaviorType.Moving)
+    {
+
+    }
 
     public bool IsMoving { get { return m_isMoving; } }
 
@@ -11,6 +16,7 @@ public class AIBehaviorMoveToPositionComp : ComponentBase {
     public AnimComp m_animComp = null;
 
     public Vector3 m_targetPos = Vector3.zero;
+    public float m_speed = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -27,21 +33,35 @@ public class AIBehaviorMoveToPositionComp : ComponentBase {
             dir.y = 0;
             dir.Normalize();
 
-            var speed = 5f;
+            var speed = m_speed;
             var preferVel = dir * speed;
             m_moveComp.SetPreferVelHorizon(preferVel.x, preferVel.z, true);
             m_animComp.Walk(m_moveComp.Speed, m_moveComp.RotateValue);
         }
     }
 
-    public void MoveTo(Vector3 position)
+    public void MoveTo(Vector3 position, float speed)
     {
         m_isMoving = true;
         m_targetPos = position;
+        m_speed = speed;
     }
 
     public void Stop()
     {
         m_isMoving = false;
+    }
+
+    public override bool IsBehaviorActive()
+    {
+        return m_isMoving;
+    }
+
+    public override void OnOtherBehaviorEnter(BehaviorType other)
+    {
+        if(other == BehaviorType.GetHit || other == BehaviorType.Guard || other == BehaviorType.Skill)
+        {
+            Stop();
+        }
     }
 }

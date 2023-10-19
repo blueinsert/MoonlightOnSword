@@ -9,14 +9,18 @@ using UnityEngine;
 /// </summary>
 public class BehaviorFsmComp : ComponentBase
 {
+    public AIBehaviorMoveToPositionComp m_aiMoveToComp;
     public BehaviorMoveComp m_moveComp;
     public BehaviorSkillComp m_skillComp;
     public BehaviorBlockComp m_blockComp;
     public BehaviorGethitComp m_gethitComp;
+    public EntityComp m_entity;
 
     public void Start()
     {
+        m_entity = GetComp<EntityComp>();
         m_moveComp = GetComp<BehaviorMoveComp>();
+        m_aiMoveToComp = GetComp<AIBehaviorMoveToPositionComp>();
         m_skillComp = GetComp<BehaviorSkillComp>();
         m_blockComp = GetComp<BehaviorBlockComp>();
         m_gethitComp = GetComp<BehaviorGethitComp>();
@@ -44,7 +48,7 @@ public class BehaviorFsmComp : ComponentBase
 
     public bool IsInBlocking()
     {
-        return m_blockComp.IsInBlocking;
+        return m_blockComp!=null && m_blockComp.IsInBlocking;
     }
 
     public bool CanAttack()
@@ -56,5 +60,20 @@ public class BehaviorFsmComp : ComponentBase
         if (m_gethitComp.IsPlaying)
             return false;
         return true;
+    }
+
+    public void StartGetHit(EntityComp attacker, HitDef hitDef, bool isDead = false)
+    {
+        if (m_gethitComp == null)
+            return;
+        m_gethitComp.StartGetHit(attacker, hitDef, false);
+    }
+
+
+    public void OnBlockHit(EntityComp attacker, HitDef hitdef)
+    {
+        if (m_blockComp == null)
+            return;
+        m_blockComp.OnBlockHit(attacker, hitdef);
     }
 }

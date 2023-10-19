@@ -27,8 +27,13 @@ public class AIAblitity : IAIAblitity
         return dist < range;
     }
 
-    public void MoveTo(Vector3 targetPos)
+    public void MoveTo(Vector3 targetPos, float speed)
     {
-        m_moveToComp.MoveTo(targetPos);
+        m_moveToComp.MoveTo(targetPos, speed);
+    }
+
+    public bool IsMoving()
+    {
+        return m_moveToComp.IsMoving;
     }
 }

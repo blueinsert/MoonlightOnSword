@@ -36,32 +36,29 @@ public class HitDetectionSystem : SystemBase {
         }
         Debug.Log(string.Format("{0} hit {1}", attacker.gameObject.name, p2.gameObject.name));
         hitdef.RecordHit(p2);
-        
+
+        var p2fsm = p2.GetComp<BehaviorFsmComp>();
         bool beblocking = false;
-        var block = p2.GetComp<BehaviorBlockComp>();
-        if (block != null)
+        if (p2fsm.IsInBlocking())
         {
-            //正在防御
-            if (block.IsInBlocking)
+            //根据角度判断能否被防御
+            var canBlock = CanBlock(attacker, p2, hitdef);
+            if (canBlock)
             {
-                //根据角度判断能否被防御
-                var canBlock = CanBlock(attacker, p2, hitdef);
-                if (canBlock) {
-                    block.OnBlockHit(attacker, hitdef);
-                    beblocking = true;
-                }
-                else
-                {
-                    block.Clear();
-                }
+
+                p2fsm.OnBlockHit(attacker, hitdef);
+                beblocking = true;
+            }
+            else
+            {
+                //block.Clear();todo
             }
         }
         //todo damage
-        var gethitComp = p2.GetComp<BehaviorGethitComp>();
         //被攻击者有BehaviorGethitComp才会有受创状态
-        if (!beblocking && gethitComp != null)
-        { 
-            gethitComp.StartGetHit(attacker, hitdef, false);
+        if (!beblocking)
+        {
+            p2fsm.StartGetHit(attacker, hitdef, false);
         }
         var skill = attacker.GetComp<BehaviorSkillComp>();
         skill.OnHitTarget(hitdef, beblocking);
