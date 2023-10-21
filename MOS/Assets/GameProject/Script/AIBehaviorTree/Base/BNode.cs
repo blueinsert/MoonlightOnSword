@@ -229,6 +229,17 @@ namespace Game.AIBehaviorTree
             return this.m_lstChildren.Contains(node);
         }
 
+        public BNode Clone()
+        {
+            var json = WriteJson();
+            string typename = json["type"].ToString();
+            Type t = Type.GetType(typename);
+            var instance = Activator.CreateInstance(t) as BNode;
+            instance.ReadJson(json);
+            return instance;
+        }
+
+        #region Editor
 #if UNITY_EDITOR
         //render editor
         public void RenderEditor(int x, int y)
@@ -337,6 +348,20 @@ namespace Game.AIBehaviorTree
             BTreeWin.sInstance.Repaint();
         }
 
+        private void menu_copy_node(object arg)
+        {
+            BTreeWin.m_copySource = this.Clone();
+        }
+
+        private void menu_paste_node(object arg)
+        {
+            if (BTreeWin.m_copySource != null)
+            {
+                this.AddChild(BTreeWin.m_copySource.Clone());
+                BTreeWin.sInstance.Repaint();
+            }
+        }
+
         //render
         public virtual void Render(int x, ref int y)
         {
@@ -381,7 +406,7 @@ namespace Game.AIBehaviorTree
                     texRed.Apply();
                     GUI.DrawTexture(new Rect(0, y, BTreeWin.sInstance.position.width, BTreeWin.NODE_HEIGHT), texRed);
                 }
-                if (evt.type == EventType.ContextClick)
+                if (evt.type == EventType.ContextClick)//右键菜单
                 {
                     GenericMenu menu = new GenericMenu();
                     foreach (Type item in BNodeFactory.sInstance.m_lstComposite)
@@ -406,6 +431,12 @@ namespace Game.AIBehaviorTree
                     {
                         menu.AddItem(new GUIContent("Switch/Composite/" + item.Name), false, menu_switch_callback, item);
                     }
+
+                    menu.AddItem(new GUIContent("Copy"), false, menu_copy_node, "");
+
+                    GUI.color = BTreeWin.m_copySource == null ? Color.gray : Color.white;
+                    menu.AddItem(new GUIContent("Paste"), false, menu_paste_node, "");
+                    GUI.color = Color.white;
 
                     menu.AddItem(new GUIContent("Delete"), false, menu_delete_node, "");
                     menu.ShowAsContext();
@@ -448,7 +479,7 @@ namespace Game.AIBehaviorTree
             }
         }
 #endif
-
+        #endregion
     }
 
 }

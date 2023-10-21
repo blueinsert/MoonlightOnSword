@@ -9,7 +9,7 @@ public class PushSystem : SystemBase
 {
     private void ProcessCollidePair(PushCollidePair pair)
     {
-        Debug.Log(string.Format("PushSystem:ProcessCollidePair"));
+        //Debug.Log(string.Format("PushSystem:ProcessCollidePair"));
 
         var p1 = pair.P1;
         var p2 = pair.P2;

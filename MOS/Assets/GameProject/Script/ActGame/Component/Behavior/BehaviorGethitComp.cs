@@ -19,7 +19,9 @@ public enum BeHitStatus
 /// <summary>
 /// 受创状态 内部是一个状态机
 /// </summary>
-public class BehaviorGethitComp : ComponentBase {
+public class BehaviorGethitComp : BehaviorCompBase {
+
+    public BehaviorGethitComp() : base(BehaviorType.GetHit) { }
 
     //public const string ResourceName_GetHitFront = "BeHit_Front";
     //public const string ResourceName_GetHitFrontHeavy = "BeHit_Front_Heavy";
@@ -287,6 +289,7 @@ public class BehaviorGethitComp : ComponentBase {
                 m_status = BeHitStatus.HitFlyLanding;
                 m_landingStartTime = TimeManger.Instance.CurTime;
                 m_basicAblitity.SetVelH(Vector2.zero, false);
+                m_basicAblitity.SetVelV(0);
             }
         }else if(m_status == BeHitStatus.HitFlyLanding)
         {
@@ -305,5 +308,14 @@ public class BehaviorGethitComp : ComponentBase {
                 m_status = BeHitStatus.None;
             }
         }
+    }
+
+    public override bool IsBehaviorActive()
+    {
+        return IsPlaying;
+    }
+
+    public override void OnOtherBehaviorEnter(BehaviorType other)
+    {
     }
 }

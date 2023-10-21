@@ -10,7 +10,8 @@ using System.Collections.Generic;
 namespace Game.AIBehaviorTree
 {
     /// <summary>
-    /// 顺序节点
+    /// 顺序节点：顺序运行子节点，若子节点运行失败，则返回失败；
+    /// 全部运行完返回成功
     /// </summary>
     public class BNodeSequence : BNodeComposite
     {

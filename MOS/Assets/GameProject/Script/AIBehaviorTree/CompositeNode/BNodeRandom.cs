@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace Game.AIBehaviorTree
 {
-	//random
+	//random 随机运行其中一个子节点
 	public class BNodeRandom : BNodeComposite
 	{
 		private int m_iRunningIndex;

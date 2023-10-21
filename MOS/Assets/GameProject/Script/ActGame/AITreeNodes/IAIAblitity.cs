@@ -4,6 +4,7 @@ using UnityEngine;
 
 public interface IAIAblitity {
 
+    bool CanMove();
 	bool Attack();
     void MoveTo(Vector3 targetPos, float speed);
     bool IsMoving();

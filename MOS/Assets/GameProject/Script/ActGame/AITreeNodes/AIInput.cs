@@ -32,4 +32,9 @@ public class AIInput : BInput, IAIAblitity {
     {
         return m_aiAblitity.IsMoving();
     }
+
+    public bool CanMove()
+    {
+        return m_aiAblitity.CanMove();
+    }
 }
