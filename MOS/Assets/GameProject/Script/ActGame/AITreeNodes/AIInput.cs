@@ -32,4 +32,29 @@ public class AIInput : BInput, IAIAblitity {
     {
         return m_aiAblitity.IsMoving();
     }
+
+    public bool FindAndCacheEnemy(float range)
+    {
+        return m_aiAblitity.FindAndCacheEnemy(range);
+    }
+
+    public bool IsEnemyValid()
+    {
+        return m_aiAblitity.IsEnemyValid();
+    }
+
+    public void AbandonEnemy()
+    {
+        m_aiAblitity.AbandonEnemy();
+    }
+
+    public float DistToEnemy()
+    {
+        return m_aiAblitity.DistToEnemy();
+    }
+
+    public bool MoveToEnemy(float speed)
+    {
+        return m_aiAblitity.MoveToEnemy(speed);
+    }
 }

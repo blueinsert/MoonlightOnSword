@@ -23,7 +23,7 @@ public class ColliderHandlerComp : ComponentBase
 		foreach (var collider in m_hitboxDesc.m_attackBoxList)
 		{
 			collider.enabled = false;
-			collider.gameObject.layer = m_owner.GetCampType() == CampType.Player1 ? layerMask1 : layerMask2;
+			collider.gameObject.layer = m_owner.GetCampType() == CampType.Player ? layerMask1 : layerMask2;
 			var attackCollider = collider.gameObject.AddComponent<AttackColliderDesc>();
 			attackCollider.Init();
 			//attackCollider.SetOwner(this.m_owner);

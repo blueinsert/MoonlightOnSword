@@ -81,11 +81,11 @@ public class ActorBase : MonoBehaviour {
 	protected virtual void InitComponents()
 	{
 		m_characterController = GetOrCreateComponent<CharacterController>();
-		m_characterController.gameObject.layer = m_campType == CampType.Player1 ? LayerMask.NameToLayer("Player") : LayerMask.NameToLayer("Enemy");
+		m_characterController.gameObject.layer = m_campType == CampType.Player ? LayerMask.NameToLayer("Player") : LayerMask.NameToLayer("Enemy");
 		m_fsmComponent = GetOrCreateComponent<FsmComp>();
 		m_moveComponent = GetOrCreateComponent<MoveComp>();
 		m_animComponent = GetOrCreateComponent<AnimComp>();
-		if(m_campType == CampType.Player1)
+		if(m_campType == CampType.Player)
 		   m_playerInputCom = GetOrCreateComponent<InputComp>();
 		m_cmdComp = GetOrCreateComponent<CmdComp>();
 		m_propertyComp = GetOrCreateComponent<PropertyComp>();

@@ -19,27 +19,33 @@ public class SearchSystem : SystemBase
         base.OnTick();
     }
 
-    public EntityComp FindNearestInRange(EntityComp me,float range)
+    public EntityComp FindNearestEnemyInRange(EntityComp me, float range)
+    {
+        var enemyCamp = GameLogicUtil.GetEnemyCampType(me.CampType);
+        return FindNearestInRange(me, range, enemyCamp);
+    }
+
+    public EntityComp FindNearestInRange(EntityComp me,float range, CampType campType)
     {
         float mindist = 99999;
-        GameObject go = null;
+        EntityComp nearestTarget = null;
         foreach(var comp in m_compList)
         {
             if (comp.IsEnable && comp.gameObject != me.gameObject)
             {
-                var dist = (me.gameObject.transform.position - comp.transform.position).magnitude;
-                if (dist < mindist && dist < range)
+                var target = comp.GetComp<EntityComp>();
+                if((target.CampType & campType) == target.CampType)
                 {
-                    mindist = dist;
-                    go = comp.gameObject;
-                }
+                    var dist = (me.gameObject.transform.position - comp.transform.position).magnitude;
+                    if (dist < mindist && dist < range)
+                    {
+                        mindist = dist;
+                        nearestTarget = target;
+                    }
+                } 
             }
         }
-        if(go != null)
-        {
-            return go.GetComponent<EntityComp>();
-        }
-        return null;
+        return nearestTarget;
     }
 }
 

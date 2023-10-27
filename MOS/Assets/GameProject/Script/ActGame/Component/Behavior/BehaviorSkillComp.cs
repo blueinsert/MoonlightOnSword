@@ -89,7 +89,7 @@ public class BehaviorSkillComp : ComponentBase
         {
             var me = GetComp<EntityComp>();
             var move = GetComp<MoveComp>();
-            var target = SearchSystem.Instance.FindNearestInRange(me, 2);
+            var target = SearchSystem.Instance.FindNearestEnemyInRange(me, 2);
             if(target != null)
                 move.LookAt(target.gameObject.transform.position);
         }
