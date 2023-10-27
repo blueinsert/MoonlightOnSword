@@ -33,6 +33,7 @@ public class AIInput : BInput, IAIAblitity {
         return m_aiAblitity.IsMoving();
     }
 
+
     public bool FindAndCacheEnemy(float range)
     {
         return m_aiAblitity.FindAndCacheEnemy(range);
@@ -57,4 +58,9 @@ public class AIInput : BInput, IAIAblitity {
     {
         return m_aiAblitity.MoveToEnemy(speed);
     }
+    public bool CanMove()
+    {
+        return m_aiAblitity.CanMove();
+    }
+
 }

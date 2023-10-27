@@ -20,7 +20,9 @@ public class ActorCreator : MonoBehaviour {
             CameraManager.Instance.BindTarget(go);
         }
         go.name = "Actor_" + m_id;
-        go.GetComponent<EntityComp>().CampType = this.m_campType;
+        var entity = go.GetComponent<EntityComp>();
+        entity.CampType = this.m_campType;
+        entity.m_id = m_id;
         if (!m_isAI)
         {
             var input = go.GetComponent<InputComp>();

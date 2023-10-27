@@ -16,6 +16,8 @@ public class BehaviorFsmComp : ComponentBase
     public BehaviorGethitComp m_gethitComp;
     public EntityComp m_entity;
 
+    private List<BehaviorCompBase> m_behaviorList = new List<BehaviorCompBase>();
+
     public void Start()
     {
         m_entity = GetComp<EntityComp>();
@@ -24,8 +26,20 @@ public class BehaviorFsmComp : ComponentBase
         m_skillComp = GetComp<BehaviorSkillComp>();
         m_blockComp = GetComp<BehaviorBlockComp>();
         m_gethitComp = GetComp<BehaviorGethitComp>();
+        m_behaviorList.Add(m_aiMoveToComp);
     }
     
+    private void OnBehaviorEnter(BehaviorCompBase behavior)
+    {
+        foreach(var b in m_behaviorList)
+        {
+            if (b != behavior)
+            {
+                b.OnOtherBehaviorEnter(behavior.BehaviorType);
+            }
+        }
+    }
+
     public bool CanMove()
     {
         if (m_skillComp.IsPlaying)
@@ -66,6 +80,7 @@ public class BehaviorFsmComp : ComponentBase
     {
         if (m_gethitComp == null)
             return;
+        OnBehaviorEnter(m_gethitComp);
         m_gethitComp.StartGetHit(attacker, hitDef, false);
     }
 

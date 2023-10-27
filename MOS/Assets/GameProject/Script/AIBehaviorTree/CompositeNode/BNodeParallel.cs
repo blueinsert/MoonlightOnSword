@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace Game.AIBehaviorTree
 {
     /// <summary>
-    /// 平行节点
+    /// 平行节点： 顺序运行所有子节点，不管其成功失败；全部运行完毕后返回成功
     /// </summary>
     public class BNodeParallel : BNodeComposite
     {

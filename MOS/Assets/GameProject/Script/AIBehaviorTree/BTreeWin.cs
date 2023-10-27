@@ -21,6 +21,8 @@ public class BTreeWin : EditorWindow
     public static int NODE_HEIGHT = 20;
     public static int GUI_WIDTH = 240;
 
+    public static BNode m_copySource = null;
+
     public static BTree cur_tree;   //current tree
     public static BNode cur_node;   //current node
     public static BTreeWin sInstance = null;
@@ -36,7 +38,7 @@ public class BTreeWin : EditorWindow
 
     private string m_strInputName = "";
 
-    private string m_jsonPath = "";
+    private static string m_jsonPath = "";
 
 
     [@MenuItem("BTree/Editor")]
@@ -89,8 +91,8 @@ public class BTreeWin : EditorWindow
         //GUI.BeginGroup(new Rect(0, 0, GUI_WIDTH,1000));
         int x = 0;
         int y = 0;
-        var index = m_jsonPath.IndexOf("Assets");
-        EditorGUI.LabelField(new Rect(x, y, 1000, 20), string.Format("path:{0}",m_jsonPath.Substring(index)));
+        //var index = m_jsonPath.IndexOf("Assets");
+        EditorGUI.LabelField(new Rect(x, y, 1000, 20), string.Format("path:{0}",m_jsonPath));
         y += 20;
 
         List<BTree> lst = BTreeMgr.sInstance.GetTrees();

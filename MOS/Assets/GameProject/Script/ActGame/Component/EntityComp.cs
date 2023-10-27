@@ -7,4 +7,5 @@ public class EntityComp : ComponentBase
 {
 	public CampType CampType { get { return m_campType; } set { m_campType = value; } }
 	public CampType m_campType;
+    public int m_id;
 }

@@ -50,6 +50,8 @@ public class AIBehaviorMoveToPositionComp : BehaviorCompBase {
     public void Stop()
     {
         m_isMoving = false;
+        m_moveComp.SetPreferVelHorizon(0, 0, true);
+        m_animComp.Walk(0,0);
     }
 
     public override bool IsBehaviorActive()
@@ -59,6 +61,7 @@ public class AIBehaviorMoveToPositionComp : BehaviorCompBase {
 
     public override void OnOtherBehaviorEnter(BehaviorType other)
     {
+        Debug.Log(string.Format("AIBehaviorMoveToPositionComp:OnOtherBehaviorEnter {0}", other));
         if(other == BehaviorType.GetHit || other == BehaviorType.Guard || other == BehaviorType.Skill)
         {
             Stop();

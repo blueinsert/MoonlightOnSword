@@ -10,7 +10,8 @@ using System.Collections.Generic;
 namespace Game.AIBehaviorTree
 {
     /// <summary>
-    /// 选择器节点
+    /// 选择器节点: 顺序运行子节点，直到有一个子节点运行成功，则返回成功
+    /// 若一个都没有运行成功，则返回失败
     /// </summary>
     public class BNodeSelector : BNodeComposite
     {

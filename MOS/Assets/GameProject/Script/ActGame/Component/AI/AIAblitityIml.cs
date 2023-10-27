@@ -79,4 +79,9 @@ public class AIAblitity : IAIAblitity
         MoveTo(targetPos, speed);
         return true;
     }
+
+    public bool CanMove()
+    {
+        return true;
+    }
 }

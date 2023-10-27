@@ -12,7 +12,7 @@ public class ActionMoveToPosition : BNodeAction
     [SerializeField]
     public float m_speed;
 
-    private const float MaxDuration = 20f;
+    //private const float MaxDuration = 20f;
     private float m_startTime;
 
     public ActionMoveToPosition()
@@ -26,22 +26,20 @@ public class ActionMoveToPosition : BNodeAction
         AIInput tinput = input as AIInput;
         tinput.MoveTo(m_targetPosition, m_speed);
         this.m_startTime = TimeManger.Instance.CurTime;
-        Debug.Log("MoveToPosition");
     }
 
     //excute
     public override ActionResult Excute(BInput input)
     {
         var cur = TimeManger.Instance.CurTime;
-        if (cur > m_startTime + MaxDuration)
-            return ActionResult.FAILURE;
+        //if (cur > m_startTime + MaxDuration)
+        //    return ActionResult.FAILURE;
         var aiInput = input as AIInput;
         if (aiInput.IsNearTo(m_targetPosition, 0.5f)){
             return ActionResult.SUCCESS;
         }
-        if (aiInput.IsMoving())
-            return ActionResult.RUNNING;
-        else
+        if (!aiInput.IsMoving())
             return ActionResult.FAILURE;
+        return ActionResult.RUNNING;
     }
 }

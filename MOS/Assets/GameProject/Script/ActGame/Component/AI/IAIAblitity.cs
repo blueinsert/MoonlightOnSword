@@ -9,6 +9,7 @@ public interface IAIAblitity {
     float DistToEnemy();
     bool MoveToEnemy(float speed);
 
+    bool CanMove();
 	bool Attack();
     void MoveTo(Vector3 targetPos, float speed);
     bool IsMoving();
