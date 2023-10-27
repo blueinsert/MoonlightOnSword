@@ -582,6 +582,7 @@ GameObject:
   - component: {fileID: 114961518927514168}
   - component: {fileID: 114199413135643760}
   - component: {fileID: 114685014903894262}
+  - component: {fileID: 114980127422047688}
   m_Layer: 16
   m_Name: KatanaAIPrefab
   m_TagString: Untagged
@@ -2607,7 +2608,7 @@ MonoBehaviour:
   m_isEnable: 1
   m_isDestroying: 0
   m_json: {fileID: 4900000, guid: 6a05c3a6c7edc024895c8c5a6ed8e5cd, type: 3}
-  m_treeName: Patrol
+  m_treeName: Trace
 --- !u!114 &114208211168159450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2621,6 +2622,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_isEnable: 1
   m_isDestroying: 0
+  m_behaviorType: 2
   m_hitPauseComp: {fileID: 0}
   m_animComp: {fileID: 0}
   m_moveComp: {fileID: 0}
@@ -2687,10 +2689,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_isEnable: 1
   m_isDestroying: 0
+  m_aiMoveToComp: {fileID: 0}
   m_moveComp: {fileID: 0}
   m_skillComp: {fileID: 0}
   m_blockComp: {fileID: 0}
   m_gethitComp: {fileID: 0}
+  m_entity: {fileID: 0}
 --- !u!114 &114293084460092864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2733,6 +2737,7 @@ MonoBehaviour:
   m_isEnable: 1
   m_isDestroying: 0
   m_campType: 0
+  m_id: 0
 --- !u!114 &114493584466246994
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2829,9 +2834,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_isEnable: 1
   m_isDestroying: 0
+  m_behaviorType: 0
   m_moveComp: {fileID: 0}
   m_animComp: {fileID: 0}
   m_targetPos: {x: 0, y: 0, z: 0}
+  m_speed: 0
 --- !u!114 &114764072677728450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2951,6 +2958,20 @@ MonoBehaviour:
   m_pauseEndFrame: 0
   m_recoverEndFrame: 0
   m_backVel: {x: 0, y: 0}
+--- !u!114 &114980127422047688
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1380573731349950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1ac2fb1a88a8a441acf1ec6f1cdf820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_isEnable: 1
+  m_isDestroying: 0
+  m_attackTarget: {fileID: 0}
 --- !u!136 &136205863089245630
 CapsuleCollider:
   m_ObjectHideFlags: 1

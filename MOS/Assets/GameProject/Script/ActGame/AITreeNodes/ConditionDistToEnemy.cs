@@ -24,14 +24,17 @@ public class ConditionDistToEnemy : BNodeCondition
 
     public override void OnEnter(BInput input)
     {
+        Debug.Log(string.Format("ConditionDistToEnemy:OnEnter"));
         base.OnEnter(input);
     }
 
     public override ActionResult Excute(BInput input)
     {
+        
         var aiInput = input as AIInput;
         var dist = aiInput.DistToEnemy();
-        if(m_compareType == DistCompareType.Less)
+        Debug.Log(string.Format("ConditionDistToEnemy:Excute dist:{0}", dist));
+        if (m_compareType == DistCompareType.Less)
         {
             if (dist < m_distance)
                 return ActionResult.SUCCESS;

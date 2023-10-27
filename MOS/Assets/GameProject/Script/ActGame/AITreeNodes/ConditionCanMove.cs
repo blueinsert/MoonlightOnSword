@@ -3,25 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConditionEnemyValid : BNodeCondition
+public class ConditionCanMove : BNodeCondition
 {
-    public ConditionEnemyValid() : base()
+
+	public ConditionCanMove() : base()
     {
-        this.m_strName = "IsEnemyValid";
+        this.m_strName = "CanMove";
     }
 
     public override void OnEnter(BInput input)
     {
-        Debug.Log("ConditionEnemyValid:OnEnter");
         base.OnEnter(input);
+        Debug.Log(string.Format("ConditionMove:OnEnter"));
     }
 
     public override ActionResult Excute(BInput input)
     {
         var aiInput = input as AIInput;
-        bool isValid = aiInput.IsEnemyValid();
-        Debug.Log(string.Format("ConditionEnemyValid:Excute isValid:{0}",isValid));
-        if (isValid)
+        Debug.Log(string.Format("ConditionMove:Excute"));
+        if (aiInput.CanMove())
         {
             return ActionResult.SUCCESS;
         }

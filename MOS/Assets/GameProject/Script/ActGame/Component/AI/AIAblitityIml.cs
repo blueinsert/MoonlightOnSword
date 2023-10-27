@@ -84,4 +84,9 @@ public class AIAblitity : IAIAblitity
     {
         return true;
     }
+
+    public void StopMove()
+    {
+        m_moveToComp.Stop();
+    }
 }

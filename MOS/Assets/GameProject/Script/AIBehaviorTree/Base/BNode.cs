@@ -87,6 +87,12 @@ namespace Game.AIBehaviorTree
             return res;
         }
 
+        public Enum ParseEnum(string text, Type enumType)
+        {
+            var res = Enum.Parse(enumType, text);
+            return (Enum)res;
+        }
+
         public void ReadJson(JsonData json)
         {
             this.m_strType = json["type"].ToString();
@@ -108,6 +114,7 @@ namespace Game.AIBehaviorTree
                         else if (info.FieldType == typeof(bool)) val = bool.Parse(str);
                         else if (info.FieldType == typeof(string)) val = str;
                         else if (info.FieldType == typeof(Vector3)) val = ParseVector3(str);
+                        else if (typeof(Enum).IsAssignableFrom(info.FieldType)) val = ParseEnum(str, info.FieldType);
                         info.SetValue(this, val);
                     }
                 }
@@ -117,6 +124,10 @@ namespace Game.AIBehaviorTree
             {
                 string typename = json["child"][i]["type"].ToString();
                 Type tt = Type.GetType(typename);
+                if (tt == null)
+                {
+                    Debug.LogError(string.Format("Type.GetType({0}) == null", typename));
+                }
                 BNode enode = Activator.CreateInstance(tt) as BNode;
                 enode.ReadJson(json["child"][i]);
                 enode.m_cParent = this;
@@ -291,6 +302,13 @@ namespace Game.AIBehaviorTree
                         //GUI.Label(new Rect(x, y + i * 20, 100, 20), info.Name);
                         fieldvalue = EditorGUI.Vector3Field(new Rect(x, y, BTreeWin.GUI_WIDTH, 30), info.Name, fieldvalue);
                         y += 40;
+                        vl = fieldvalue;
+                    }else if(typeof(Enum).IsAssignableFrom(info.FieldType))
+                    {
+                        Enum fieldvalue = (Enum) info.GetValue(this);
+                        GUI.Label(new Rect(x, y, 100, 20), info.Name);
+                        fieldvalue = EditorGUI.EnumPopup(new Rect(x + 100, y, 100, 20), fieldvalue);
+                        y += 20;
                         vl = fieldvalue;
                     }
 

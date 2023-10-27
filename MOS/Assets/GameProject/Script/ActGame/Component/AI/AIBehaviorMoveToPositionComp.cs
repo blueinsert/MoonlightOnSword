@@ -11,7 +11,7 @@ public class AIBehaviorMoveToPositionComp : BehaviorCompBase {
 
     public bool IsMoving { get { return m_isMoving; } }
 
-    private bool m_isMoving = false;
+    public bool m_isMoving = false;
     public MoveComp m_moveComp = null;
     public AnimComp m_animComp = null;
 

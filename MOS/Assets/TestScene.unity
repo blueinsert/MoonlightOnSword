@@ -234,6 +234,7 @@ MonoBehaviour:
   m_id: 2
   m_campType: 2
   m_isAI: 1
+  m_isLocalPlayer: 0
 --- !u!1 &124253295
 GameObject:
   m_ObjectHideFlags: 0
@@ -1541,8 +1542,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_id: 1
-  m_campType: 0
+  m_campType: 1
   m_isAI: 0
+  m_isLocalPlayer: 1
 --- !u!1001 &1802360739
 Prefab:
   m_ObjectHideFlags: 0
@@ -1763,14 +1765,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_mapingList:
-  - CampType: 0
+  - PlayerIndex: 0
+    CampType: 1
     Left: 97
     Right: 100
     Up: 119
     Down: 115
     Attack: 323
     Defense: 324
-  - CampType: 1
+  - PlayerIndex: 1
+    CampType: 1
     Left: 276
     Right: 275
     Up: 273

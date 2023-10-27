@@ -1,25 +1,28 @@
 ﻿using Game.AIBehaviorTree;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
-public class ConditionMove : BNodeCondition
+public class ConditionIsMoving : BNodeCondition
 {
-
-	public ConditionMove() : base()
+    public ConditionIsMoving() : base()
     {
-        this.m_strName = "ConditionMove";
+        this.m_strName = "IsMoveing";
     }
 
     public override void OnEnter(BInput input)
     {
         base.OnEnter(input);
+        Debug.Log(string.Format("ConditionIsMoving:OnEnter"));
     }
 
     public override ActionResult Excute(BInput input)
     {
         var aiInput = input as AIInput;
-        if (aiInput.CanMove())
+        Debug.Log(string.Format("ConditionIsMoving:Excute"));
+        if (aiInput.IsMoving())
         {
             return ActionResult.SUCCESS;
         }

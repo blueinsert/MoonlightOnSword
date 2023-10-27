@@ -6,6 +6,7 @@ public class ActorCreator : MonoBehaviour {
 
 	public int m_id;
 	public CampType m_campType;
+    public int m_playerIndex;
     public bool m_isAI;
     public bool m_isLocalPlayer;
 
@@ -23,6 +24,7 @@ public class ActorCreator : MonoBehaviour {
         var entity = go.GetComponent<EntityComp>();
         entity.CampType = this.m_campType;
         entity.m_id = m_id;
+        entity.m_playerIndex = m_playerIndex;
         if (!m_isAI)
         {
             var input = go.GetComponent<InputComp>();

@@ -8,6 +8,7 @@ public interface IAIAblitity {
     void AbandonEnemy();
     float DistToEnemy();
     bool MoveToEnemy(float speed);
+    void StopMove();
 
     bool CanMove();
 	bool Attack();

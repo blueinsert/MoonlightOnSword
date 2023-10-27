@@ -63,4 +63,8 @@ public class AIInput : BInput, IAIAblitity {
         return m_aiAblitity.CanMove();
     }
 
+    public void StopMove()
+    {
+        m_aiAblitity.StopMove();
+    }
 }

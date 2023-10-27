@@ -7,6 +7,8 @@ using UnityEngine;
 public class PlayerInputMapDic
 {
     [SerializeField]
+    public int PlayerIndex;
+    [SerializeField]
     public CampType CampType;
     [SerializeField]
     public KeyCode Left;
@@ -76,7 +78,7 @@ public class InputComp : ComponentBase {
     public override void Tick()
     {
         base.Tick();
-        var inputMapping = m_intpuMappingDesc.GetInputMapping(m_entity.CampType);
+        var inputMapping = m_intpuMappingDesc.GetInputMapping(m_entity.m_playerIndex, m_entity.CampType);
         if (inputMapping == null)
             return;
         Vector2 moveValue = Vector2.zero;
