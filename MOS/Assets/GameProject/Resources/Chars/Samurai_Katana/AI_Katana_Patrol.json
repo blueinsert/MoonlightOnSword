@@ -1,0 +1,106 @@
+{
+	"trees": [{
+		"name": "Patrol",
+		"node": {
+			"type": "Game.AIBehaviorTree.BNodeSequence",
+			"name": "Sequence",
+			"arg": {
+				"m_desc": ""
+			},
+			"child": [{
+				"type": "Game.AIBehaviorTree.BNodeRepeatUntilSuccess",
+				"name": "RepeatUntilSuccess",
+				"arg": {
+					"m_desc": ""
+				},
+				"child": [{
+					"type": "Game.AIBehaviorTree.BNodeSequence",
+					"name": "Sequence",
+					"arg": {
+						"m_desc": ""
+					},
+					"child": [{
+						"type": "ConditionIsMoving",
+						"name": "IsMoveing",
+						"arg": {
+							"m_desc": ""
+						},
+						"child": []
+					}, {
+						"type": "ActionMoveToPosition",
+						"name": "MoveToPosition",
+						"arg": {
+							"m_targetPosition": "(10.0, 0.0, 0.0)",
+							"m_range": "0.5",
+							"m_speed": "2",
+							"m_desc": ""
+						},
+						"child": []
+					}]
+				}]
+			}, {
+				"type": "Game.AIBehaviorTree.BNodeRepeatUntilSuccess",
+				"name": "RepeatUntilSuccess",
+				"arg": {
+					"m_desc": ""
+				},
+				"child": [{
+					"type": "Game.AIBehaviorTree.BNodeSequence",
+					"name": "Sequence",
+					"arg": {
+						"m_desc": ""
+					},
+					"child": [{
+						"type": "ConditionIsMoving",
+						"name": "IsMoveing",
+						"arg": {
+							"m_desc": ""
+						},
+						"child": []
+					}, {
+						"type": "ActionMoveToPosition",
+						"name": "MoveToPosition",
+						"arg": {
+							"m_targetPosition": "(-10.0, 0.0, 0.0)",
+							"m_range": "0.5",
+							"m_speed": "2",
+							"m_desc": ""
+						},
+						"child": []
+					}]
+				}]
+			}, {
+				"type": "Game.AIBehaviorTree.BNodeRepeatUntilSuccess",
+				"name": "RepeatUntilSuccess",
+				"arg": {
+					"m_desc": ""
+				},
+				"child": [{
+					"type": "Game.AIBehaviorTree.BNodeSequence",
+					"name": "Sequence",
+					"arg": {
+						"m_desc": ""
+					},
+					"child": [{
+						"type": "ConditionIsMoving",
+						"name": "IsMoveing",
+						"arg": {
+							"m_desc": ""
+						},
+						"child": []
+					}, {
+						"type": "ActionMoveToPosition",
+						"name": "MoveToPosition",
+						"arg": {
+							"m_targetPosition": "(0.0, 0.0, 10.0)",
+							"m_range": "0.5",
+							"m_speed": "2",
+							"m_desc": ""
+						},
+						"child": []
+					}]
+				}]
+			}]
+		}
+	}]
+}

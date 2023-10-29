@@ -233,6 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_id: 2
   m_campType: 2
+  m_playerIndex: 0
   m_isAI: 1
   m_isLocalPlayer: 0
 --- !u!1 &124253295
@@ -1543,6 +1544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_id: 1
   m_campType: 1
+  m_playerIndex: 0
   m_isAI: 0
   m_isLocalPlayer: 1
 --- !u!1001 &1802360739

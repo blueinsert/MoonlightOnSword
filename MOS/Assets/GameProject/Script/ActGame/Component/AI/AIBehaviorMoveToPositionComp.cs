@@ -36,6 +36,7 @@ public class AIBehaviorMoveToPositionComp : BehaviorCompBase {
             var speed = m_speed;
             var preferVel = dir * speed;
             m_moveComp.SetPreferVelHorizon(preferVel.x, preferVel.z, true);
+            //Debug.Log(string.Format("speed:{0}", m_moveComp.Speed));
             m_animComp.Walk(m_moveComp.Speed, m_moveComp.RotateValue);
         }
     }

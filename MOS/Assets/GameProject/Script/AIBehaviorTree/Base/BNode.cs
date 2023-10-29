@@ -44,6 +44,13 @@ namespace Game.AIBehaviorTree
         //描述
         public string m_desc = "";
 
+        public virtual string GetDesc()
+        {
+            if (m_desc != null)
+                return m_desc;
+            return null;
+        }
+
         public BNode()
         {
             this.m_strType = this.GetType().FullName;
@@ -477,9 +484,10 @@ namespace Game.AIBehaviorTree
                 }
             }
             var name = this.m_strName;
-            if (!string.IsNullOrEmpty(m_desc))
+            var desc = GetDesc();
+            if (!string.IsNullOrEmpty(desc))
             {
-                name = string.Format("{0}--{1}--", name, m_desc);
+                name = string.Format("{0}--{1}--", name, desc);
             }
             GUI.Label(new Rect(x, y, BTreeWin.sInstance.position.width, BTreeWin.NODE_HEIGHT), name);
 

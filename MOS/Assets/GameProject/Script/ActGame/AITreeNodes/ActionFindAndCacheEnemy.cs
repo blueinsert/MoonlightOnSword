@@ -14,6 +14,11 @@ public class ActionFindAndCacheEnemy : BNodeAction
         this.m_strName = "ActionFindAndCacheEnemy";
     }
 
+    public override string GetDesc()
+    {
+        return string.Format("range:{0}", m_range);
+    }
+
     public override void OnEnter(BInput input)
     {
         Debug.Log(string.Format("ActionFindAndCacheEnemy:OnEnter"));

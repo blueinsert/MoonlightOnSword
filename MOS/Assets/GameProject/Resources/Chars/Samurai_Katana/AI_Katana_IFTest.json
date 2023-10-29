@@ -1,0 +1,64 @@
+{
+	"trees": [{
+		"name": "IfTest",
+		"node": {
+			"type": "Game.AIBehaviorTree.BNodeSelector",
+			"name": "Selector",
+			"arg": {
+				"m_desc": ""
+			},
+			"child": [{
+				"type": "Game.AIBehaviorTree.BNodeSequence",
+				"name": "Sequence",
+				"arg": {
+					"m_desc": ""
+				},
+				"child": [{
+					"type": "ConditionIsMoving",
+					"name": "IsMoveing",
+					"arg": {
+						"m_desc": ""
+					},
+					"child": []
+				}, {
+					"type": "ActionMoveToEnemy",
+					"name": "ActionMoveToEnemy",
+					"arg": {
+						"m_speed": "0",
+						"m_range": "0",
+						"m_desc": ""
+					},
+					"child": []
+				}]
+			}, {
+				"type": "Game.AIBehaviorTree.BNodeSequence",
+				"name": "Sequence",
+				"arg": {
+					"m_desc": ""
+				},
+				"child": [{
+					"type": "BNodeNot",
+					"name": "Not",
+					"arg": {
+						"m_desc": ""
+					},
+					"child": [{
+						"type": "ConditionIsMoving",
+						"name": "IsMoveing",
+						"arg": {
+							"m_desc": ""
+						},
+						"child": []
+					}]
+				}, {
+					"type": "ActionAttack",
+					"name": "Attack",
+					"arg": {
+						"m_desc": ""
+					},
+					"child": []
+				}]
+			}]
+		}
+	}]
+}

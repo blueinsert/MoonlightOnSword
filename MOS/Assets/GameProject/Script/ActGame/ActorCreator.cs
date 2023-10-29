@@ -10,8 +10,8 @@ public class ActorCreator : MonoBehaviour {
     public bool m_isAI;
     public bool m_isLocalPlayer;
 
-    public const string PrefabPath = "GameProject/Resources/Model/Samurai_Katana/Prefab/KatanaPrefab.prefab";
-    public const string AIPrefabPath = "GameProject/Resources/Model/Samurai_Katana/Prefab/KatanaAIPrefab.prefab";
+    public const string PrefabPath = "GameProject/Resources/Chars/Samurai_Katana/Prefab/KatanaPrefab.prefab";
+    public const string AIPrefabPath = "GameProject/Resources/Chars/Samurai_Katana/Prefab/KatanaAIPrefab.prefab";
 
     void Start()
 	{

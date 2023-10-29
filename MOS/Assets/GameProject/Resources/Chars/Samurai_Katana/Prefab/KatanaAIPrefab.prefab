@@ -2706,7 +2706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbcd4d67198962c49b1b9d9d66277582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_skillContainer: {fileID: 0}
+  m_skillContainer: {fileID: 114764072677728450}
   m_skillList: []
 --- !u!114 &114343736187572530
 MonoBehaviour:
@@ -2737,6 +2737,7 @@ MonoBehaviour:
   m_isEnable: 1
   m_isDestroying: 0
   m_campType: 0
+  m_playerIndex: 0
   m_id: 0
 --- !u!114 &114493584466246994
 MonoBehaviour:
@@ -2835,6 +2836,7 @@ MonoBehaviour:
   m_isEnable: 1
   m_isDestroying: 0
   m_behaviorType: 0
+  m_isMoving: 0
   m_moveComp: {fileID: 0}
   m_animComp: {fileID: 0}
   m_targetPos: {x: 0, y: 0, z: 0}
@@ -2853,19 +2855,19 @@ MonoBehaviour:
   AssetList:
   - Name: NA1
     Asset: {fileID: 1153705001397826, guid: b6f7678113d13da439e4f2f741a999c0, type: 2}
-    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/Skill_NormalAttack01.prefab
+    AssetPath: Assets/GameProject/Resources/Chars/Samurai_Katana/Prefab/Skill_NormalAttack01.prefab
     RuntimeAssetCache: {fileID: 0}
   - Name: NA2
     Asset: {fileID: 1458345975188670, guid: db6d78c99ae12b744b5da46a870ca12a, type: 2}
-    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/Skill_NormalAttack02.prefab
+    AssetPath: Assets/GameProject/Resources/Chars/Samurai_Katana/Prefab/Skill_NormalAttack02.prefab
     RuntimeAssetCache: {fileID: 0}
   - Name: NA3
     Asset: {fileID: 1121695202583352, guid: 8127cf6e7e401d048a86b36c33fd51b6, type: 2}
-    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/Skill_NormalAttack03.prefab
+    AssetPath: Assets/GameProject/Resources/Chars/Samurai_Katana/Prefab/Skill_NormalAttack03.prefab
     RuntimeAssetCache: {fileID: 0}
   - Name: NA4
     Asset: {fileID: 1872181982023150, guid: 6606e6788a97de148a400f2f897b4a8c, type: 2}
-    AssetPath: Assets/GameProject/Resources/Model/Samurai_Katana/Prefab/Skill_NormalAttack04.prefab
+    AssetPath: Assets/GameProject/Resources/Chars/Samurai_Katana/Prefab/Skill_NormalAttack04.prefab
     RuntimeAssetCache: {fileID: 0}
 --- !u!114 &114829989343561256
 MonoBehaviour:

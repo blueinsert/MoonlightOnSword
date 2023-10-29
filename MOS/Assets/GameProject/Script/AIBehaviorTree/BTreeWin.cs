@@ -14,12 +14,23 @@ using LitJson;
 
 #if UNITY_EDITOR
 
+    public enum BTreeWinMode
+{
+    Edit,
+    Debug,
+}
+
 //BTreeWin
 public class BTreeWin : EditorWindow
 {
+    const string PrefsKey_LastLoadPath = "LastLoadPath";
+
     public static int NODE_WIDTH = 20;
     public static int NODE_HEIGHT = 20;
     public static int GUI_WIDTH = 240;
+
+    public static BTreeWinMode m_curMode = BTreeWinMode.Edit;
+    public static BTreeWinMode m_lastMode = BTreeWinMode.Edit;
 
     public static BNode m_copySource = null;
 
@@ -40,6 +51,7 @@ public class BTreeWin : EditorWindow
 
     private static string m_jsonPath = "";
 
+    private static int cur_gameObject_index = -1;
 
     [@MenuItem("BTree/Editor")]
     static void initwin()
@@ -89,12 +101,42 @@ public class BTreeWin : EditorWindow
         this.m_editUIScrollPos = GUI.BeginScrollView(new Rect(position.width - GUI_WIDTH, 0, GUI_WIDTH, position.height), this.m_editUIScrollPos, new Rect(0, 0, this.maxSize.x, this.maxSize.y));
         //GUI.BeginGroup(new Rect(position.width - GUI_WIDTH, 0, GUI_WIDTH, 1000));
         //GUI.BeginGroup(new Rect(0, 0, GUI_WIDTH,1000));
+
         int x = 0;
         int y = 0;
-        //var index = m_jsonPath.IndexOf("Assets");
-        EditorGUI.LabelField(new Rect(x, y, 1000, 20), string.Format("path:{0}",m_jsonPath));
+        GUI.Label(new Rect(x, y, 200, 20), "Mode:");
         y += 20;
+        m_curMode = (BTreeWinMode) EditorGUI.EnumPopup(new Rect(x, y, 1000, 20), m_lastMode);
+        y += 20;
+        if (m_lastMode != m_curMode)
+        {
+            OnModeChange(m_curMode);
+            m_lastMode = m_curMode;
+        }
+        if(m_curMode == BTreeWinMode.Edit)
+        {
+            DrawGUI_EditMode(x, y);
+        }else if(m_curMode == BTreeWinMode.Debug)
+        {
+            DrawGUI_DebugMode(x, y);
+        }
+      
+        //GUI.EndGroup();
+        GUI.EndScrollView();
+        //////////////////// draw editor gui /////////////////////
+    }
 
+    private void OnModeChange(BTreeWinMode newMode)
+    {
+
+    }
+
+    private void DrawGUI_EditMode(int x, int y)
+    {
+      
+        //var index = m_jsonPath.IndexOf("Assets");
+        EditorGUI.LabelField(new Rect(x, y, 1000, 20), string.Format("path:{0}", m_jsonPath));
+        y += 20;
         List<BTree> lst = BTreeMgr.sInstance.GetTrees();
         if (GUI.Button(new Rect(x, y, 200, 40), "Load"))
         {
@@ -227,17 +269,45 @@ public class BTreeWin : EditorWindow
             y += 15;
             cur_node.RenderEditor(x, y);
         }
-        //
-        //GUI.EndGroup();
-        GUI.EndScrollView();
-        //////////////////// draw editor gui /////////////////////
     }
 
+    private void DrawGUI_DebugMode(int x,int y)
+    {
+        //attach
+        if (EditorApplication.isPlaying)
+        {//todo
+            if (GUI.Button(new Rect(x, y, 200, 40), "Attach"))
+            {
+
+            }
+            y += 40;
+            var ais = FindObjectsOfType<AIComp>();
+            string[] gameObjectName = new string[ais.Length];
+            for (int i = 0; i < ais.Length; i++)
+            {
+                gameObjectName[i] = ais[i].gameObject.name;
+            }
+            if (gameObjectName.Length != 0 && cur_gameObject_index < 0)
+                cur_gameObject_index = 0;
+            cur_gameObject_index = EditorGUI.Popup(new Rect(x, y, 200, 45), cur_gameObject_index, gameObjectName);
+            y += 20;
+        }
+    }
 
     //editor load data
     public void EditorLoad()
     {
-        string filepath = EditorUtility.OpenFilePanel("Bahvior Tree", Application.dataPath, "json");
+        string path = Application.dataPath;
+        if (EditorPrefs.HasKey(PrefsKey_LastLoadPath))
+        {
+            path = EditorPrefs.GetString(PrefsKey_LastLoadPath);
+            if (!File.Exists(path))//fall back
+            {
+                path = Application.dataPath;
+            }
+            //path = Path.GetDirectoryName(path);
+        }
+        string filepath = EditorUtility.OpenFilePanel("Bahvior Tree", path, "json");
         if (filepath == "") return;
         string txt = File.ReadAllText(filepath);
         var res = BTreeMgr.sInstance.Load(txt);
@@ -246,6 +316,7 @@ public class BTreeWin : EditorWindow
             m_jsonPath = filepath;
         }
         ShowNotification(new GUIContent("Load Success"));
+        EditorPrefs.SetString(PrefsKey_LastLoadPath, filepath);
     }
 
     public void EditorSave()

@@ -22,6 +22,25 @@ public class ConditionDistToEnemy : BNodeCondition
         this.m_strName = "ConditionDistToEnemy";
     }
 
+    private string DistCompareTypeToString(DistCompareType compareType)
+    {
+        switch (compareType)
+        {
+            case DistCompareType.Equal:
+                return "=";
+            case DistCompareType.Greater:
+                return ">";
+            case DistCompareType.Less:
+                return "<";
+        }
+        return "";
+    }
+
+    public override string GetDesc()
+    {
+        return string.Format("{0}{1}", DistCompareTypeToString(m_compareType), m_distance);
+    }
+
     public override void OnEnter(BInput input)
     {
         Debug.Log(string.Format("ConditionDistToEnemy:OnEnter"));
