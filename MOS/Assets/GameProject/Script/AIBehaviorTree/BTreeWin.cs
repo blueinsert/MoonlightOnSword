@@ -14,7 +14,7 @@ using LitJson;
 
 #if UNITY_EDITOR
 
-    public enum BTreeWinMode
+public enum BTreeWinMode
 {
     Edit,
     Debug,
@@ -106,21 +106,22 @@ public class BTreeWin : EditorWindow
         int y = 0;
         GUI.Label(new Rect(x, y, 200, 20), "Mode:");
         y += 20;
-        m_curMode = (BTreeWinMode) EditorGUI.EnumPopup(new Rect(x, y, 1000, 20), m_lastMode);
+        m_curMode = (BTreeWinMode)EditorGUI.EnumPopup(new Rect(x, y, 1000, 20), m_lastMode);
         y += 20;
         if (m_lastMode != m_curMode)
         {
             OnModeChange(m_curMode);
             m_lastMode = m_curMode;
         }
-        if(m_curMode == BTreeWinMode.Edit)
+        if (m_curMode == BTreeWinMode.Edit)
         {
             DrawGUI_EditMode(x, y);
-        }else if(m_curMode == BTreeWinMode.Debug)
+        }
+        else if (m_curMode == BTreeWinMode.Debug)
         {
             DrawGUI_DebugMode(x, y);
         }
-      
+
         //GUI.EndGroup();
         GUI.EndScrollView();
         //////////////////// draw editor gui /////////////////////
@@ -131,21 +132,26 @@ public class BTreeWin : EditorWindow
 
     }
 
+    private void Clear()
+    {
+        cur_tree = null;
+        cur_node = null;
+        cur_tree_index = -1;
+        last_tree_index = -1;
+        select_create_node_id = -1;
+        select = null;
+    }
+
     private void DrawGUI_EditMode(int x, int y)
     {
-      
+
         //var index = m_jsonPath.IndexOf("Assets");
         EditorGUI.LabelField(new Rect(x, y, 1000, 20), string.Format("path:{0}", m_jsonPath));
         y += 20;
         List<BTree> lst = BTreeMgr.sInstance.GetTrees();
         if (GUI.Button(new Rect(x, y, 200, 40), "Load"))
         {
-            cur_tree = null;
-            cur_node = null;
-            cur_tree_index = -1;
-            last_tree_index = -1;
-            select_create_node_id = -1;
-            select = null;
+            Clear();
             EditorLoad();
         }
         y += 40;
@@ -271,16 +277,11 @@ public class BTreeWin : EditorWindow
         }
     }
 
-    private void DrawGUI_DebugMode(int x,int y)
+    private void DrawGUI_DebugMode(int x, int y)
     {
         //attach
         if (EditorApplication.isPlaying)
-        {//todo
-            if (GUI.Button(new Rect(x, y, 200, 40), "Attach"))
-            {
-
-            }
-            y += 40;
+        {
             var ais = FindObjectsOfType<AIComp>();
             string[] gameObjectName = new string[ais.Length];
             for (int i = 0; i < ais.Length; i++)
@@ -291,6 +292,17 @@ public class BTreeWin : EditorWindow
                 cur_gameObject_index = 0;
             cur_gameObject_index = EditorGUI.Popup(new Rect(x, y, 200, 45), cur_gameObject_index, gameObjectName);
             y += 20;
+            if (GUI.Button(new Rect(x, y, 200, 40), "Attach"))
+            {
+                if (cur_gameObject_index >= 0) {
+                    var aiComp = ais[cur_gameObject_index];
+                    Clear();
+                    BTreeMgr.sInstance.Clear();
+                    BTreeMgr.sInstance.Add(aiComp.Tree);
+                    cur_tree = aiComp.Tree;
+                }
+            }
+            y += 40;
         }
     }
 

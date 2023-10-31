@@ -259,6 +259,15 @@ namespace Game.AIBehaviorTree
 
         #region Editor
 #if UNITY_EDITOR
+
+        public void ClearDebugDataBeforeRun()
+        {
+            foreach(var child in m_lstChildren)
+            {
+                child.ClearDebugDataBeforeRun();
+            }
+        }
+
         //render editor
         public void RenderEditor(int x, int y)
         {
@@ -489,6 +498,8 @@ namespace Game.AIBehaviorTree
             {
                 name = string.Format("{0}--{1}--", name, desc);
             }
+            //GUI.color = Color.green;
+            
             GUI.Label(new Rect(x, y, BTreeWin.sInstance.position.width, BTreeWin.NODE_HEIGHT), name);
 
             /////////////////// line //////////////////////

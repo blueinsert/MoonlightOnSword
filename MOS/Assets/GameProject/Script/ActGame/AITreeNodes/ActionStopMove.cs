@@ -14,15 +14,18 @@ public class ActionStopMove : BNodeAction
 
     public override void OnEnter(BInput input)
     {
+        base.OnEnter(input);
         Debug.Log(string.Format("ActionStopMove:OnEnter"));
+        AIInput tinput = input as AIInput;
+        tinput.StopMove();
     }
 
     //excute
     public override ActionResult Excute(BInput input)
     {
         Debug.Log(string.Format("ActionStopMove:Excute"));
-        AIInput tinput = input as AIInput;
-        tinput.StopMove();
-        return ActionResult.SUCCESS;
+        if (IsFinish())
+            return ActionResult.SUCCESS;
+        return ActionResult.RUNNING;
     }
 }

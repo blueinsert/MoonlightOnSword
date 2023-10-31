@@ -10,9 +10,6 @@ public class ActionMoveToEnemy : BNodeAction
     [SerializeField]
     public float m_range = 0.5f;
 
-    private const float Duration = 2f;
-    private float m_startTime;
-
     public ActionMoveToEnemy()
         : base()
     {
@@ -26,9 +23,9 @@ public class ActionMoveToEnemy : BNodeAction
 
     public override void OnEnter(BInput input)
     {
+        base.OnEnter(input);
         AIInput aiInput = input as AIInput;
         var res = aiInput.MoveToEnemy(m_speed);
-        this.m_startTime = TimeManger.Instance.CurTime;
         Debug.Log(string.Format("ActionMoveToEnemy:OnEnter"));
     }
 
@@ -36,18 +33,8 @@ public class ActionMoveToEnemy : BNodeAction
     public override ActionResult Excute(BInput input)
     {
         Debug.Log(string.Format("ActionMoveToEnemy:Excute"));
-        var aiInput = input as AIInput;
-        var dist = aiInput.DistToEnemy();
-        Debug.Log(string.Format("ActionMoveToEnemy:Excute dist:{0}", dist));
-        if (dist <m_range)
-        {
+        if (IsFinish())
             return ActionResult.SUCCESS;
-        }
-        if (!aiInput.IsMoving())
-            return ActionResult.FAILURE;
-        if(!aiInput.IsEnemyValid())
-            return ActionResult.FAILURE;
-        aiInput.MoveToEnemy(m_speed);
         return ActionResult.RUNNING;
         /*
         var cur = TimeManger.Instance.CurTime;

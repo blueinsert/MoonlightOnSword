@@ -22,14 +22,15 @@ public class ActionFindAndCacheEnemy : BNodeAction
     public override void OnEnter(BInput input)
     {
         Debug.Log(string.Format("ActionFindAndCacheEnemy:OnEnter"));
+        AIInput aiInput = input as AIInput;
+        aiInput.FindAndCacheEnemy(m_range);
     }
 
     //excute
     public override ActionResult Excute(BInput input)
     {
-        AIInput aiInput = input as AIInput;
         Debug.Log(string.Format("ActionFindAndCacheEnemy:Excute"));
-        if (aiInput.FindAndCacheEnemy(m_range))
+        if (IsFinish())
             return ActionResult.SUCCESS;
         return ActionResult.RUNNING;
     }

@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class AIComp : ComponentBase {
 
+    public BTree Tree { get { return m_tree; } }
+
     public TextAsset m_json;
     public string m_treeName = "default";
     private BTree m_tree;
@@ -44,6 +46,7 @@ public class AIComp : ComponentBase {
     {
         if (m_tree != null)
         {
+            m_tree.ClearDebugDataBeforeRun();
             m_tree.Run(this.m_aiInput);
         }
     }

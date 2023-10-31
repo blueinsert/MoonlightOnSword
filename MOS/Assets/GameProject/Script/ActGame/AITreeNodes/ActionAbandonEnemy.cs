@@ -15,6 +15,7 @@ public class ActionAbandonEnemy : BNodeAction
     public override void OnEnter(BInput input)
     {
         Debug.Log(string.Format("ActionAbandonEnemy:OnEnter"));
+        base.OnEnter(input);
         AIInput tinput = input as AIInput;
         tinput.AbandonEnemy();
     }
@@ -23,6 +24,8 @@ public class ActionAbandonEnemy : BNodeAction
     public override ActionResult Excute(BInput input)
     {
         Debug.Log(string.Format("ActionAbandonEnemy:Excute"));
-        return ActionResult.SUCCESS;
+        if(IsFinish())
+            return ActionResult.SUCCESS;
+        return ActionResult.RUNNING;
     }
 }

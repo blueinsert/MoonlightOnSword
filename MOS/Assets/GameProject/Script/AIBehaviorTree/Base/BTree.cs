@@ -69,7 +69,17 @@ namespace Game.AIBehaviorTree
 		{
 			this.m_cRoot.RunNode(input);
 		}
-	}
+
+
+        public void ClearDebugDataBeforeRun()
+		{
+#if UNITY_EDITOR
+			this.m_cRoot.ClearDebugDataBeforeRun();
+#endif
+		}
+
+
+    }
 
 }
 

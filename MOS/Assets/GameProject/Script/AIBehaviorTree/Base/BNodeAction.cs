@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 
 //  BNodeAction.cs
@@ -14,13 +15,31 @@ namespace Game.AIBehaviorTree
     /// </summary>
     public class BNodeAction : BNode
     {
-		public BNodeAction()
+        //private bool over = false;
+        private float m_ftime;
+
+        public BNodeAction()
 			:base()
 		{
 			this.m_strName = "Action";
 		}
 
-//		public CustomAction m_cAction;	//action
+        public override void OnEnter(BInput input)
+        {
+            base.OnEnter(input);
+            //this.over = false;
+            this.m_ftime = TimeManger.Instance.CurTime;
+        }
+
+        protected virtual float GetDuration()
+        {
+            return 0.5f;
+        }
+
+        protected bool IsFinish()
+        {
+            return TimeManger.Instance.CurTime - this.m_ftime > GetDuration();
+        }
 
     }
 }

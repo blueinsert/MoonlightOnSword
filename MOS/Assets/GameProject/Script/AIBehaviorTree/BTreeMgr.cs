@@ -41,10 +41,15 @@ namespace Game.AIBehaviorTree
 			//
 		}
 
+		public void Clear()
+		{
+            this.m_mapTree.Clear();
+        }
+
 		//load data
 		public bool Load(string jsontxt)
 		{
-            this.m_mapTree.Clear();
+			Clear();
 
 			try
 			{
