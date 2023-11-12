@@ -33,7 +33,7 @@ public class BehaviorFsmComp : ComponentBase
     {
         foreach(var b in m_behaviorList)
         {
-            if (b != behavior)
+            if (b != null && b != behavior)
             {
                 b.OnOtherBehaviorEnter(behavior.BehaviorType);
             }

@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface IAIAblitity {
-    bool FindAndCacheEnemy(float range);
     bool IsEnemyValid();
-    void AbandonEnemy();
+    bool IsMoving();
+    bool IsNearTo(Vector3 position, float range);
+    bool CanMove();
+
+    bool FindAndCacheEnemy(float range);
     float DistToEnemy();
+    void AbandonEnemy();
+    bool Attack();
+    void MoveTo(Vector3 targetPos, float speed);
+    void PlaySkill(int id);
     bool MoveToEnemy(float speed);
     void StopMove();
 
-    bool CanMove();
-	bool Attack();
-    void MoveTo(Vector3 targetPos, float speed);
-    bool IsMoving();
-    bool IsNearTo(Vector3 position, float range);
 }

@@ -89,4 +89,9 @@ public class AIAblitity : IAIAblitity
     {
         m_moveToComp.Stop();
     }
+
+    public void PlaySkill(int id)
+    {
+        m_skillComp.TryPlaySkill(id);
+    }
 }

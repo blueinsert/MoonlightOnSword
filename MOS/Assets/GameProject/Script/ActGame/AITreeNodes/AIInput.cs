@@ -67,4 +67,9 @@ public class AIInput : BInput, IAIAblitity {
     {
         m_aiAblitity.StopMove();
     }
+
+    public void PlaySkill(int id)
+    {
+        m_aiAblitity.PlaySkill(id);
+    }
 }
